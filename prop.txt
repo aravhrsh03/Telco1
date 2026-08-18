@@ -1,0 +1,11 @@
+Understand the attached zip file, 
+these are my files for the labs I have been working on, 
+I will also attach the lab document used as well. 
+Now I have to create a doc to submit to my manager, for each phase as mentioned in the lab document, 
+now for the code I have used in the zip file for each phase I want you to create a  document what has happened in the phase, 
+ideas implemented in a proper business professional format. 
+I also need to put the output screenshots for each major phase as well so leave some space for me to perform that accordingly.
+I need you to create a downloadable word file or markdown file which properly shows the documentation correctly with important code snippets and explanations. 
+Don't use any emojis or any clearly AI identifiable features, 
+I want the document to explain clearly as well for any senior engineer who might view it, 
+give me the downloadable doc for this so I can edit it further on my own
