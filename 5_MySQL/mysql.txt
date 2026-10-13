@@ -1,0 +1,335 @@
+ABBREVIATION:
+	-> LIB = LIBRARY
+	-> USA = USAGE [example code]
+	-> PAR = PARAMETERS
+	-> SYN = syntax
+	-> WHY = Why this is used
+	-> EXA = Example
+	-> MET = METHODS
+	-> CAT = Cannot have it
+	-> ALI = Alias
+	-> RES = Expected Result
+	-> OPT = Optionalx
+	-> ANE = Another Example
+	-> FUN = Functions used
+	-> DAM = Data Members
+	-> TYS = Types
+	-> VER = Python version
+	-> USC = Use Cases
+
+    -> [COM] - CLI Command
+    -> [INS] - install this library
+
+Date = (20/7/2026)
+
+Database = A database is collection of tables or a folder or tables
+
+mysql with python
+
+    [COM]
+        show databases = shows the available databases
+    
+    [INS]
+        pip install mysql-connector-python
+    
+    - Create Database
+
+    [USA]
+
+        import mysql.connector
+        conn = mysql.connector.connect(
+            host="localhost",
+            user="root"
+            password="root" # may or may not needed
+            port=3306 # verify before use
+        )
+
+        cursor = conn.cursor()
+        cursor.execute("create database python_ai")
+        print("done...")
+        cursor.close()
+        conn.close()
+    
+    - Create Table
+
+    [USA]
+
+        import mysql.connector
+        conn = mysql.connector.connect(
+            host="localhost",
+            user="root"
+            password="root" # may or may not needed
+            port=3306 # verify before use
+            database="python_ai"
+        )
+
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+                create table stud(
+                    id INT,
+                    name VARCHAR(100),
+                    branch VARCHAR(100),
+                    place VARCHAR(100),
+                    phone BIGINT
+                )
+            """
+        )
+
+        print("done...")
+        cursor.close()
+        conn.close()
+    
+    - Insert into table
+
+    [USA]
+
+        import mysql.connector
+        conn = mysql.connector.connect(
+            host="localhost",
+            user="root"
+            password="root" # may or may not needed
+            port=3306 # verify before use
+            database="python_ai"
+        )
+
+        cursor = conn.cursor()
+        query = 
+            """
+                insert into stud(
+                    id,
+                    name,
+                    branch,
+                    place,
+                    phone
+                )
+                values(1, Madhan, Synapt, Banglore, 9655364633)
+            """
+        cursor.execute(query)
+        conn.commit()
+        print("done...")
+        cursor.close()
+        conn.close()
+
+    [ANE]
+
+        import mysql.connector
+
+        conn = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="root",
+            port=3306,
+            database="python_ai"
+        )
+
+        cursor = conn.cursor()
+
+        id = 1
+        name = "Madhan"
+        branch = "Synapt"
+        place = "Bangalore"
+        phone = "9655364633"
+
+        query = """
+        INSERT INTO stud (
+            id,
+            name,
+            branch,
+            place,
+            phone
+        )
+        VALUES (%s, %s, %s, %s, %s)
+        """
+
+        values = (id, name, branch, place, phone)
+
+        cursor.execute(query, values)
+        conn.commit()
+
+        print("Done...")
+
+        cursor.close()
+        conn.close()
+
+    - fetch from table
+
+    [USA]
+
+        import mysql.connector
+
+        conn = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="root",
+            port=3306,
+            database="python_ai"
+        )
+
+        cursor = conn.cursor()
+        q1 = "select * from stud"
+        cursor.execute(q1)
+        r1 = cursor.fetchall()
+        for i in r1:
+            print(i)
+        
+        cursor.close()
+        conn.close()
+    
+    [MET] - for cursor
+
+        - .fetchone() - one record
+        - .fetchmany(<integer>) - get n records
+        - .fetchall() - get all records
+
+
+SQLAlchemy with python
+    - works with SQL (not for NO SQL (like mongodb))
+    - it has ORM (Object Relation Mapping)
+
+    [INS]
+        - pip install sqlalchemy
+
+    Create db -
+
+        [USA]
+            from sqlalchemy import create_engine, text
+
+            engine = create_engine(
+                "mysql+pymysql://root:root@localhost:3306", # verify port before use
+                isolation_level = "AUTOCOMMIT"
+            )
+
+            with engine.connect() as con:
+                con.execute(text("create database python_ai"))
+            
+            print("done db")
+    
+    Fetch db - 
+
+        [USA]
+
+            from sqlalchemy import create_engine, text
+
+            engine = create_engine(
+                "mysql+pymysql://root:root@localhost:3306", # verify port before use
+                isolation_level = "AUTOCOMMIT"
+            )
+
+            with engine.connect() as con:
+                result = con.execute(text("show databases"))
+                for db in result:
+                    print(db[0])
+            
+            print("done db")
+
+    Create Table -
+
+        [USA]
+
+            from sqlalchemy import create_engine, text
+
+            engine = create_engine(
+                "mysql+pymysql://root:root@localhost:3306", # verify port before use
+                isolation_level = "AUTOCOMMIT"
+            )
+
+            with engine.connect() as con:
+                con.execute(text("create table stud(
+                    id INT,
+                    name VARCHAR(100),
+                    branch VARCHAR(100),
+                    place VARCHAR(100),
+                    phone BIGINT
+                )"))
+                conn.commit()
+            
+            print("Table Created")
+        
+        [USA]
+
+            from sqlalchemy import create_engine, text, Column, Integer, String, text
+            from sqlalchemy.orm import declarative_bass
+
+            engine = create_engine(
+                "mysql+pymysql://root:root@localhost:3306", # verify port before use
+                isolation_level = "AUTOCOMMIT"
+            )
+
+            Base = declarative_bass()
+
+            class emp1(Base):
+                __tablename__ = "emp1"
+                id = Column(Integer, primary_key = True, autoincrement = True)
+                name = Column(String(100), nullable = False)
+                phone = (Integer)
+            
+            Base.metadata.create_all(engine)
+            print("table done")
+        
+
+    INSERT
+        - To insert in SQLAlchemy we need session
+        - we need to implement the class before insertion
+        
+            [USA]
+
+                from sqlalchemy import create_engine, text, Column, Integer, String, text
+                from sqlalchemy.orm import declarative_bass
+
+                engine = create_engine(
+                    "mysql+pymysql://root:root@localhost:3306", # verify port before use
+                    isolation_level = "AUTOCOMMIT"
+                )
+
+                Base = declarative_bass()
+
+                class emp1(Base):
+                    __tablename__ = "emp1"
+                    id = Column(Integer, primary_key = True, autoincrement = True)
+                    name = Column(String(100), nullable = False)
+                    phone = (Integer)
+                
+                Session = sessionmaker(bind = engine)
+                session = Session()
+
+                emp = emp1(name = "Madhan", phone = 1234567890)
+
+                session.add(emp)
+                session.commit()
+
+                print("Record Inserted Successfully...")
+                session.close()
+
+    SELECT 
+        [USA]
+
+            from sqlalchemy import create_engine, Column, Integer, String
+            from sqlalchemy.orm import declarative_base, sessionmaker
+            
+            engine = create_engine(
+                "mysql+pymysql://root:root@localhost:3306", # verify port before use
+                isolation_level = "AUTOCOMMIT"
+            )
+
+            Base = declarative_bass()
+
+            class emp1(Base):
+                __tablename__ = "emp1"
+                id = Column(Integer, primary_key = True, autoincrement = True)
+                name = Column(String(100), nullable = False)
+                phone = (Integer)
+            
+            Base.metadata.create_all(engine)
+            Session = sessionmaker(bind=engine)
+            session = Session()
+
+            employees = session.query(Emp).all()
+
+            print("ID\tNAME\t\tPHONE")
+            print("-" * 35)
+
+            for emp in employees:
+                print(emp.id, "\t", emp.name, "\t", emp.phone)
+            
+            session.close()

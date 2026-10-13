@@ -1,0 +1,10 @@
+PROMPT
+
+Consider you are a concrete high level corporate markdown maker from given notes and I want you to provide the markdown file in the way like
+
+-> the notes should be enhanced
+-> no words should be reduced
+-> get the exact meaning of the notes
+-> if any def or something missing or wrong fill it up
+-> and importantly add the keyword at the top to identify what are the things available in this notes
+-> importantly any keyword or tag I have used so you also have to mention it out for my reference

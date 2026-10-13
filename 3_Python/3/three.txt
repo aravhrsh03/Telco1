@@ -1,0 +1,178 @@
+
+
+
+    DATE: (09/07/2026)
+
+	
+  -> ZipLongest = combines the two set/list/tuple like a pair
+	[LIB] - itertools
+	[USA]
+		from itertools import zip_longest
+		s1 = {"a", "b"}
+		s2 = {10, 11}
+		print(list(zip_longest(s1, s2, fillvalue = 'NA')))
+	[PAR]
+		fillvalue = gets the string to fill no pair values [no pair available]
+	[SYN]
+		<collection-d-type>(zip_longest(<non_primitive_object-1>, <non_primitive_object-2>))
+	
+	[Note: < solve issue from zip > if one object does not have pair it leave the data]
+
+  -> reversed = returns the list in reverse order
+	[SYN]
+		reversed(<list_object>)
+
+  -> sorted = returns sorted values
+	[SYN]
+		sorted(<list_object>)
+	[PAR]
+		reverse = (accept bools) for reverse order
+
+  -> for loop = this is a looping with parameter (start, stop, step)
+	[NOTE: if for loop is done it can have else]
+	
+	[USA]
+		for <iterator_variable> in <condition>:
+			<statement>
+		else: # [OPT]
+			<else-statement>
+
+	[Note: iterator variable is scoped from for loop to else]
+
+  -> any() = true if any one true else false
+  -> all() = true if all are true else false
+ 
+  -> count() = automates increment
+	[LIB] - itertools
+	[USA]
+		from itertools import count
+		for i in count(1):
+			print(i)
+			if i == 5:
+				break
+	[SYN]
+		count(<number>)
+
+  -> cycle() = infinite loop
+	[LIB] - itertools
+	[USA]
+		from itertools import cycle
+		for x in cycle("ABC"):
+			print(x)
+			if x == "C":
+				break
+		[ANE]
+		colors = cycle(["RED", "GREEN", "BLUE"])
+		for i in range(7):
+			print(next(colors))
+	[SYN]
+		cycle(<data_object>)
+
+  -> islice() = provide the cycles of particular list
+	[LIB] - itertools
+	[USA]
+		from itertools import cycle.islice
+		for x in islice(cycle("ABC"), 10):
+			print(x)
+	
+		[NOTE: search for 10 chars from the given string and print]
+	[SYN]
+		islice(<cycle_object>)
+
+  -> match keyword = [ALI] switch
+	[USA]
+		a = 1
+		match a:
+			case 1:
+				print(1)
+			case _:
+				print("Fail")
+	[SYN]
+		match <case_condition>:
+			case <case_condition>: # accepts conditionals (if/else), any data_object
+				<statement>
+			case <default>: # case _
+				<default_statement>
+
+
+--------------------------------------------------------------------------
+
+  -> FUNCTIONS - Functions are individual declared calling by its name
+	[Note: Overloading is allowed, not overriding in python]
+	[So each function have unique function]
+
+	- Able to have one return with multiple values (comma seperated)
+	- Positional Arguments should be at the last
+
+  -> function with / - before the / it is positional arguments, after it is combinations
+	[USA]
+		def posi(a1, b1, /):
+			print(a1, b1)
+	
+		print(posi(1, 2)) # before only positional, should be like posi(a1 = 1, b1 = 2) since this is keyword argument
+
+		def posi2(a1, b1, / x, y):
+			print(a1 + b1)
+
+		print(posi2(1, 2, x = 1, y = 2))
+
+  -> function with * - before the * it should be positional argument, after it should be keyword.
+
+	[USA]
+		def keyw(name, *, city):
+			print(name, city)
+		keyw("madhan", city="chennai") # city should be keyword
+
+	- *a parameter can accept many values
+
+	[USA]
+		def fun(*a):
+			print(sum(a))
+	
+		fun(1, 2, 3, 4)
+
+	- **kwargs parameter can accept many values as key and value pair
+	
+	[USA]
+		def fun(**kwargs):
+			print(kwargs)
+	
+		fun(key1=1, key2=2)
+
+  -> lambda function - anonymous function (it doesn't have a specific name it have the storage function, function stored in a variable)
+
+	[SYN]
+		<variable-name> = lambda <parameters> : <statement>
+	[USA]
+		add = lambda x, y : x + y
+		print(add(8,9))
+
+  -> Generator - it streams the function, until interrupt occurs, and return ones at a time
+
+	[USA]
+		def numbers()
+			for i in range(1, 10000):
+				yield i
+	
+		g = numbers()
+		print(next())
+
+	[SYN]
+		def <func_name>():
+			<statement>
+			yield <iterator>
+
+  -> Decorator - it is a function which wrap another function
+	[USA]
+		def deco(func):
+			def wrap():
+				print("Before")
+				func()
+				print("After")
+			return wrap
+	
+		@deco
+		def outer():
+			print("Outer")
+	
+		outer()

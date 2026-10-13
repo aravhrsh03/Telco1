@@ -1,0 +1,82 @@
+{
+    "Total Sales Amount": 177700.0,
+    "Number of Orders": 7,
+    "Top Selling Products": {
+        "Mouse": 7,
+        "Headphones": 4,
+        "Monitor": 3,
+        "Laptop": 2,
+        "Keyboard": 1,
+        "Mobile": 1
+    },
+    "Sales By City": [
+        {
+            "City": "Boston",
+            "TotalSales": 4600.0
+        },
+        {
+            "City": "Chicago",
+            "TotalSales": 4000.0
+        },
+        {
+            "City": "Dallas",
+            "TotalSales": 1500.0
+        },
+        {
+            "City": "Miami",
+            "TotalSales": 30000.0
+        },
+        {
+            "City": "New York",
+            "TotalSales": 101600.0
+        },
+        {
+            "City": "Seattle",
+            "TotalSales": 36000.0
+        }
+    ],
+    "Customer Purchase Summary": [
+        {
+            "CustomerID": "C101",
+            "CustomerName": "John",
+            "TotalOrders": 2,
+            "TotalPurchase": 101600.0,
+            "TotalQuantity": 4
+        },
+        {
+            "CustomerID": "C104",
+            "CustomerName": "Unknown",
+            "TotalOrders": 1,
+            "TotalPurchase": 36000.0,
+            "TotalQuantity": 3
+        },
+        {
+            "CustomerID": "C106",
+            "CustomerName": "Sophia",
+            "TotalOrders": 1,
+            "TotalPurchase": 30000.0,
+            "TotalQuantity": 1
+        },
+        {
+            "CustomerID": "C105",
+            "CustomerName": "Alex",
+            "TotalOrders": 1,
+            "TotalPurchase": 4600.0,
+            "TotalQuantity": 4
+        },
+        {
+            "CustomerID": "C102",
+            "CustomerName": "Emma",
+            "TotalOrders": 1,
+            "TotalPurchase": 4000.0,
+            "TotalQuantity": 5
+        },
+        {
+            "CustomerID": "C103",
+            "CustomerName": "Raj",
+            "TotalOrders": 1,
+            "TotalPurchase": 1500.0,
+            "TotalQuantity": 1
+        }
+    ]
+}

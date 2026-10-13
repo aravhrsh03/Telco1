@@ -1,0 +1,231 @@
+ABBREVIATION:
+	-> LIB = LIBRARY
+	-> USA = USAGE [example code]
+	-> PAR = PARAMETERS
+	-> SYN = syntax
+	-> WHY = Why this is used
+	-> EXA = Example
+	-> MET = METHODS
+	-> CAT = Cannot have it
+	-> ALI = Alias
+	-> RES = Expected Result
+	-> OPT = Optionalx
+	-> ANE = Another Example
+	-> FUN = Functions used
+	-> DAM = Data Members
+	-> TYS = Types
+	-> VER = Python version
+	-> USC = Use Cases
+
+    -> [COM] - CLI Command
+    -> [INS] - install this library
+    -> [RUN] - Run command
+    
+Date = (20/7/2026)
+
+HTTP
+Components
+    - URL
+    - Methods (GET, POST, PUT, PATCH, DELETE)
+    - 1xx, 2xx, 3xx, 4xx, 5xx
+
+FastAPI - backend framwork for python
+
+    [INS]
+        - pip install "fastapi[standard]"
+        - pip install uvicorn
+    
+    [USA]
+        from fastapi import FastAPI, HTTPException
+
+        app = FastAPI()
+
+        emp = []
+
+        @app.get("/")
+        def home():
+            return {"message": "Hello"}
+
+        # Get all employees
+        @app.get("/emp")
+        def get_data():
+            return emp
+
+        @app.post("/emp")
+        def add_data(data: dict):
+            emp.append(data)
+            return {
+                "message": "Employee added successfully",
+                "data": data
+            }
+
+        # For complete change of that particular record
+        @app.put("/emp")
+        def update_emp(id: int, emp1: dict):
+            for index, employee in enumerate(emp):
+                if employee.get("id") == id:
+                    emp[index] = emp1
+                    return {
+                        "message": "Employee updated successfully",
+                        "data": emp1
+                    }
+
+        @app.delete("/emp")
+        def delete_emp(id: int):
+            for index, employee in enumerate(emp):
+                if employee.get("id") == id:
+                    deleted_emp = emp.pop(index)
+                    return {
+                        "message": "Employee deleted successfully",
+                        "data": deleted_emp
+                    }
+
+        @app.get("/emp/{id}")
+        def get_employee(id: int):
+            for employee in emp:
+                if employee.get("id") == id:
+                    return employee
+
+    [RUN]
+        python -m uvicorn <file-name>:app --reload
+
+    [PAR]
+        HTTP Request Parameters
+
+            1. Path Parameter
+            Syntax:
+            https://<link>/<route-name>/{parameter}
+
+            Example:
+            https://api.example.com/users/101
+
+            Explanation:
+            Used to identify a specific resource (e.g., user with ID 101).
+
+            from fastapi import FastAPI
+
+            app = FastAPI()
+
+            @app.get("/users/{user_id}")
+            def get_user(user_id: int):
+                return {"user_id": user_id}
+
+            Request:
+            GET /users/101
+
+
+            2. Query Parameter
+            Syntax:
+            https://<link>/<route-name>?<key>=<value>
+
+            Example:
+            https://api.example.com/users?active=true
+
+            Explanation:
+            Used to filter, search, sort, or customize the returned results (e.g., only active users).
+
+            from fastapi import FastAPI
+
+            app = FastAPI()
+
+            @app.get("/users")
+            def get_users(active: bool):
+                return {"active": active}
+
+            Request:
+            GET /users?active=true
+
+
+            3. Body Parameter
+            Syntax:
+            POST/PUT/PATCH https://<link>/<route-name>
+
+            Request Body:
+            {
+                "name": "Alice",
+                "age": 25
+            }
+
+            Explanation:
+            Used to send structured data in the request body to create or update a resource.
+
+            from fastapi import FastAPI
+            from pydantic import BaseModel
+
+            app = FastAPI()
+
+            class User(BaseModel):
+                name: str
+                age: int
+
+            @app.post("/users")
+            def create_user(user: User):
+                return User
+
+            Request:
+            POST /users
+
+            Body:
+            {
+                "name": "Alice",
+                "age": 25
+            }
+
+PYDANTIC    
+    - To implement Strong typing
+
+    [USA]
+        from pydantic import BaseModel
+
+        class employee(BaseModel):
+            id: int
+            name: str
+            age: int
+        
+        emp = []
+        
+        @app.post("/employee")
+        def add_employee(data: employee):
+            emp.append(data)
+
+Response Model (FastAPI)
+
+    Definition:
+    A Pydantic model that defines and validates the structure of the API response.
+
+    Syntax:
+    @app.get("/users/{id}", response_model=UserResponse)
+
+    Example:
+    Request:
+    GET /users/1
+
+    Returned by API:
+    {
+        "id": 1,
+        "name": "Alice",
+        "password": "secret"
+    }
+
+    Response Sent:
+    {
+        "id": 1,
+        "name": "Alice"
+    }
+
+    Note:
+    Fields not defined in the response_model (e.g., "password") are automatically excluded.
+
+Async Client (FastAPI)
+
+    Definition:
+    An async client is used to make non-blocking HTTP requests, allowing multiple tasks to run concurrently.
+
+    Example:
+    import httpx
+
+    async with httpx.AsyncClient() as client:
+        response = await client.get("https://api.example.com/users")
+
+    Note:
+    AsyncClient improves performance for I/O operations by waiting without blocking the application.

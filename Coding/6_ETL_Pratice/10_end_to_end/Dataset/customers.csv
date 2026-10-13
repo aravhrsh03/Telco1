@@ -1,0 +1,7 @@
+CustomerID,CustomerName,City,Email
+C101,John,New York,john@email.com
+C102,Emma,Chicago,emma@email.com
+C103,Raj,Dallas,raj@email.com
+C104,,Seattle,diana@email.com
+C105,Alex,Boston,alex@email.com
+C106,Sophia,Miami,sophia@email.com

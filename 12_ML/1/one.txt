@@ -1,0 +1,529 @@
+ABBREVIATION:
+	-> LIB = LIBRARY
+	-> USA = USAGE [example code]
+	-> PAR = PARAMETERS
+	-> SYN = syntax
+	-> WHY = Why this is used
+	-> EXA = Example
+	-> MET = METHODS
+	-> CAT = Cannot have it
+	-> ALI = Alias
+	-> RES = Expected Result
+	-> OPT = Optionalx
+	-> ANE = Another Example
+	-> FUN = Functions used
+	-> DAM = Data Members
+	-> TYS = Types
+	-> VER = Python version
+	-> USC = Use Cases
+
+    -> [COM] - CLI Command
+    -> [INS] - install this library
+    -> [STE] - Steps
+
+Date = (03/8/2026)
+
+    -> Rule based = Automation
+    -> Machine Learning
+    -> Deep Learning
+    -> Artificial Intelligence = Neural Networks
+    
+Machine Learning
+    Arthur Samuel, a pioneer in field of artificial intelligence and computer agamin, coined
+    the term "Machine Learning" as - "Field of study that gives computers the capability
+    to learn without being explicitly programmed".
+
+    Model - A model is a specific representation learned from data by applying
+            some machine learning algorithm. A model is a called hypothesis
+    
+    Feature - A feature is an individual measurable property of our data. A set of 
+            numeric features can be conveniently described by a feature vector. Feature vectors are 
+            fed as input to the model.
+    
+    Target(Label) - A target variable or label is the value to be predicted by our model.
+            For the fruit example discussed in the features section, the label with each set of
+            input would be the name of the fruite like apple, orange, banana, etc.
+
+
+    [TYS]
+        Supervised Learning
+            - Learns from labeled data to predict outputs.
+
+            Labeled Data
+                - Data with known input-output pairs.
+
+            [TYS]
+                - Classification
+                    - Predicts discrete categories or classes.
+
+                    [TYS]
+                        - Binary Classification
+                            - Classifies data into two classes.
+                        - Multi-Class Classification
+                            - Classifies data into three or more classes.
+
+                - Regression
+                    - Predicts continuous numerical values.
+
+        Unsupervised Learning
+            - Learns patterns from unlabeled data.
+
+            Unlabeled Data
+                - Data without known target labels.
+    
+    Machine Learning
+    │
+    ├── 1. Supervised Learning
+    │   └── Uses labeled data
+    │
+    ├── 2. Unsupervised Learning
+    │   └── Uses unlabeled data
+    │
+    ├── 3. Semi-Supervised Learning
+    │   └── Uses both labeled and unlabeled data
+    │
+    ├── 4. Reinforcement Learning
+    │   └── Learns using rewards and penalties
+    │
+    │
+    ├── 5. Self-Supervised Learning
+    │   └── Creates labels from data itself
+    │
+    ├── 6. Active Learning
+    │   └── Model selects important data for labeling
+    │
+    ├── 7. Online Learning
+    │   └── Learns continuously from incoming data
+    │
+    ├── 8. Transfer Learning
+    │   └── Reuses knowledge from a trained model
+    │
+    ├── 9. Ensemble Learning
+    │   └── Combines multiple models for better accuracy
+    │
+    ├── 10. Federated Learning
+    │   └── Trains models across devices without sharing data
+    │
+    ├── 11. Multi-Task Learning
+    │   └── Learns multiple tasks using one model
+    │
+    ├── 12. Meta Learning
+    │   └── Learns how to learn efficiently
+    │
+    ├── 13. Incremental (Continual) Learning
+    │   └── Learns continuously without forgetting old knowledge
+    │
+    └── 14. Weakly Supervised Learning
+        └── Uses limited or inaccurate labels
+
+Linear Regression
+    - Predicts a continuous value using one independent variable.
+    
+    [WHY]
+        - Finds the best-fit line to model the relationship between variables.
+        - Used for predicting numerical values.
+
+    [SYN]
+        y = mx + c
+
+    [PAR]
+        - X → Independent (input) variable.
+        - y → Dependent (target) variable.
+        - m → Slope (coefficient).
+        - c → Intercept.
+
+    [EXA]
+        - Predicting house price based on house area.
+        - Predicting salary based on years of experience.
+
+    [USC]
+        - Sales prediction.
+        - Stock price trend analysis.
+        - Weather forecasting.
+        - Demand forecasting.
+
+Multiple Linear Regression
+    - Predicts a continuous value using two or more independent variables.
+
+    [WHY]
+        - Improves prediction accuracy by considering multiple factors.
+
+    [SYN]
+        y = b₀ + b₁x₁ + b₂x₂ + ... + bₙxₙ
+
+    [PAR]
+        - X₁, X₂, ..., Xₙ → Independent variables.
+        - y → Dependent variable.
+        - b₀ → Intercept.
+        - b₁, b₂, ..., bₙ → Coefficients.
+
+    [EXA]
+        - Predicting house price using area, number of bedrooms, and location.
+        - Predicting student marks using study hours, attendance, and assignments.
+
+    [USC]
+        - Real estate price prediction.
+        - Medical risk prediction.
+        - Business revenue forecasting.
+        - Employee salary prediction.
+
+    [ANE]
+        - House Price = f(area, bedrooms, age of house)
+        - Car Price = f(year, mileage, engine size)
+
+Note
+    - Linear Regression → One input feature (X).
+    - Multiple Linear Regression → Two or more input features (X₁, X₂, ...).
+    - Both are supervised learning algorithms used for regression problems.
+
+
+Polynomial Regression
+    - Predicts a continuous value by fitting a curved relationship between variables.
+
+    [WHY]
+        - Used when data follows a non-linear pattern.
+        - Captures curves that Linear Regression cannot model accurately.
+
+    [SYN]
+        y = b₀ + b₁x + b₂x² + b₃x³ + ... + bₙxⁿ
+
+    [PAR]
+        - X → Independent (input) variable.
+        - y → Dependent (target) variable.
+        - b₀ → Intercept.
+        - b₁, b₂, ..., bₙ → Coefficients.
+        - n → Degree of the polynomial.
+
+    [EXA]
+        - Predicting plant growth over time.
+        - Predicting population growth.
+        - Predicting car fuel efficiency based on speed.
+
+    [USC]
+        - Sales trend forecasting.
+        - Weather and climate prediction.
+        - Biological growth analysis.
+        - Stock market trend modeling.
+
+    [ANE]
+        - House price vs. distance from city (curved relationship).
+        - Student performance vs. study hours (with diminishing returns).
+
+    [CAT]
+        - Not suitable for data with a purely linear relationship.
+        - High-degree polynomials may cause overfitting.
+
+Note
+    - Linear Regression → Fits a straight line.
+    - Polynomial Regression → Fits a curve.
+    - Polynomial Regression is still a Regression algorithm under Supervised Learning.
+
+Ridge Regression
+    - A Linear Regression technique that reduces overfitting using L2 Regularization.
+
+    [WHY]
+        - Prevents overfitting by penalizing large coefficient values.
+        - Improves model performance on unseen data.
+        - Handles multicollinearity between features.
+
+    [SYN]
+        Cost = RSS + λΣ(b²)
+
+    [PAR]
+        - RSS → Residual Sum of Squares (prediction error).
+        - λ (Lambda) → Regularization parameter.
+        - b → Model coefficients (weights).
+
+    [EXA]
+        - Predicting house prices with many correlated features.
+        - Predicting sales using multiple marketing variables.
+
+    [USC]
+        - Financial forecasting.
+        - Medical data analysis.
+        - Real estate price prediction.
+        - High-dimensional datasets.
+
+    [CAT]
+        - Does not perform feature selection.
+        - Coefficients become small but never exactly zero.
+
+    [ANE]
+        - House Price = f(area, bedrooms, age, location)
+        - Sales = f(TV ads, Radio ads, Newspaper ads)
+
+Note
+    - Ridge Regression = Linear Regression + L2 Regularization.
+    - Uses the L2 penalty (squared coefficients).
+    - Best when many features are correlated.
+    - λ = 0 → Same as Linear Regression.
+    - Larger λ → Smaller coefficients and less overfitting.
+
+
+Lasso Regression
+    - A Linear Regression technique that reduces overfitting using L1 Regularization.
+
+    [WHY]
+        - Prevents overfitting by penalizing large coefficient values.
+        - Performs automatic feature selection.
+        - Removes less important features by making their coefficients zero.
+
+    [SYN]
+        Cost = RSS + λΣ|b|
+
+    [PAR]
+        - RSS → Residual Sum of Squares (prediction error).
+        - λ (Lambda) → Regularization parameter.
+        - b → Model coefficients (weights).
+
+    [EXA]
+        - Predicting house prices with many features.
+        - Customer churn prediction using multiple variables.
+
+    [USC]
+        - Feature selection.
+        - Medical diagnosis.
+        - Financial forecasting.
+        - High-dimensional datasets.
+
+    [CAT]
+        - May remove useful features if λ is too large.
+        - Not ideal when all features are equally important.
+
+    [ANE]
+        - House Price = f(area, bedrooms, location, age)
+        - Sales = f(TV ads, Radio ads, Newspaper ads)
+
+Note
+    - Lasso Regression = Linear Regression + L1 Regularization.
+    - Uses the L1 penalty (absolute values of coefficients).
+    - Can reduce some coefficients exactly to zero.
+    - Performs automatic feature selection.
+    - λ = 0 → Same as Linear Regression.
+    - Larger λ → More coefficients become zero, resulting in a simpler model.
+
+    - RSS (Residual Sum of Squares) = Actua - predicted
+
+
+Elastic Net Regression
+    - A Regression technique that combines L1 (Lasso) and L2 (Ridge) regularization.
+
+    [WHY]
+        - Reduces overfitting.
+        - Performs feature selection.
+        - Handles multicollinearity between features.
+        - Works well when there are many correlated variables.
+
+    [SYN]
+        Cost = RSS + λ₁Σ|b| + λ₂Σ(b²)
+
+    [PAR]
+        - RSS → Residual Sum of Squares (prediction error).
+        - λ₁ → L1 regularization strength.
+        - λ₂ → L2 regularization strength.
+        - b → Model coefficients (weights).
+
+    [TYS]
+        - L1 Regularization (Lasso)
+            - Removes less important features by making coefficients zero.
+
+        - L2 Regularization (Ridge)
+            - Shrinks coefficients but keeps all features.
+
+    [EXA]
+        - Predicting house prices using many related features.
+        - Predicting medical outcomes using multiple patient measurements.
+
+    [USC]
+        - Genomics and bioinformatics.
+        - Financial modeling.
+        - Customer behavior prediction.
+        - High-dimensional datasets.
+
+    [CAT]
+        - Requires tuning two regularization parameters.
+        - More complex than Ridge and Lasso.
+        - Not necessary for small datasets.
+
+    [ANE]
+        - Stock prediction using many market indicators.
+        - Disease prediction using hundreds of medical features.
+
+Note
+    - Elastic Net = Ridge Regression + Lasso Regression.
+    - Uses both L1 and L2 penalties.
+    - L1 helps feature selection.
+    - L2 helps handle correlated features.
+    - Best choice when features are many and highly correlated.
+
+Decision Tree Regression
+    - A regression algorithm that predicts continuous values using a tree-like structure of decision rules.
+
+    [WHY]
+        - Captures non-linear relationships between features and target values.
+        - Does not require feature scaling.
+        - Easy to understand and interpret.
+
+    [SYN]
+        Prediction = Average value of data points in a leaf node
+
+    [PAR]
+        - Root Node → Starting point containing all data.
+        - Decision Node → Splits data based on conditions.
+        - Branch → Result of a decision.
+        - Leaf Node → Final prediction value.
+        - Split → Division of data based on feature values.
+
+    [FUN]
+        - fit() → Trains the decision tree model.
+        - predict() → Predicts output values.
+        - score() → Calculates model accuracy.
+
+    [EXA]
+        - Predicting house prices based on area, location, and rooms.
+        - Predicting salary based on experience and skills.
+
+    [USC]
+        - Real estate price prediction.
+        - Sales forecasting.
+        - Customer value prediction.
+        - Financial risk analysis.
+
+    [CAT]
+        - Can easily overfit with deep trees.
+        - Not suitable for very small datasets.
+        - Predictions are not smooth like linear models.
+
+    [ANE]
+        - If area < 1000 sq.ft → Price = 50 Lakhs
+        - If area > 1000 sq.ft → Price = 80 Lakhs
+
+Note
+    - Decision Tree Regression splits data into smaller groups.
+    - Final prediction is usually the average value of samples in each leaf.
+    - Uses tree-based rules instead of mathematical equations.
+    - No need for feature normalization or scaling.
+
+
+Random Forest Regression
+    - An ensemble regression algorithm that combines multiple Decision Trees to make accurate predictions.
+
+    [WHY]
+        - Reduces overfitting compared to a single Decision Tree.
+        - Improves prediction accuracy by combining multiple models.
+        - Handles complex and non-linear relationships.
+
+    [SYN]
+        Prediction = Average of predictions from multiple decision trees
+
+    [PAR]
+        - Tree → Individual Decision Tree model.
+        - Forest → Collection of multiple decision trees.
+        - n_estimators → Number of trees in the forest.
+        - Feature Selection → Random subset of features used for each tree.
+
+    [FUN]
+        - fit() → Trains the Random Forest model.
+        - predict() → Predicts continuous output values.
+        - score() → Measures model performance.
+        - feature_importances_ → Shows importance of each feature.
+
+    [EXA]
+        - Predicting house prices using area, location, and number of rooms.
+        - Predicting stock prices using multiple market indicators.
+
+    [USC]
+        - Real estate price prediction.
+        - Financial forecasting.
+        - Medical prediction systems.
+        - Customer demand forecasting.
+
+    [CAT]
+        - Requires more computational power than a single Decision Tree.
+        - Less interpretable because it contains many trees.
+        - Large forests may increase training time.
+
+    [ANE]
+        - Tree 1 predicts: 50 Lakhs
+        - Tree 2 predicts: 55 Lakhs
+        - Tree 3 predicts: 52 Lakhs
+
+        Final Prediction = (50 + 55 + 52) / 3
+                            = 52.33 Lakhs
+
+Note
+    - Random Forest Regression = Multiple Decision Trees + Averaging.
+    - Uses Bootstrap Sampling and Random Feature Selection.
+    - It is an Ensemble Learning technique.
+    - More stable and accurate than a single Decision Tree.
+    - No feature scaling is required.
+
+
+Support Vector Regression (SVR)
+    - A regression algorithm that predicts continuous values by finding the best-fit line within a margin of tolerance.
+
+    [WHY]
+        - Handles non-linear relationships using kernel functions.
+        - Reduces the effect of outliers.
+        - Works well with high-dimensional datasets.
+        - Provides good generalization for complex data.
+
+    [SYN]
+        f(x) = w·x + b
+
+    [PAR]
+        - X → Input features.
+        - y → Target output value.
+        - w → Weight vector.
+        - b → Bias/intercept.
+        - ε (Epsilon) → Margin of tolerance around the prediction line.
+        - C → Regularization parameter controlling error penalty.
+        - Kernel → Function used to handle non-linear data.
+
+    [TYS]
+        - Linear SVR
+            - Uses a straight line for prediction.
+
+        - Non-Linear SVR
+            - Uses kernel functions to fit complex patterns.
+
+    [FUN]
+        - fit() → Trains the SVR model.
+        - predict() → Predicts output values.
+        - score() → Evaluates model performance.
+
+    [EXA]
+        - Predicting stock prices.
+        - Predicting house prices using multiple features.
+        - Predicting temperature changes.
+
+    [USC]
+        - Financial forecasting.
+        - Medical data prediction.
+        - Demand prediction.
+        - Time-series forecasting.
+
+    [CAT]
+        - Slow for very large datasets.
+        - Requires proper parameter tuning.
+        - Sensitive to feature scaling.
+
+    [ANE]
+        - Predicting house price:
+            Input  → Area, location, bedrooms
+            Output → House price
+
+        - Predicting salary:
+            Input  → Experience, skills, education
+            Output → Expected salary
+
+Note
+    - SVR = Support Vector Machine applied to Regression problems.
+    - Uses a margin (ε-tube) instead of minimizing every error.
+    - Kernel functions allow SVR to model non-linear relationships.
+    - Feature scaling is required before training.
+    - Common kernels:
+        - Linear Kernel
+        - Polynomial Kernel
+        - RBF (Radial Basis Function) Kernel
+

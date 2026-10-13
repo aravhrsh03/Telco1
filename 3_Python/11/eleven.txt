@@ -1,0 +1,416 @@
+
+    DATE: (17/07/2026)
+
+	- MultiThreading
+		- same memory (n no. of threads)
+		- share same file, GIL, variable
+	
+	[LIB] - threading
+
+	[USA]
+		import threading
+
+		def worker():
+			print("Working thread..")
+		
+		t = threading.Thread(target=worker)
+		t.start()
+		t.join()
+
+	[MET]
+		.join() - it is not mandatory
+				- without this it would not join to main thread	
+				- we use it for to wait for the current thread to run and then remaining runs
+				
+
+	CPU Bound
+	
+	- Heavy calculations (CPU does most of the work)
+	- Uses CPU continuously instead of waiting
+	- Performance depends on CPU speed
+	- Uses multiple CPU cores for better performance
+	- In Python, Multithreading does not improve CPU-bound tasks because of GIL
+	- Best solution is Multiprocessing (separate processes)
+	
+
+	[WHY]
+	- To perform heavy calculations faster
+	- To use multiple CPU cores
+	- To avoid GIL limitation
+	- To improve execution speed of CPU-intensive programs
+
+	[EXA]
+	- Prime number calculation
+	- Matrix multiplication
+	- Image processing
+	- Video rendering
+	- Machine Learning training
+	- Password hashing
+	- Scientific calculations
+	- Data compression
+
+	[LIB]
+	multiprocessing
+
+	[USA]
+	from multiprocessing import Process
+
+	
+	def worker():
+		total = 0
+		for i in range(10000000):
+			total += i
+		print("Calculation Finished")
+
+	p = Process(target=worker)
+	p.start()
+	p.join()
+	
+
+	[PAR]
+	Process(
+	target=function_name,
+	args=(arg1, arg2),
+	name="ProcessName",
+	daemon=False
+	)
+
+	[SYN]
+	from multiprocessing import Process
+
+	
+	p = Process(target=function_name, args=(arguments,))
+	p.start()
+	p.join()
+	
+
+	[MET]
+	.start()
+	- Starts the process
+	- Executes the target function
+
+	
+	.join()
+		- It is not mandatory
+		- Without this, the main program continues executing
+		- We use it to wait until the current process finishes
+
+	.is_alive()
+		- Returns True if the process is running
+		- Returns False if the process has finished
+
+	.terminate()
+		- Stops the process immediately
+
+	.close()
+		- Releases process resources (used in some multiprocessing objects)
+	
+
+	[FUN]
+	Process()
+	- Creates a new process
+
+	
+	start()
+		- Starts execution
+
+	join()
+		- Waits for process completion
+
+	is_alive()
+		- Checks whether process is running
+
+	terminate()
+		- Stops the process
+	
+
+	[DAM]
+	p.pid
+	- Returns Process ID
+
+	
+	p.name
+		- Returns process name
+
+	p.daemon
+		- Returns daemon status
+	
+
+	[ALI]
+	- CPU Intensive Task
+	- Compute Bound
+	- Processing Bound
+
+	[RES]
+	- Heavy calculations execute faster
+	- Multiple CPU cores work together
+	- Better performance for CPU-intensive programs
+	- Main process waits when join() is used
+
+	[OPT]
+	args
+	- Optional
+	- Passes arguments to the function
+
+	
+	name
+		- Optional
+		- Gives a custom process name
+
+	daemon
+		- Optional
+		- Runs process in background
+	
+
+	[CAT]
+	- Cannot efficiently use Multithreading for CPU-bound tasks in Python
+	- Cannot achieve true parallel execution using threads because of GIL
+	- Not suitable for waiting tasks like file reading or downloading
+
+	[ANE]
+	from multiprocessing import Process
+
+	
+	def square():
+		for i in range(5):
+			print(i * i)
+
+	p = Process(target=square)
+	p.start()
+	p.join()
+	
+
+	[TYS]
+	- Single CPU-bound task
+	- Multi-process CPU-bound task
+	- Parallel CPU-bound task
+
+	[VER]
+	- Python 2.6+ (multiprocessing introduced)
+	- Python 3.x (Recommended)
+
+	[USC]
+	- Scientific computing
+	- Machine Learning
+	- Artificial Intelligence
+	- Image processing
+	- Video rendering
+	- Data analysis
+	- Password encryption
+	- Cryptography
+	- Mathematical simulations
+	- Large numerical computations
+
+	Easy Remember
+
+	
+	CPU Bound
+		↓
+		Heavy Calculations
+		↓
+		Uses CPU Continuously
+		↓
+		Multithreading ❌ (GIL)
+		↓
+		Multiprocessing ✅
+		↓
+		Uses Multiple CPU Cores
+		↓
+		Faster Execution
+	
+
+	- Types of threads
+		- Main thread - available in python
+		- Non Deamon thread - it is alive until it sleep
+						- main will wait for this thread to complete
+		- Deamon thead - background thread
+
+		- ThreadPool
+
+			[USA]
+				from concurrent.futures import ThreadPoolExecutor
+
+				def square(x * x):
+					return x * x
+				
+				with ThreadPoolExecutor(max_workers=3) as executor:
+					result = executor.map(square, [1, 2, 3, 4, 5])
+				
+				print(list(result))
+	
+	REGULAR EXPRESSION (Regex)
+
+
+	- Pattern used to search, match, extract, and replace text
+	- Python library: `re`
+
+
+	[LIB]
+		re
+
+		[USA]
+		import re
+
+		result = re.search(r"\d+", "Age 25")
+
+		print(result.group())
+
+	[RES]
+		25
+
+	[WHY]
+		- Data validation
+		- Text searching
+		- Data extraction
+		- Text replacement
+
+	BASIC PATTERNS
+
+		\d
+		- Digit (0-9)
+
+		\D
+		- Non-digit
+
+		\w
+		- Word (a-z, A-Z, 0-9, _)
+
+		\W
+		- Non-word
+
+		\s
+		- Space
+
+		\S
+		- Non-space
+
+		.
+		- Any character
+
+	CHARACTER SET
+
+		[abc]
+		- Match a/b/c
+
+		[a-z]
+		- Lowercase
+
+		[A-Z]
+		- Uppercase
+
+		[0-9]
+		- Numbers
+
+		[^0-9]
+		- Except numbers
+
+	QUANTIFIERS
+
+		* * 0 or more
+
+		- - 1 or more
+
+		?
+		- Optional
+
+		{n}
+		- Exactly n times
+
+		{n,m}
+		- Range
+
+	SYMBOLS
+
+		^
+		- Start
+
+		$
+		- End
+
+		|
+		- OR
+
+		()
+		- Group
+
+	METHODS
+
+	[MET]
+
+		re.match()
+		- Match from beginning
+
+		re.search()
+		- Find first match
+
+		re.findall()
+		- Find all matches
+
+		re.sub()
+		- Replace text
+
+		re.split()
+		- Split string
+
+	[SYN]
+
+		re.method(pattern, string)
+
+	[EXA]
+
+		Numbers:
+
+		re.findall(r"\d+", "A10 B20")
+
+		Output:
+
+		['10','20']
+
+		Phone:
+
+		r"^[0-9]{10}$"
+
+		Email:
+
+		r"^[\w.-]+@[\w.-]+.\w+$"
+
+	[PAR]
+
+		pattern
+		- Search rule
+
+		string
+		- Input text
+
+		replacement
+		- New value
+
+	[CAT]
+
+	* Not for complex parsing
+	* Large regex becomes difficult to maintain
+
+	[USC]
+
+	* Email validation
+	* Phone validation
+	* Password checking
+	* Data extraction
+	* Log processing
+
+	[VER]
+
+	Python 3.x
+
+	REMEMBER:
+
+	\d → Number
+	\w → Word
+	\s → Space
+
+	* → One or more
+
+	- → Zero or more
+	? → Optional
+	^ → Start
+	$ → End

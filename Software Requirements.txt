@@ -1,0 +1,17 @@
+Software Requirements:
+
+Required:
+ -> VS Code
+ -> PyCharm
+ -> GIT
+ -> Python (3.11, 3.12)
+ -> npm
+ -> NODE JS
+ -> POST MAN
+ -> MYSQL (Server, Workbench)
+ -> DOCKER Desktop
+ -> Chroma DB
+
+Option:
+ -> Jupyter Notebook
+ -> Claude Code

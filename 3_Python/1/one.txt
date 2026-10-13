@@ -1,0 +1,54 @@
+PYTHON
+
+ ABBREVIATION:
+	-> LIB = LIBRARY
+	-> USA = USAGE [example code]
+	-> PAR = PARAMETERS
+	-> SYN = syntax
+	-> WHY = Why this is used
+	-> EXA = Example
+	-> MET = METHODS
+	-> CAT = Cannot have it
+	-> ALI = Alias
+	-> RES = Expected Result
+	-> OPT = Optionalx
+	-> ANE = Another Example
+	-> FUN = Functions used
+	-> DAM = Data Members
+	-> TYS = Types
+	-> VER = Python version
+	-> USC = Use Cases
+
+
+    DATE: (07/07/2026)
+
+ -> Dynamic Typed, Scripted, Interpreted
+ -> single threaded
+ -> Satellite transaction (Created for)
+
+ -> id() = it shows the OBI(Object Memory Identity)
+ -> rebinding = declare with type 1 and changed to type2
+	
+	(num = 1 -> num = "string")
+	[Note: not override (because id changes)]
+
+ -> each variable is a reference
+ -> extended unpack
+ 
+    f, *d , e = [1, 2, 3, 4]
+    // f = 1
+    // d = [2, 3]
+    // e = 4
+ 
+ -> LEGB = Local, Enclosing, Global, Build-in (Python Search)
+ -> bytes dtype = Audio, image, network packets
+ -> Shallow Copy = Points to same reference
+ -> Deep Copy = Creates new Container for the data
+ -> copy.copy - Outer is copied , and inner is shared
+	
+	// a = [1, 2, [1, 3]]
+	// b = copy.copy(a)
+
+ -> <list-name>[start:end] = [value] --- updates all occurrence of the from start to end
+ -> <list-name>[start:end:step] = [value]*(total-step-count) --- it maps the value to all step positions available.
+

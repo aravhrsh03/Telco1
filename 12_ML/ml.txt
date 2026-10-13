@@ -1,0 +1,2409 @@
+ABBREVIATION:
+	-> LIB = LIBRARY
+	-> USA = USAGE [example code]
+	-> PAR = PARAMETERS
+	-> SYN = syntax
+	-> WHY = Why this is used
+	-> EXA = Example
+	-> MET = METHODS
+	-> CAT = Cannot have it
+	-> ALI = Alias
+	-> RES = Expected Result
+	-> OPT = Optionalx
+	-> ANE = Another Example
+	-> FUN = Functions used
+	-> DAM = Data Members
+	-> TYS = Types
+	-> VER = Python version
+	-> USC = Use Cases
+
+    -> [COM] - CLI Command
+    -> [INS] - install this library
+    -> [STE] - Steps
+
+Date = (03/8/2026)
+
+    -> Rule based = Automation
+    -> Machine Learning
+    -> Deep Learning
+    -> Artificial Intelligence = Neural Networks
+    
+Machine Learning
+    Arthur Samuel, a pioneer in field of artificial intelligence and computer agamin, coined
+    the term "Machine Learning" as - "Field of study that gives computers the capability
+    to learn without being explicitly programmed".
+
+    Model - A model is a specific representation learned from data by applying
+            some machine learning algorithm. A model is a called hypothesis
+    
+    Feature - A feature is an individual measurable property of our data. A set of 
+            numeric features can be conveniently described by a feature vector. Feature vectors are 
+            fed as input to the model.
+    
+    Target(Label) - A target variable or label is the value to be predicted by our model.
+            For the fruit example discussed in the features section, the label with each set of
+            input would be the name of the fruite like apple, orange, banana, etc.
+
+
+    [TYS]
+        Supervised Learning
+            - Learns from labeled data to predict outputs.
+
+            Labeled Data
+                - Data with known input-output pairs.
+
+            [TYS]
+                - Classification
+                    - Predicts discrete categories or classes.
+
+                    [TYS]
+                        - Binary Classification
+                            - Classifies data into two classes.
+                        - Multi-Class Classification
+                            - Classifies data into three or more classes.
+
+                - Regression
+                    - Predicts continuous numerical values.
+
+        Unsupervised Learning
+            - Learns patterns from unlabeled data.
+
+            Unlabeled Data
+                - Data without known target labels.
+    
+    Machine Learning
+    │
+    ├── 1. Supervised Learning
+    │   └── Uses labeled data
+    │
+    ├── 2. Unsupervised Learning
+    │   └── Uses unlabeled data
+    │
+    ├── 3. Semi-Supervised Learning
+    │   └── Uses both labeled and unlabeled data
+    │
+    ├── 4. Reinforcement Learning
+    │   └── Learns using rewards and penalties
+    │
+    │
+    ├── 5. Self-Supervised Learning
+    │   └── Creates labels from data itself
+    │
+    ├── 6. Active Learning
+    │   └── Model selects important data for labeling
+    │
+    ├── 7. Online Learning
+    │   └── Learns continuously from incoming data
+    │
+    ├── 8. Transfer Learning
+    │   └── Reuses knowledge from a trained model
+    │
+    ├── 9. Ensemble Learning
+    │   └── Combines multiple models for better accuracy
+    │
+    ├── 10. Federated Learning
+    │   └── Trains models across devices without sharing data
+    │
+    ├── 11. Multi-Task Learning
+    │   └── Learns multiple tasks using one model
+    │
+    ├── 12. Meta Learning
+    │   └── Learns how to learn efficiently
+    │
+    ├── 13. Incremental (Continual) Learning
+    │   └── Learns continuously without forgetting old knowledge
+    │
+    └── 14. Weakly Supervised Learning
+        └── Uses limited or inaccurate labels
+
+Linear Regression
+    - Predicts a continuous value using one independent variable.
+    
+    [WHY]
+        - Finds the best-fit line to model the relationship between variables.
+        - Used for predicting numerical values.
+
+    [SYN]
+        y = mx + c
+
+    [PAR]
+        - X → Independent (input) variable.
+        - y → Dependent (target) variable.
+        - m → Slope (coefficient).
+        - c → Intercept.
+
+    [EXA]
+        - Predicting house price based on house area.
+        - Predicting salary based on years of experience.
+
+    [USC]
+        - Sales prediction.
+        - Stock price trend analysis.
+        - Weather forecasting.
+        - Demand forecasting.
+
+Multiple Linear Regression
+    - Predicts a continuous value using two or more independent variables.
+
+    [WHY]
+        - Improves prediction accuracy by considering multiple factors.
+
+    [SYN]
+        y = b₀ + b₁x₁ + b₂x₂ + ... + bₙxₙ
+
+    [PAR]
+        - X₁, X₂, ..., Xₙ → Independent variables.
+        - y → Dependent variable.
+        - b₀ → Intercept.
+        - b₁, b₂, ..., bₙ → Coefficients.
+
+    [EXA]
+        - Predicting house price using area, number of bedrooms, and location.
+        - Predicting student marks using study hours, attendance, and assignments.
+
+    [USC]
+        - Real estate price prediction.
+        - Medical risk prediction.
+        - Business revenue forecasting.
+        - Employee salary prediction.
+
+    [ANE]
+        - House Price = f(area, bedrooms, age of house)
+        - Car Price = f(year, mileage, engine size)
+
+Note
+    - Linear Regression → One input feature (X).
+    - Multiple Linear Regression → Two or more input features (X₁, X₂, ...).
+    - Both are supervised learning algorithms used for regression problems.
+
+
+Polynomial Regression
+    - Predicts a continuous value by fitting a curved relationship between variables.
+
+    [WHY]
+        - Used when data follows a non-linear pattern.
+        - Captures curves that Linear Regression cannot model accurately.
+
+    [SYN]
+        y = b₀ + b₁x + b₂x² + b₃x³ + ... + bₙxⁿ
+
+    [PAR]
+        - X → Independent (input) variable.
+        - y → Dependent (target) variable.
+        - b₀ → Intercept.
+        - b₁, b₂, ..., bₙ → Coefficients.
+        - n → Degree of the polynomial.
+
+    [EXA]
+        - Predicting plant growth over time.
+        - Predicting population growth.
+        - Predicting car fuel efficiency based on speed.
+
+    [USC]
+        - Sales trend forecasting.
+        - Weather and climate prediction.
+        - Biological growth analysis.
+        - Stock market trend modeling.
+
+    [ANE]
+        - House price vs. distance from city (curved relationship).
+        - Student performance vs. study hours (with diminishing returns).
+
+    [CAT]
+        - Not suitable for data with a purely linear relationship.
+        - High-degree polynomials may cause overfitting.
+
+Note
+    - Linear Regression → Fits a straight line.
+    - Polynomial Regression → Fits a curve.
+    - Polynomial Regression is still a Regression algorithm under Supervised Learning.
+
+Ridge Regression
+    - A Linear Regression technique that reduces overfitting using L2 Regularization.
+
+    [WHY]
+        - Prevents overfitting by penalizing large coefficient values.
+        - Improves model performance on unseen data.
+        - Handles multicollinearity between features.
+
+    [SYN]
+        Cost = RSS + λΣ(b²)
+
+    [PAR]
+        - RSS → Residual Sum of Squares (prediction error).
+        - λ (Lambda) → Regularization parameter.
+        - b → Model coefficients (weights).
+
+    [EXA]
+        - Predicting house prices with many correlated features.
+        - Predicting sales using multiple marketing variables.
+
+    [USC]
+        - Financial forecasting.
+        - Medical data analysis.
+        - Real estate price prediction.
+        - High-dimensional datasets.
+
+    [CAT]
+        - Does not perform feature selection.
+        - Coefficients become small but never exactly zero.
+
+    [ANE]
+        - House Price = f(area, bedrooms, age, location)
+        - Sales = f(TV ads, Radio ads, Newspaper ads)
+
+Note
+    - Ridge Regression = Linear Regression + L2 Regularization.
+    - Uses the L2 penalty (squared coefficients).
+    - Best when many features are correlated.
+    - λ = 0 → Same as Linear Regression.
+    - Larger λ → Smaller coefficients and less overfitting.
+
+
+Lasso Regression
+    - A Linear Regression technique that reduces overfitting using L1 Regularization.
+
+    [WHY]
+        - Prevents overfitting by penalizing large coefficient values.
+        - Performs automatic feature selection.
+        - Removes less important features by making their coefficients zero.
+
+    [SYN]
+        Cost = RSS + λΣ|b|
+
+    [PAR]
+        - RSS → Residual Sum of Squares (prediction error).
+        - λ (Lambda) → Regularization parameter.
+        - b → Model coefficients (weights).
+
+    [EXA]
+        - Predicting house prices with many features.
+        - Customer churn prediction using multiple variables.
+
+    [USC]
+        - Feature selection.
+        - Medical diagnosis.
+        - Financial forecasting.
+        - High-dimensional datasets.
+
+    [CAT]
+        - May remove useful features if λ is too large.
+        - Not ideal when all features are equally important.
+
+    [ANE]
+        - House Price = f(area, bedrooms, location, age)
+        - Sales = f(TV ads, Radio ads, Newspaper ads)
+
+Note
+    - Lasso Regression = Linear Regression + L1 Regularization.
+    - Uses the L1 penalty (absolute values of coefficients).
+    - Can reduce some coefficients exactly to zero.
+    - Performs automatic feature selection.
+    - λ = 0 → Same as Linear Regression.
+    - Larger λ → More coefficients become zero, resulting in a simpler model.
+
+    - RSS (Residual Sum of Squares) = Actua - predicted
+
+
+Elastic Net Regression
+    - A Regression technique that combines L1 (Lasso) and L2 (Ridge) regularization.
+
+    [WHY]
+        - Reduces overfitting.
+        - Performs feature selection.
+        - Handles multicollinearity between features.
+        - Works well when there are many correlated variables.
+
+    [SYN]
+        Cost = RSS + λ₁Σ|b| + λ₂Σ(b²)
+
+    [PAR]
+        - RSS → Residual Sum of Squares (prediction error).
+        - λ₁ → L1 regularization strength.
+        - λ₂ → L2 regularization strength.
+        - b → Model coefficients (weights).
+
+    [TYS]
+        - L1 Regularization (Lasso)
+            - Removes less important features by making coefficients zero.
+
+        - L2 Regularization (Ridge)
+            - Shrinks coefficients but keeps all features.
+
+    [EXA]
+        - Predicting house prices using many related features.
+        - Predicting medical outcomes using multiple patient measurements.
+
+    [USC]
+        - Genomics and bioinformatics.
+        - Financial modeling.
+        - Customer behavior prediction.
+        - High-dimensional datasets.
+
+    [CAT]
+        - Requires tuning two regularization parameters.
+        - More complex than Ridge and Lasso.
+        - Not necessary for small datasets.
+
+    [ANE]
+        - Stock prediction using many market indicators.
+        - Disease prediction using hundreds of medical features.
+
+Note
+    - Elastic Net = Ridge Regression + Lasso Regression.
+    - Uses both L1 and L2 penalties.
+    - L1 helps feature selection.
+    - L2 helps handle correlated features.
+    - Best choice when features are many and highly correlated.
+
+Decision Tree Regression
+    - A regression algorithm that predicts continuous values using a tree-like structure of decision rules.
+
+    [WHY]
+        - Captures non-linear relationships between features and target values.
+        - Does not require feature scaling.
+        - Easy to understand and interpret.
+
+    [SYN]
+        Prediction = Average value of data points in a leaf node
+
+    [PAR]
+        - Root Node → Starting point containing all data.
+        - Decision Node → Splits data based on conditions.
+        - Branch → Result of a decision.
+        - Leaf Node → Final prediction value.
+        - Split → Division of data based on feature values.
+
+    [FUN]
+        - fit() → Trains the decision tree model.
+        - predict() → Predicts output values.
+        - score() → Calculates model accuracy.
+
+    [EXA]
+        - Predicting house prices based on area, location, and rooms.
+        - Predicting salary based on experience and skills.
+
+    [USC]
+        - Real estate price prediction.
+        - Sales forecasting.
+        - Customer value prediction.
+        - Financial risk analysis.
+
+    [CAT]
+        - Can easily overfit with deep trees.
+        - Not suitable for very small datasets.
+        - Predictions are not smooth like linear models.
+
+    [ANE]
+        - If area < 1000 sq.ft → Price = 50 Lakhs
+        - If area > 1000 sq.ft → Price = 80 Lakhs
+
+Note
+    - Decision Tree Regression splits data into smaller groups.
+    - Final prediction is usually the average value of samples in each leaf.
+    - Uses tree-based rules instead of mathematical equations.
+    - No need for feature normalization or scaling.
+
+
+Random Forest Regression
+    - An ensemble regression algorithm that combines multiple Decision Trees to make accurate predictions.
+
+    [WHY]
+        - Reduces overfitting compared to a single Decision Tree.
+        - Improves prediction accuracy by combining multiple models.
+        - Handles complex and non-linear relationships.
+
+    [SYN]
+        Prediction = Average of predictions from multiple decision trees
+
+    [PAR]
+        - Tree → Individual Decision Tree model.
+        - Forest → Collection of multiple decision trees.
+        - n_estimators → Number of trees in the forest.
+        - Feature Selection → Random subset of features used for each tree.
+
+    [FUN]
+        - fit() → Trains the Random Forest model.
+        - predict() → Predicts continuous output values.
+        - score() → Measures model performance.
+        - feature_importances_ → Shows importance of each feature.
+
+    [EXA]
+        - Predicting house prices using area, location, and number of rooms.
+        - Predicting stock prices using multiple market indicators.
+
+    [USC]
+        - Real estate price prediction.
+        - Financial forecasting.
+        - Medical prediction systems.
+        - Customer demand forecasting.
+
+    [CAT]
+        - Requires more computational power than a single Decision Tree.
+        - Less interpretable because it contains many trees.
+        - Large forests may increase training time.
+
+    [ANE]
+        - Tree 1 predicts: 50 Lakhs
+        - Tree 2 predicts: 55 Lakhs
+        - Tree 3 predicts: 52 Lakhs
+
+        Final Prediction = (50 + 55 + 52) / 3
+                            = 52.33 Lakhs
+
+Note
+    - Random Forest Regression = Multiple Decision Trees + Averaging.
+    - Uses Bootstrap Sampling and Random Feature Selection.
+    - It is an Ensemble Learning technique.
+    - More stable and accurate than a single Decision Tree.
+    - No feature scaling is required.
+
+
+Support Vector Regression (SVR)
+    - A regression algorithm that predicts continuous values by finding the best-fit line within a margin of tolerance.
+
+    [WHY]
+        - Handles non-linear relationships using kernel functions.
+        - Reduces the effect of outliers.
+        - Works well with high-dimensional datasets.
+        - Provides good generalization for complex data.
+
+    [SYN]
+        f(x) = w·x + b
+
+    [PAR]
+        - X → Input features.
+        - y → Target output value.
+        - w → Weight vector.
+        - b → Bias/intercept.
+        - ε (Epsilon) → Margin of tolerance around the prediction line.
+        - C → Regularization parameter controlling error penalty.
+        - Kernel → Function used to handle non-linear data.
+
+    [TYS]
+        - Linear SVR
+            - Uses a straight line for prediction.
+
+        - Non-Linear SVR
+            - Uses kernel functions to fit complex patterns.
+
+    [FUN]
+        - fit() → Trains the SVR model.
+        - predict() → Predicts output values.
+        - score() → Evaluates model performance.
+
+    [EXA]
+        - Predicting stock prices.
+        - Predicting house prices using multiple features.
+        - Predicting temperature changes.
+
+    [USC]
+        - Financial forecasting.
+        - Medical data prediction.
+        - Demand prediction.
+        - Time-series forecasting.
+
+    [CAT]
+        - Slow for very large datasets.
+        - Requires proper parameter tuning.
+        - Sensitive to feature scaling.
+
+    [ANE]
+        - Predicting house price:
+            Input  → Area, location, bedrooms
+            Output → House price
+
+        - Predicting salary:
+            Input  → Experience, skills, education
+            Output → Expected salary
+
+Note
+    - SVR = Support Vector Machine applied to Regression problems.
+    - Uses a margin (ε-tube) instead of minimizing every error.
+    - Kernel functions allow SVR to model non-linear relationships.
+    - Feature scaling is required before training.
+    - Common kernels:
+        - Linear Kernel
+        - Polynomial Kernel
+        - RBF (Radial Basis Function) Kernel
+
+
+-------------------------------------------------------------------------
+
+Date = (04/8/2026)
+
+Unsupervised Learning (USL)
+    Unsupervised Learning is a type of machine
+    learnign where the model learns patterns from
+    data without being given the correct answers.(Labels)
+
+    The algorithm only receives the input data and 
+    must discover hidden structures, relationships, or groups
+    on its own, 
+    Input(X) -> Machine Learning Algorithm -> Find Hidden Patterns
+
+    [TYS]
+        1. Clustering
+        2. Association Rule Learning
+        3. Dimensionality Reduction
+        4. Anomaly Detection
+
+        Unsupervised Learning Algorithms
+
+        │
+        ├── 1. Clustering
+        │
+        │   ├── K-Means
+        │   ├── Hierarchical Clustering
+        │   ├── DBSCAN
+        │   ├── Mean Shift
+        │   └── Gaussian Mixture Model (GMM)
+        │
+        │
+        ├── 2. Association Rule Learning
+        │
+        │   ├── Apriori
+        │   ├── FP-Growth
+        │   └── Eclat
+        │
+        │
+        ├── 3. Dimensionality Reduction
+        │
+        │   ├── PCA (Principal Component Analysis)
+        │   ├── t-SNE (t-Distributed Stochastic Neighbor Embedding)
+        │   ├── UMAP (Uniform Manifold Approximation and Projection)
+        │   └── Autoencoders
+        │
+        │
+        └── 4. Anomaly Detection
+            │
+            ├── Isolation Forest
+            ├── One-Class SVM
+            └── Local Outlier Factor (LOF)
+
+1. Clustering
+    - Grouping the values and classify
+
+Clustering Algorithms
+│
+├── 1. Partition-based Clustering
+│   └── K-Means
+│
+├── 2. Hierarchical Clustering
+│   ├── Agglomerative Clustering (Bottom-Up)
+│   └── Divisive Clustering (Top-Down)
+│
+├── 3. Density-based Clustering
+│   ├── DBSCAN
+│   ├── OPTICS
+│   └── HDBSCAN
+│
+├── 4. Distribution-based Clustering
+│   └── Gaussian Mixture Model (GMM)
+│
+├── 5. Grid-based Clustering
+│   ├── STING
+│   ├── CLIQUE
+│   └── WaveCluster
+│
+└── 6. Model-based Clustering
+    ├── Expectation-Maximization (EM)
+    ├── Gaussian Mixture Model (GMM)
+    └── Bayesian Gaussian Mixture (BGM)
+
+K-Means Clustering
+
+[ALI]
+    -> K-Means
+
+[WHY]
+    -> Groups similar data into K clusters.
+    -> Unsupervised learning.
+    -> Fast and simple.
+    -> Use centroid for get clusters.
+
+[LIB]
+    -> sklearn.cluster
+
+[SYN]
+    -> KMeans(n_clusters=K)
+
+[PAR]
+    -> n_clusters = Number of clusters
+    -> init = Centroid initialization
+    -> max_iter = Maximum iterations
+    -> random_state = Reproducible results
+    -> n_init = Number of initializations
+
+[FUN]
+    -> fit()
+    -> predict()
+    -> fit_predict()
+    -> transform()
+
+[DAM]
+    -> labels_
+    -> cluster_centers_
+    -> inertia_
+    -> n_iter_
+
+[USA]
+    -> from sklearn.cluster import KMeans
+    -> model = KMeans(n_clusters=3, random_state=42)
+    -> labels = model.fit_predict(X)
+
+[RES]
+    -> Cluster labels
+    -> Cluster centers
+
+[EXA]
+    -> Customer Segmentation
+    -> Student Grouping
+    -> Image Compression
+
+[USC]
+    -> Market Analysis
+    -> Recommendation Systems
+    -> Data Exploration
+    -> Pattern Recognition
+
+[ANE]
+    -> Input: Customer purchase data
+    -> Output: Customer groups
+
+[NOTE]
+    -> K = Number of clusters
+    -> Centroid-based clustering
+    -> Uses Euclidean distance
+    -> Updates centroids until convergence
+    -> Scale features before training
+
+Hierarchical Clustering
+
+    It is an Unsupervised Machine Learning algorithm.
+
+    Its job is to group similar data points, but unlike K-Means, it does not require you to specify K (number of clusters) at the beginning.
+
+    Instead, it builds a hierarchy (tree) of clusters by either:
+        -> Merging smaller clusters into larger ones (Agglomerative - Bottom-Up), or
+        -> Splitting a large cluster into smaller clusters (Divisive - Top-Down).
+
+    The hierarchy is represented using a Dendrogram, which helps decide the optimal number of clusters.
+
+[WHY]
+    -> Groups similar data into a hierarchy.
+    -> No need to specify K before training.
+    -> Shows relationships between clusters.
+    -> Visualized using a Dendrogram.
+    -> Suitable for small to medium datasets.
+
+[LIB]
+    -> sklearn.cluster
+    -> scipy.cluster.hierarchy (Dendrogram)
+
+[PAR]
+    -> n_clusters
+    -> linkage
+    -> metric
+
+[NOTE]
+    -> Tree-based clustering
+    -> Dendrogram visualizes merges
+    -> Agglomerative is most common
+    -> Divisive is less common
+
+    [TYS]
+        Agglomerative Clustering
+
+            -> A Bottom-Up Hierarchical Clustering algorithm.
+
+            -> Starts with each data point as a separate cluster.
+            -> Merges the two closest clusters repeatedly.
+            -> Stops when the required number of clusters is formed.
+
+        [WHY]
+            -> No need for initial centroids.
+            -> Produces a hierarchy of clusters.
+            -> Easy to visualize using a Dendrogram.
+
+        [NOTE]
+            -> Most commonly used Hierarchical Clustering algorithm.
+            -> Uses Linkage methods:
+                -> Single
+                -> Complete
+                -> Average
+                -> Ward (default)
+        
+        Divisive Clustering
+
+            -> A Top-Down Hierarchical Clustering algorithm.
+
+            -> Starts with all data points in one cluster.
+            -> Repeatedly splits the cluster into smaller clusters.
+            -> Stops when the required number of clusters is formed.
+
+        [WHY]
+            -> Produces a hierarchy of clusters.
+            -> Useful for understanding data structure.
+
+        [NOTE]
+            -> Less commonly used than Agglomerative.
+            -> Computationally more expensive.
+            -> Also represented using a Dendrogram.
+
+Density-based Clustering
+
+    It is an Unsupervised Machine Learning algorithm.
+
+    Its job is to group data points based on density.
+    Dense regions form clusters, while sparse regions are treated as noise (outliers).
+
+    Unlike K-Means, it does not require the number of clusters (K).
+
+    [TYS]
+        DBSCAN (Density-Based Spatial Clustering)
+
+            -> Most popular density-based algorithm.
+            -> Forms clusters from dense regions.
+            -> Labels isolated points as noise.
+
+        [WHY]
+            -> Finds clusters of any shape.
+            -> Detects outliers automatically.
+            -> No need to specify K.
+
+        [PAR]
+            -> eps
+            -> min_samples
+
+        [NOTE]
+            -> Best for irregular-shaped clusters.
+            -> Sensitive to eps value.
+
+        ────────────────────────────────────────
+
+        OPTICS (Ordering Points To Identify Clustering Structure)
+
+            -> Improved version of DBSCAN.
+            -> Handles varying densities better.
+            -> Produces an ordering of points instead of fixed clusters.
+
+        [WHY]
+            -> Better than DBSCAN for mixed densities.
+            -> No single eps value required.
+
+        [NOTE]
+            -> More flexible than DBSCAN.
+            -> Slightly slower.
+
+        ────────────────────────────────────────
+
+        HDBSCAN (Hierarchical DBSCAN)
+
+            -> Hierarchical extension of DBSCAN.
+            -> Automatically finds the best clusters.
+
+        [WHY]
+            -> Works well on varying densities.
+            -> Little parameter tuning.
+            -> More robust than DBSCAN.
+
+        [NOTE]
+            -> Builds a hierarchy of clusters.
+            -> Not included in scikit-learn (uses hdbscan library).
+
+Distribution-based Clustering
+
+    It is an Unsupervised Machine Learning algorithm.
+
+    Its job is to group data assuming it follows a probability distribution.
+    Each cluster is represented by a probability model instead of a fixed centroid.
+
+    ────────────────────────────────────────
+
+    Gaussian Mixture Model (GMM)
+
+        -> Most common distribution-based algorithm.
+        -> Assumes data is a mixture of Gaussian (Normal) distributions.
+        -> Assigns each point a probability of belonging to each cluster.
+
+    [WHY]
+        -> Handles overlapping clusters.
+        -> Soft clustering (probability-based).
+        -> More flexible than K-Means.
+
+    [LIB]
+        -> sklearn.mixture
+
+    [EXA]
+        -> Customer Segmentation
+        -> Image Segmentation
+        -> Speech Recognition
+
+    [USC]
+        -> Pattern Recognition
+        -> Data Modeling
+        -> Anomaly Detection
+
+    [NOTE]
+        -> Soft Clustering
+        -> Uses Expectation-Maximization (EM)
+        -> One point can belong to multiple clusters with different probabilities
+
+Grid-based Clustering
+
+    It is an Unsupervised Machine Learning algorithm.
+
+    Its job is to divide the data space into fixed-size grid cells.
+    Clusters are formed by combining dense grid cells instead of individual data points.
+
+    ────────────────────────────────────────
+
+    STING (Statistical Information Grid)
+
+        -> Most common Grid-based algorithm.
+        -> Divides data into rectangular grid cells.
+        -> Uses statistical information to form clusters.
+
+    [WHY]
+        -> Very fast for large datasets.
+        -> Efficient for spatial data.
+        -> Grid-based computation.
+
+    [PAR]
+        -> Cell size
+        -> Grid resolution
+
+    [RES]
+        -> Grid-based clusters
+
+    [EXA]
+        -> GIS Mapping
+        -> Satellite Images
+
+    [USC]
+        -> Spatial Databases
+        -> Geographic Analysis
+
+    [CAT]
+        -> Accuracy depends on grid size.
+        -> Not suitable for irregular grids.
+
+    [NOTE]
+        -> Clusters are formed from dense cells.
+        -> Faster than point-by-point clustering.
+        -> Other Grid-based algorithms:
+            -> CLIQUE
+            -> WaveCluster
+
+Association Rule Learning
+
+    It is an Unsupervised Machine Learning technique.
+
+    Its job is to discover relationships and patterns between items in large datasets.
+
+────────────────────────────────────────
+
+Apriori
+
+        -> Most common Association Rule algorithm.
+        -> Finds frequent itemsets and generates rules.
+
+    [WHY]
+        -> Discovers hidden relationships.
+        -> Useful for market basket analysis.
+
+    [PAR]
+        -> min_support
+        -> min_confidence
+        -> min_lift
+
+    [RES]
+        -> Association rules
+
+    [EXA]
+        -> Bread → Butter
+        -> Milk → Bread
+
+    [USC]
+        -> Market Basket Analysis
+        -> Product Recommendation
+
+    [CAT]
+        -> Slow on very large datasets.
+
+    [NOTE]
+        -> Uses Support, Confidence & Lift.
+
+---
+
+Anomaly Detection
+
+    It is an Unsupervised Machine Learning technique.
+
+    Its job is to identify rare or unusual data points that differ from normal data.
+
+────────────────────────────────────────
+
+    Isolation Forest
+
+        -> Most common anomaly detection algorithm.
+        -> Detects anomalies by isolating data points.
+
+    [WHY]
+        -> Detects fraud and unusual behavior.
+        -> Works well on large datasets.
+
+    [LIB]
+        -> sklearn.ensemble
+
+    [PAR]
+        -> contamination
+        -> random_state
+
+    [FUN]
+        -> fit()
+        -> predict()
+
+    [RES]
+        -> Normal / Anomaly
+
+    [EXA]
+        -> Credit Card Fraud
+        -> Network Intrusion
+
+    [USC]
+        -> Fraud Detection
+        -> Fault Detection
+
+    [CAT]
+        -> Sensitive to contamination value.
+
+    [NOTE]
+        -> Outliers are easier to isolate.
+
+---
+
+Dimensionality Reduction
+
+    It is an Unsupervised Machine Learning technique.
+
+    Its job is to reduce the number of features while preserving important information.
+
+────────────────────────────────────────
+
+PCA (Principal Component Analysis)
+
+        -> Most common Dimensionality Reduction algorithm.
+        -> Converts many features into fewer principal components.
+
+    [WHY]
+        -> Reduces dimensionality.
+        -> Speeds up training.
+        -> Removes redundancy.
+
+    [LIB]
+        -> sklearn.decomposition
+
+    [PAR]
+        -> n_components
+
+    [FUN]
+        -> fit()
+        -> transform()
+        -> fit_transform()
+
+    [RES]
+        -> Reduced feature set
+
+    [EXA]
+        -> Image Compression
+        -> Feature Reduction
+
+    [USC]
+        -> Data Visualization
+        -> Noise Removal
+
+    [CAT]
+        -> Reduced interpretability.
+        -> Assumes linear relationships.
+
+    [NOTE]
+        -> PCA preserves maximum variance.
+
+
+Reinforcement Learning
+
+[DEF]
+    -> A type of Machine Learning where an agent learns the best actions
+       by interacting with an environment.
+
+    -> Learns using rewards (positive feedback) and penalties (negative feedback).
+
+[FLOW]
+
+    Agent
+      |
+      | Action
+      V
+ Environment
+      |
+      | Reward / Penalty
+      V
+ Learn Better Action
+      |
+      V
+ Improved Decision Making
+
+[KEY]
+    -> Agent = Learner / Decision Maker
+    -> Environment = Surrounding system
+    -> Action = Decision taken by agent
+    -> Reward = Feedback received
+    -> Policy = Strategy to choose actions
+
+[GOAL]
+    -> Maximize total rewards over time.
+
+
+Reinforcement Learning (RL)
+│
+├── 1. Model-Free Reinforcement Learning
+│   │
+│   ├── Value-Based Methods (Have Rewards)
+│   │   ├── Q-Learning
+│   │   ├── SARSA
+│   │   └── Deep Q Network (DQN)
+│   │
+│   ├── Policy-Based Methods (Have Rules)
+│   │   ├── REINFORCE
+│   │   └── Policy Gradient
+│   │
+│   └── Actor-Critic Methods
+│       ├── A2C (Advantage Actor-Critic)
+│       ├── A3C (Asynchronous Advantage Actor-Critic)
+│       └── PPO (Proximal Policy Optimization)
+│
+│
+└── 2. Model-Based Reinforcement Learning
+    │
+    ├── Dyna-Q
+    ├── MuZero
+    └── World Models
+
+-------------------------------------------------------------------------
+
+Date = (05/8/2026)
+
+Practical ML
+
+DecisionTreeClassifier
+    [LIB]   sklearn.tree.DecisionTreeClassifier
+    [SYN]
+        model = DecisionTreeClassifier()
+
+        model.fit(<features>, <label>)
+        model.predict(<test-features>)
+
+    [USC]
+        - used for binary classification
+        - used for multiclass classification
+
+
+    MultiLabel (Multi Output)
+        [LIB] sklearn.multioutput.MultiOutputClassifier
+        [SYN]
+            model = MultiOutputClassifier(
+                DecisionTreeClassifier()
+            )
+
+            model.fit(<features>, <sparse-vector>)
+            # sparse vector example:
+            # [class1, class2, class3] = [1, 0, 1]
+
+            model.predict(<test-features>)
+
+        [USC]
+            - used when one sample can belong to multiple classes
+            - trains one classifier for each output label
+
+
+    Class Imbalance
+        [PROBLEM]
+            - one class has significantly more samples than the others
+            - example:
+                Class 0 : 950 samples
+                Class 1 : 50 samples
+
+        [SYN]
+            model = DecisionTreeClassifier(
+                class_weight="balanced"
+            )
+
+            model.fit(<features>, <label>)
+            model.predict(<test-features>)
+
+        [WHY]
+            - automatically gives higher importance (weight) to minority classes
+            - reduces bias toward the majority class
+            - improves prediction of rare classes
+
+        [CUSTOM WEIGHTS]
+            model = DecisionTreeClassifier(
+                class_weight={
+                    0: 1,
+                    1: 5
+                }
+            )
+
+            # Class 1 is treated as 5 times more important than Class 0.
+            # weight = total_samples / (number_of_classes × samples_in_class)
+
+                [PROBLEM]
+                    - one class has much more data than another
+                    - example:
+                        Class 0 = 900
+                        Class 1 = 100
+
+                [FIX]
+                    model = DecisionTreeClassifier(
+                        class_weight="balanced"
+                    )
+
+                [WHAT IT DOES]
+                    - does NOT change the dataset
+                    - computes class weights automatically
+                    - uses weighted sample counts while computing Gini/Entropy
+                    - gives more importance to minority class
+
+                [EXAMPLE]
+                    Original:
+                        Class 0 = 900
+                        Class 1 = 100
+
+                    Weight:
+                        Class 0 = 0.56
+                        Class 1 = 5
+
+                    Effective Counts:
+                        900 × 0.56 = 504
+                        100 × 5 = 500
+
+                    Tree behaves as if:
+                        Class 0 ≈ 504
+                        Class 1 ≈ 500
+
+                [CUSTOM]
+                    model = DecisionTreeClassifier(
+                        class_weight={
+                            0: 1,
+                            1: 5
+                        }
+                    )
+
+        [USE]
+            - fraud detection
+            - disease diagnosis
+            - spam detection
+            - any imbalanced classification dataset
+
+
+LinearRegression
+    [LIB]   sklearn.linear_model.LinearRegression
+
+    [SYN]
+        model = LinearRegression()
+
+        model.fit(<features>, <target>)
+        model.predict(<test-features>)
+
+    [INPUT]
+        Features (X)
+            - independent variables
+
+        Target (y)
+            - continuous numerical value
+
+    [EQUATION]
+        y = mx + c
+            # Simple Linear Regression
+
+        y = b0 + b1x1 + b2x2 + ... + bnxn
+            # Multiple Linear Regression
+
+
+Polynomial Regression
+    [LIB]
+        sklearn.preprocessing.PolynomialFeatures
+        sklearn.linear_model.LinearRegression
+
+    [SYN]
+        poly = PolynomialFeatures(degree=<n>)
+
+        X_poly = poly.fit_transform(<features>)
+
+        model = LinearRegression()
+
+        model.fit(X_poly, <target>)
+        model.predict(poly.transform(<test-features>))
+
+    [EQUATION]
+        y = b0 + b1x + b2x² + b3x³ + ... + bnxⁿ
+            # Single Variable
+
+        y = b0 + b1x1 + b2x2 + b3x1² + b4x2² + b5x1x2 + ...
+            # Multiple Variables
+
+    [NOTE]
+        - PolynomialFeatures creates additional features
+          (x², x³, x1², x2², x1x2, ...)
+        - LinearRegression is trained on these new features.
+
+
+Ridge Regression
+    [LIB]   sklearn.linear_model.Ridge
+
+    [SYN]
+        model = Ridge(alpha=<value>)
+
+        model.fit(<features>, <target>)
+        model.predict(<test-features>)
+
+    [TYPE]
+        - L2 Regularization
+
+    [EQUATION]
+        Loss = MSE + λΣ(bi²)
+
+    [NOTE]
+        - Adds penalty based on squared coefficients
+        - Shrinks coefficients toward zero
+        - Coefficients become small but usually not exactly zero
+        - Helps reduce overfitting
+        - Handles multicollinearity
+
+
+Lasso Regression
+    [LIB]   sklearn.linear_model.Lasso
+
+    [SYN]
+        model = Lasso(alpha=<value>)
+
+        model.fit(<features>, <target>)
+        model.predict(<test-features>)
+
+    [TYPE]
+        - L1 Regularization
+
+    [EQUATION]
+        Loss = MSE + λΣ|bi|
+
+    [NOTE]
+        - Adds penalty based on absolute coefficient values
+        - Shrinks coefficients toward zero
+        - Can make coefficients exactly zero
+        - Performs feature selection
+        - Removes less important features
+
+
+Elastic Net Regression
+    [LIB]   sklearn.linear_model.ElasticNet
+
+    [SYN]
+        model = ElasticNet(
+            alpha=<value>,
+            l1_ratio=<value>
+        )
+
+        model.fit(<features>, <target>)
+        model.predict(<test-features>)
+
+    [TYPE]
+        - Combination of L1 + L2 Regularization
+
+    [EQUATION]
+        Loss = MSE + λ1Σ|bi| + λ2Σ(bi²)
+
+    [NOTE]
+        - Combines Lasso and Ridge advantages
+        - L1 part performs feature selection
+        - L2 part keeps correlated features stable
+        - Useful when many features are present
+        - l1_ratio controls Lasso vs Ridge contribution
+
+        l1_ratio = 1
+            → Lasso
+
+        l1_ratio = 0
+            → Ridge
+
+
+Regularization Summary
+
+    Linear Regression
+        - No penalty
+        - Can overfit with many features
+
+    Ridge
+        - L2 penalty
+        - Shrinks coefficients
+        - Keeps all features
+
+    Lasso
+        - L1 penalty
+        - Shrinks coefficients
+        - Removes features (coefficient = 0)
+
+    ElasticNet
+        - L1 + L2 penalty
+        - Feature selection + stability
+
+
+Support Vector Regression (SVR)
+    [LIB]   sklearn.svm.SVR
+
+    [SYN]
+        model = SVR(
+            kernel=<type>,
+            C=<value>,
+            epsilon=<value>
+        )
+
+        model.fit(<features>, <target>)
+        model.predict(<test-features>)
+
+    [CONCEPT]
+        - finds a best-fit line/hyperplane
+        - keeps most points inside a margin (ε-tube)
+        - only points outside margin are penalized
+
+
+    [PAR]
+
+        kernel
+            - transforms data to make it separable
+
+            linear
+                → no transformation
+
+            poly
+                → adds polynomial features
+
+            rbf
+                → infinite-dimensional transformation (most powerful)
+
+
+        C
+            - controls penalty for errors
+
+            Low C:
+                - wider margin
+                - more tolerance
+                - simpler model
+
+            High C:
+                - narrow margin
+                - fits data closely
+                - risk of overfitting
+
+
+        epsilon (ε)
+            - defines margin of tolerance
+
+            - errors inside ε are ignored
+            - larger ε → more flexible model
+            - smaller ε → stricter fit
+
+
+    [EQUATION]
+
+        Linear SVR (simple form):
+
+            y = wX + b
+
+
+        ε-insensitive loss:
+
+            Loss = max(0, |y - ŷ| - ε)
+
+
+    [KERNEL FORMULA (IMPORTANT)]
+
+        Instead of transforming X manually,
+        SVR uses a kernel function:
+
+            y = Σ (αi - αi*) * K(xi, x) + b
+
+
+        where:
+
+            xi  = training points
+            x   = new input point
+            K   = kernel function
+
+
+    [KERNEL TYPES (SIMPLE FORM)]
+
+        Linear Kernel:
+            K(xi, x) = xi · x
+
+        Polynomial Kernel:
+            K(xi, x) = (xi · x + c)^d
+
+        RBF Kernel:
+            K(xi, x) = exp(-γ ||xi - x||²)
+
+
+    [INTUITION]
+
+        Linear:
+            y = wX + b
+
+        Polynomial:
+            y = w1x + w2x² + w3x³ + b
+
+        RBF:
+            y = weighted influence of nearby points
+
+
+    [ADVANTAGES]
+        - works well for non-linear data
+        - effective in high dimensions
+        - robust to outliers (via ε-tube)
+
+
+    [DISADVANTAGES]
+        - slow on large datasets
+        - requires tuning (C, ε, kernel)
+        - needs feature scaling
+
+
+    [PREPROCESSING]
+
+        from sklearn.preprocessing import StandardScaler
+
+        scaler = StandardScaler()
+
+        X_train = scaler.fit_transform(X_train)
+        X_test = scaler.transform(X_test)
+
+KMeans Clustering
+    [LIB]   sklearn.cluster.KMeans
+
+    [SYN]
+        model = KMeans(n_clusters=<k>)
+
+        model.fit(<features>)
+
+        model.predict(<test-features>)
+
+    [CONCEPT]
+        - divides data into K clusters
+        - each cluster has a center called centroid
+        - assigns points to nearest centroid
+
+    [PAR]
+
+        n_clusters
+            - number of clusters to create
+
+
+    [EQUATION]
+
+        Distance:
+            Euclidean Distance
+
+            d = √((x2-x1)² + (y2-y1)²)
+
+
+    [RES]
+
+        labels_
+            - cluster number of each point
+
+        cluster_centers_
+            - centroid values
+
+
+    [EXAMPLE]
+
+        model = KMeans(n_clusters=3)
+
+        model.fit(X)
+
+        model.labels_
+
+AgglomerativeClustering
+    [LIB]   sklearn.cluster.AgglomerativeClustering
+
+    [SYN]
+        model = AgglomerativeClustering(
+            n_clusters=<k>
+        )
+
+        model.fit(<features>)
+
+        model.labels_
+
+
+    [USC]
+        - used for unsupervised clustering
+        - hierarchical clustering
+
+
+    [CONCEPT]
+        - starts with each point as a separate cluster
+        - merges closest clusters step-by-step
+        - creates hierarchy of clusters
+
+
+    [PARAMETERS]
+
+        n_clusters
+            - final number of clusters
+
+        linkage
+            - method to measure cluster distance
+
+            Options:
+                single   → nearest neighbor
+                complete → farthest neighbor
+                average  → mean distance
+                ward     → minimum variance
+
+    [RES]
+
+        labels_
+            - cluster assigned to each point
+
+
+    [NOTE]
+        - does not require centroid calculation
+        - no need to specify initial clusters
+
+
+Divisive Clustering
+    [LIB]   sklearn.cluster (No direct sklearn implementation)
+
+    [SYN]
+        model = DivisiveClustering(
+            n_clusters=<k>
+        )
+
+        model.fit(<features>)
+
+        model.labels_
+
+
+    [USC]
+        - used for unsupervised clustering
+        - hierarchical clustering
+
+
+    [CONCEPT]
+        - starts with all points in one cluster
+        - splits clusters step-by-step
+        - creates hierarchy of clusters
+
+
+    [PAR]
+
+        n_clusters
+            - final number of clusters
+
+        split method
+            - decides how clusters are divided
+
+
+    [PROCESS]
+
+        Start:
+            All data points → one cluster
+
+        Split:
+            Divide cluster into smaller clusters
+
+        Repeat:
+            Until required number of clusters is reached
+
+
+    [RES]
+
+        labels_
+            - cluster assigned to each point
+
+
+    [NOTE]
+        - opposite of Agglomerative clustering
+        - Agglomerative → bottom-up (merge)
+        - Divisive → top-down (split)
+        - does not use centroids
+
+
+DBSCAN (Density-Based Spatial Clustering of Applications with Noise)
+
+    [LIB]   sklearn.cluster.DBSCAN
+
+    [SYN]
+        model = DBSCAN(
+            eps=<value>,
+            min_samples=<value>
+        )
+
+        model.fit(<features>)
+
+        model.labels_
+
+
+    [USC]
+        - used for unsupervised clustering
+        - density-based clustering
+
+
+    [CONCEPT]
+        - groups points based on density
+        - dense regions → clusters
+        - sparse regions → noise/outliers
+
+
+    [PARAMETERS]
+
+        eps
+            - maximum distance between points
+            - defines neighborhood size
+
+
+        min_samples
+            - minimum points required to form a dense region
+
+
+    [POINT TYPES]
+
+        Core Point
+            - has enough nearby points
+
+        Border Point
+            - near a core point but not dense enough
+
+        Noise Point
+            - isolated point
+
+
+    [PROCESS]
+
+        1. Find neighboring points using eps
+
+        2. If neighbors >= min_samples:
+              create cluster
+
+        3. Expand cluster using connected points
+
+
+    [RES]
+
+        labels_
+            - cluster assigned to each point
+
+        -1
+            → noise/outlier
+
+
+    [NOTE]
+        - no need to specify number of clusters
+        - handles outliers
+        - works well with irregular shaped clusters
+        - sensitive to eps and min_samples
+
+
+Apriori Algorithm
+
+    [LIB]
+        mlxtend.frequent_patterns.apriori
+
+    [SYN]
+        from mlxtend.frequent_patterns import apriori
+
+        frequent_items = apriori(
+            <transaction-data>,
+            min_support=<value>
+        )
+
+
+    [USC]
+        - used for association rule mining
+        - finds frequent item combinations
+
+
+    [CONCEPT]
+        - finds items that frequently occur together
+        - works on transaction data
+        - uses "if X happens, Y also happens" pattern
+
+
+    [PARAMETERS]
+
+        min_support
+            - minimum frequency required for an itemset
+
+
+    [STE]
+
+        1. Find frequent single items
+
+        2. Combine items to create itemsets
+
+        3. Remove itemsets below min_support
+
+        4. Generate association rules
+
+
+    [TERMS]
+
+        Support
+            - how frequently items appear together
+
+            Formula:
+                Support(A) =
+                Transactions containing A / Total transactions
+
+
+        Confidence
+            - probability of B occurring when A occurs
+
+            Formula:
+                Confidence(A→B) =
+                Support(A,B) / Support(A)
+
+
+        Lift
+            - strength of association between A and B
+
+            Formula:
+                Lift(A→B) =
+                Confidence(A→B) / Support(B)
+
+
+    [RES]
+
+        frequent_itemsets
+            - items that appear frequently together
+
+
+    [NOTE]
+        - uses Apriori property:
+          if an itemset is frequent, its subsets are also frequent
+
+        - used for market basket analysis
+
+-------------------------------------------------------------------------
+
+Date = (06/8/2026)
+
+Reinforcement Learning
+
+    - Try and learn method
+
+    [COMPONENT]
+        - Agent = the Learner
+        - Action = the work done by agent
+        - State = the current situation
+        - Environment = the world where the learner learns
+
+Q-Learning
+
+    [LIB]
+        from qiskit_machine_learning.algorithms import QLearning
+        (or custom implementation in Python)
+        gymnasium # used in Training (Prodapt)
+
+    [SYN]
+        Q(s,a) = Q(s,a) +
+                 α [r + γ max Q(s',a') - Q(s,a)]
+
+    [USC]
+        - reinforcement learning algorithm
+        - learns the best action through trial and error
+        - used for game playing, robotics, navigation, and decision-making
+
+    [CONCEPT]
+        - model-free reinforcement learning algorithm
+        - learns the optimal policy without knowing the environment model
+        - stores action values in a Q-table
+        - updates Q-values based on rewards received
+
+    [TERMS]
+
+        State (S)
+            - current situation of the agent
+
+        Action (A)
+            - decision taken by the agent
+
+        Reward (R)
+            - feedback received after an action
+
+        Q-Value
+            - expected future reward of taking an action in a state
+
+        Learning Rate (α)
+            - controls how much new information updates old knowledge
+
+        Discount Factor (γ)
+            - importance of future rewards
+
+        Exploration (ε)
+            - tries new actions to discover better rewards
+
+        Exploitation
+            - chooses the action with the highest Q-value
+
+    [PAR]
+
+        alpha (α)
+            - learning rate
+
+        gamma (γ)
+            - discount factor
+
+        epsilon (ε)
+            - exploration rate
+
+        episodes
+            - number of training iterations
+
+    [STE]
+
+        1. Initialize Q-table
+
+        2. Observe current state
+
+        3. Choose action (Explore or Exploit)
+
+        4. Perform action
+
+        5. Receive reward and next state
+
+        6. Update Q-value
+
+        7. Repeat until training completes
+
+    [RES]
+
+        Q-table
+            - learned state-action values
+
+        Optimal Policy
+            - best action for every state
+
+    [NOTE]
+        - model-free algorithm
+        - uses Bellman Equation for Q-value updates
+        - balances exploration and exploitation
+        - suitable for discrete state and action spaces
+
+SARSA (State-Action-Reward-State-Action)
+
+    [SYN]
+        Q(s,a) = Q(s,a) +
+                 α [r + γQ(s',a') - Q(s,a)]
+
+    [WHY]
+        - learns the optimal policy through interaction
+        - updates Q-values using the action actually taken
+
+    [USC]
+        - reinforcement learning
+        - game AI
+        - robot navigation
+        - path finding
+        - autonomous agents
+
+    [PAR]
+
+        alpha (α)
+            - learning rate
+
+        gamma (γ)
+            - discount factor
+
+        epsilon (ε)
+            - exploration rate
+
+        episodes
+            - number of training episodes
+
+    [STE]
+
+        1. Initialize Q-table
+
+        2. Select action using ε-greedy policy
+
+        3. Perform action
+
+        4. Observe reward and next state
+
+        5. Select next action
+
+        6. Update Q-value using SARSA formula
+
+        7. Repeat until terminal state
+
+    [RES]
+
+        Q-table
+            - learned state-action values
+
+        Policy
+            - best action for each state
+
+    [EXA]
+
+        Current State → S₁
+        Action → Right
+        Reward → +10
+        Next State → S₂
+        Next Action → Up
+
+        Update:
+        Q(S₁,Right) ←
+        Q(S₁,Right) +
+        α[r + γQ(S₂,Up) - Q(S₁,Right)]
+
+Deep Q-Network (DQN)
+
+    [WHY]
+        - solves complex problems where Q-table is too large
+        - approximates Q-values using a Deep Neural Network
+
+    [SYN]
+        Q(s,a) ≈ Neural Network(s)
+
+        Target =
+        r + γ max Q(s',a')
+
+        Loss =
+        (Target - Predicted Q)^2
+
+    [USC]
+        - game playing (Atari)
+        - robot control
+        - autonomous driving
+        - resource allocation
+        - complex decision-making
+
+    [PAR]
+
+        learning_rate
+            - network learning speed
+
+        gamma (γ)
+            - discount factor
+
+        epsilon (ε)
+            - exploration rate
+
+        batch_size
+            - samples per training step
+
+        replay_memory_size
+            - experience buffer size
+
+        target_update
+            - target network update interval
+
+        episodes
+            - number of training episodes
+
+    [STE]
+
+        1. Initialize Q-Network
+
+        2. Initialize Target Network
+
+        3. Store experiences in Replay Memory
+
+        4. Choose action using ε-greedy policy
+
+        5. Execute action and observe reward
+
+        6. Store (State, Action, Reward, Next State)
+
+        7. Sample random mini-batch
+
+        8. Compute target Q-value
+
+        9. Train Q-Network
+
+        10. Periodically update Target Network
+
+    [RES]
+
+        Trained Q-Network
+            - predicts best action for each state
+
+        Optimal Policy
+            - learned decision strategy
+
+    [EXA]
+
+        Input:
+            State (Game Screen)
+
+        Neural Network:
+            Predicts Q-value for each action
+
+        Output:
+            Left  = 2.1
+            Right = 5.8
+            Jump  = 1.7
+
+        Selected Action:
+            Right
+
+    [NOTE]
+
+        - extension of Q-Learning
+        - replaces Q-table with Deep Neural Network
+        - uses Experience Replay for stable learning
+        - uses Target Network to reduce instability
+        - suitable for large state spaces
+
+Data Split (Train-Test Split)
+
+    [LIB]
+        sklearn.model_selection.train_test_split
+
+    [SYN]
+        from sklearn.model_selection import train_test_split
+
+        X_train, X_test, y_train, y_test = train_test_split(
+            X,
+            y,
+            test_size=0.2,
+            random_state=42
+        )
+
+    [WHY]
+        - prevents overfitting
+        - evaluates model performance on unseen data
+        - separates training and testing data
+
+    [USC]
+        - machine learning model training
+        - model evaluation
+        - classification
+        - regression
+
+    [PAR]
+
+        X
+            - input features
+
+        y
+            - target/output values
+
+        test_size
+            - proportion of data for testing
+
+        train_size
+            - proportion of data for training
+
+        random_state
+            - ensures reproducible split
+
+        shuffle
+            - randomly shuffles data before splitting
+
+        stratify
+            - preserves class distribution
+
+    [STE]
+
+        1. Prepare dataset (X, y)
+
+        2. Choose train-test ratio
+
+        3. Split dataset
+
+        4. Train model on training data
+
+        5. Evaluate model on test data
+
+    [RES]
+
+        X_train
+            - training features
+
+        X_test
+            - testing features
+
+        y_train
+            - training labels
+
+        y_test
+            - testing labels
+
+    [EXA]
+
+        Dataset = 1000 samples
+
+        test_size = 0.2
+
+        Training Data = 800 samples
+
+        Testing Data = 200 samples
+
+    [NOTE]
+
+        - common split ratios: 80:20, 70:30, 75:25
+        - set random_state for reproducible results
+        - use stratify=y for imbalanced classification datasets
+
+Cross Validation
+
+    [LIB]
+        sklearn.model_selection.cross_val_score
+
+    [SYN]
+        from sklearn.model_selection import cross_val_score
+
+        scores = cross_val_score(
+            model,
+            X,
+            y,
+            cv=5
+        )
+
+    [WHY]
+        - provides reliable model evaluation
+        - reduces overfitting risk
+        - uses all data for training and testing
+
+    [USC]
+        - model evaluation
+        - model comparison
+        - hyperparameter tuning
+
+    [PAR]
+
+        model
+            - machine learning model
+
+        X
+            - input features
+
+        y
+            - target values
+
+        cv
+            - number of folds
+
+        scoring
+            - evaluation metric
+
+    [STE]
+
+        1. Split data into K folds
+
+        2. Train on K-1 folds
+
+        3. Test on remaining fold
+
+        4. Repeat for all folds
+
+        5. Compute average score
+
+    [RES]
+
+        scores
+            - evaluation score for each fold
+
+        mean_score
+            - average performance
+
+    [EXA]
+
+        cv = 5
+
+        Fold 1 → Train 80% Test 20%
+        Fold 2 → Train 80% Test 20%
+        ...
+        Final Score = Average of all folds
+
+    [NOTE]
+
+        - common values: cv=5 or cv=10
+        - better than single train-test split
+
+Evaluation Metrics
+
+    [LIB]
+        sklearn.metrics
+
+    [WHY]
+        - measures model performance
+        - compares different models
+
+    [USC]
+        - classification evaluation
+        - regression evaluation
+        - model comparison
+
+    [MET]
+
+        accuracy_score
+            - overall prediction accuracy
+
+        precision_score
+            - correctness of positive predictions
+
+        recall_score
+            - ability to find positive samples
+
+        f1_score
+            - balance between precision and recall
+
+        confusion_matrix
+            - prediction summary table
+
+        classification_report
+            - precision, recall, F1-score, support
+
+        mean_squared_error (MSE)
+            - average squared error
+
+        mean_absolute_error (MAE)
+            - average absolute error
+
+        r2_score
+            - goodness of fit
+
+        roc_auc_score
+            - classifier discrimination ability
+
+    [SYN]
+
+        from sklearn.metrics import accuracy_score
+
+        accuracy = accuracy_score(
+            y_true,
+            y_pred
+        )
+
+    [RES]
+
+        Metric Value
+            - indicates model performance
+
+    [NOTE]
+
+        Classification
+            - Accuracy
+            - Precision
+            - Recall
+            - F1-Score
+            - ROC-AUC
+
+        Regression
+            - MSE
+            - MAE
+            - RMSE
+            - R² Score
+
+Validation Techniques
+
+    [LIB]
+        sklearn.model_selection
+
+    [WHY]
+        - evaluates model performance
+        - prevents overfitting
+        - estimates generalization ability
+
+    [USC]
+        - model evaluation
+        - model selection
+        - hyperparameter tuning
+
+    [MET]
+
+        Hold-Out Validation
+            - splits dataset once into training and testing sets
+            - fast and simple
+            - common split: 80:20 or 70:30
+
+        K-Fold Cross Validation
+            - splits data into K equal folds
+            - trains on K-1 folds and tests on remaining fold
+            - repeats K times and averages results
+            - common values: K = 5 or 10
+
+        Stratified K-Fold Validation
+            - similar to K-Fold
+            - preserves class distribution in every fold
+            - preferred for imbalanced classification datasets
+
+    [PAR]
+
+        test_size
+            - proportion of testing data
+
+        train_size
+            - proportion of training data
+
+        cv
+            - number of folds
+
+        shuffle
+            - randomly shuffles data
+
+        random_state
+            - ensures reproducible splits
+
+        stratify
+            - preserves class proportions
+
+    [STE]
+
+        Hold-Out
+            1. Split dataset once
+            2. Train model
+            3. Test model
+
+        K-Fold
+            1. Split into K folds
+            2. Train on K-1 folds
+            3. Test on remaining fold
+            4. Repeat K times
+            5. Average scores
+
+        Stratified K-Fold
+            1. Preserve class distribution
+            2. Create K folds
+            3. Train and test like K-Fold
+            4. Average scores
+
+    [RES]
+
+        Hold-Out
+            - Single evaluation score
+
+        K-Fold
+            - Average score across all folds
+
+        Stratified K-Fold
+            - More reliable score for imbalanced datasets
+
+    [NOTE]
+
+        Hold-Out
+            - fastest
+            - less reliable
+
+        K-Fold
+            - more reliable
+            - computationally expensive
+
+        Stratified K-Fold
+            - best for classification with imbalanced classes
+            - maintains equal class distribution in every fold

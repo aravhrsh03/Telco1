@@ -1,0 +1,111 @@
+ABBREVIATION:
+	-> LIB = LIBRARY
+	-> USA = USAGE [example code]
+	-> PAR = PARAMETERS
+	-> SYN = syntax
+	-> WHY = Why this is used
+	-> EXA = Example
+	-> MET = METHODS
+	-> CAT = Cannot have it
+	-> ALI = Alias
+	-> RES = Expected Result
+	-> OPT = Optional
+	-> ANE = Another Example
+	-> FUN = Functions used
+	-> DAM = Data Members
+	-> TYS = Types
+	-> VER = Python version
+	-> USC = Use Cases
+    -> COD = CODE
+
+    -> [COM] - CLI Command
+    -> [INS] - install this library
+    -> [STE] - Steps
+
+Date: (17/09/2026)
+
+Deep Learning
+    -> LSTM
+    -> RNN
+    -> Transformer
+    -> CNN
+
+Neural Networks
+    -> Input Layer
+    -> Hidden Layer (different layer capture different features of the input)
+        - L1 = edges
+        - L2 = shape
+        - L3 = edges
+        - L4 = Face
+    -> Output Layer
+
+Flow
+    -> Input
+     -> PTL - Process through layer
+      -> PO - Process Output
+       -> CE - Calculate Error
+        -> Learning
+
+Weights
+    it tells how important a information is
+
+Bias
+    it is used to shift the Output
+
+Activation Functions
+    to include Non-linearity
+
+Gradient Descent
+    to reduce the loss through calculating (Loss = Actual - Prediction) and updating the weight
+
+Back Propagation
+    is an algorithm how much each parameter contributing
+
+    [COD]
+        import torch
+        x = torch.tensor([2.0])
+        y = torch.tensor([10.0])
+        w = torch.tensor([1.0], requires_grad = True)
+        prediction = x * w
+        loss = (prediction - y) ** 2 
+        for each in range(10):
+            loss.backward()
+
+            if w.grad is not None:
+                w.grad.zero_()
+
+            with torch.no_grad():
+                w -= learning_rate * w.grad
+
+            print(
+                f"Epoch {}, weight, prediction, loss, gradient "
+            )
+
+Forward Propagation
+    input -> Weight calculation -> predict + loss
+
+
+CNN - Convolutional Neural networks
+    -> divides into pixels
+    -> understand pattern
+    -> get features
+    -> predict 
+
+    Flow
+        -> Input img
+         -> Convolutional
+          -> ReLU 
+           -> Pooling
+            -> Convolutional
+             -> ReLU
+              -> Pooling
+               -> Flatten
+    
+    Kernel
+        -> it filters , and get the matrx from the pixel divided image
+    
+    Pooling
+        -> getting the calculated value from the matrix extracted from the kernal.
+        -> Max pooling - max(n x n) [matrix]
+        -> min pooling
+        -> mean pooling

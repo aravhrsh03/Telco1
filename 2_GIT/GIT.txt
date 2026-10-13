@@ -1,0 +1,43 @@
+GIT
+ -> DVCS - Distributed Version Control System
+ -> system based
+
+ABBREVIATION:
+ -> AL - Alias
+ -> --- - command definition
+ -> = - content definition
+
+GITHUB
+ -> It is an IDE
+ -> It is a platform that host our code.
+ -> collaborate with others
+ -> It tracks issues
+ -> Cloud based
+ -> Apache SVSen [AL] - Centralized
+ -> Fossil [AL] - Open Source, Distributed
+
+GITLAB, GITBUCKET, AZURE Devops, AWS Code commit
+ -> Cloud
+ -> For hosting
+ -> In built Devops features
+
+COMMANDS:
+ -> git --version, git -v --- version check
+ -> Git Configs to GitHub 
+
+	git config --global user.name <github-username>
+	git config --global user.email <github-email>
+
+ -> git init --- Initialize the git
+ -> ls -a --- flag -a provides the hidden files also
+ -> git status --- provide the file status (staged, modified, untracked)
+ -> Staging Area = Ready for Commit
+ -> git commit -m <commit-message> --- commits the change from stage.
+ -> git diff --- provides the difference (added/removed) of code
+
+ -> branch = a copy of code from main code repository
+ -> git branch --- provides branches available
+ -> git checkout --- switch between branch
+ -> git checkout -b <branch-name> --- create and switch branch
+ -> git restore --- go back to previous version
+

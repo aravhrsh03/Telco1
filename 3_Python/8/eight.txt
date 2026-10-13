@@ -1,0 +1,645 @@
+
+    DATE: (14/07/2026)
+
+
+	=> Instance - it is having the behaviour of the parent class or the class which we are going to inherit
+
+		- single
+		- multiple
+		- multilevel
+		- hybrid
+		- hierarchical
+
+	-> Single - one parent and one child
+
+		[SYN]
+			class <parent-class>:
+				<methods>
+	
+			class <child-class>(<parent-class>):
+				<methods>
+
+	-> multi level - first -> second -> third
+
+		[SYN]
+			class <first>:
+				<methods>
+			class <second>(first):
+				<methods>
+			class <third>(second):
+				<methods>
+	
+	-> multiple level - third(first, second)
+		[SYN]
+			class <first>:
+				<methods>
+			class <second>:
+				<methods>
+			class <third>(first, second):
+				<methods>
+		=> search - search with mro method (Method Resolution)
+	
+			[Note: Mro is nothing but search the method in current, then the order of class available in the declaration during inheritance]
+
+
+	-> Method Overriding - parent + inherited child classes (with same methods)
+
+		[USA]
+			class A:
+				def sound(self):
+					print("Music...")
+			class B(A):
+				def sound(self):
+					super().sound()
+					print("thunder...")
+			b1 = B()
+			b1.sound()
+
+		[Note: constructors are invoked from bottom-up approach, consider parent->child1->child2 [so it check constructor for child2 then child1 then parent]]
+
+	-> Polymorphism
+		- compile time polymorphism (not in python (Interpreter))
+		- run time polymorphism (available in python (Interpreter))
+
+	-> DUCK TYPING - An object is accepted based on its behavior (methods/attributes), not its class or type.
+
+		[RUNTIME]
+
+		[WHY]
+			- Focuses on behavior, not type.
+			- No need for `isinstance()`.
+			- Makes code flexible and reusable.
+
+		[USA]
+			class Duck:
+				def quack(self):
+					print("Quack!")
+
+			class Person:
+				def quack(self):
+					print("I'm quacking like a duck!")
+
+			def make_it_quack(obj):
+				obj.quack()
+
+			make_it_quack(Duck())
+			make_it_quack(Person())
+
+		[RES]
+			Quack!
+			I'm quacking like a duck!
+
+		[EXA]
+			- Any object with a `.read()` method can be treated like a file.
+			- Any object with a `.write()` method can be used for writing.
+
+		[ADV]
+			- Flexible
+			- Less coupling
+			- Easy to extend
+
+		[CAT]
+			- Missing required method/attribute raises `AttributeError`.
+
+		[VER]
+			- Available in all Python versions.
+
+
+	-> DUNDER METHODS (MAGIC / SPECIAL METHODS) - Built-in methods that define how objects behave in Python.
+
+	[OBJECT CREATION]
+		__new__()          -> Creates a new object.
+		__init__()         -> Initializes the object.
+		__del__()          -> Destructor (called before object is destroyed).
+
+	[STRING REPRESENTATION]
+		__str__()          -> User-friendly string.
+		__repr__()         -> Official string representation.
+		__format__()       -> format(obj).
+		__bytes__()        -> bytes(obj).
+
+	[ATTRIBUTE ACCESS]
+		__getattr__()      -> Called when an attribute is not found.
+		__getattribute__() -> Called for every attribute access.
+		__setattr__()      -> Assign an attribute.
+		__delattr__()      -> Delete an attribute.
+		__dir__()          -> dir(obj).
+
+	[COMPARISON]
+		__eq__()           -> ==
+		__ne__()           -> !=
+		__lt__()           -> <
+		__le__()           -> <=
+		__gt__()           -> >
+		__ge__()           -> >=
+
+	[ARITHMETIC]
+		__add__()          -> +
+		__sub__()          -> -
+		__mul__()          -> *
+		__truediv__()      -> /
+		__floordiv__()     -> //
+		__mod__()          -> %
+		__pow__()          -> **
+		__neg__()          -> -obj
+
+	[CONTAINER]
+		__len__()          -> len(obj)
+		__getitem__()      -> obj[key]
+		__setitem__()      -> obj[key] = value
+		__delitem__()      -> del obj[key]
+		__contains__()     -> in
+
+	[ITERATOR]
+		__iter__()         -> iter(obj)
+		__next__()         -> next(obj)
+
+	[CALLABLE]
+		__call__()         -> obj()
+
+	[CONTEXT MANAGER]
+		__enter__()        -> with statement entry.
+		__exit__()         -> with statement exit.
+
+	[TYPE CONVERSION]
+		__int__()          -> int(obj)
+		__float__()        -> float(obj)
+		__bool__()         -> bool(obj)
+		__complex__()      -> complex(obj)
+
+	[COPY]
+		__copy__()         -> copy.copy(obj)
+		__deepcopy__()     -> copy.deepcopy(obj)
+
+	[USA]
+		class Demo:
+			def __str__(self):
+				return "Hello"
+
+		d = Demo()
+		print(d)
+
+	[RES]
+		Hello
+
+	[VER]
+		- Available in all Python versions.
+
+	-> __getitem__() - Special (dunder) method used to access an object using the indexing operator [].
+
+	[RUNTIME]
+
+	[WHY]
+		- Makes custom objects behave like lists, tuples, or dictionaries.
+		- Supports indexing and slicing.
+
+	[SYN]
+		def __getitem__(self, key):
+			pass
+
+	[PAR]
+		- key = Index, slice, or dictionary key passed inside `\\\[]`.
+
+	[USA]
+		class Student:
+			def __init__(self):
+				self.marks = [90, 85, 78]
+
+			def __getitem__(self, index):
+				return self.marks[index]
+
+		s = Student()
+
+		print(s[0])
+		print(s[2])
+
+	[RES]
+		90
+		78
+
+	[ANE]
+		class Square:
+			def __getitem__(self, n):
+				return n ** 2
+
+		s = Square()
+
+		print(s[5])
+
+	[RES]
+		25
+
+	-> ITERATOR - An object that allows traversal through elements one by one using `\\\_\\\_iter\\\_\\\_()` and `\\\_\\\_next\\\_\\\_()`.
+
+	[RUNTIME]
+
+	[WHY]
+		- Makes custom objects work with `for` loops.
+		- Controls how values are generated one at a time.
+
+	[MET]
+		__iter__() -> Returns the iterator object.
+		__next__() -> Returns the next value.
+
+	[USA]
+
+		class Counter:
+			def __init__(self, start, end):
+				self.start = start
+				self.end = end
+
+			def __iter__(self):
+				return self
+
+			def __next__(self):
+				if self.start <= self.end:
+					value = self.start
+					self.start += 1
+					return value
+				else:
+					raise StopIteration
+
+
+		counter = Counter(1, 5)
+
+		for i in counter:
+			print(i)
+
+	[RES]
+
+		1
+		2
+		3
+		4
+		5
+
+
+	[WORKING]
+
+		for i in counter:
+
+		Internally:
+
+		iter(counter)  -> counter.__iter__()
+
+		next(counter)  -> counter.__next__()
+
+		When __next__() raises StopIteration,
+		the for loop stops.
+
+	[ANE]
+
+		print(next(counter))
+
+		RES:
+		1
+
+		print(next(counter))
+
+		RES:
+		2
+
+
+	[VER]
+		- Available in all Python versions.
+
+	-> ABSTRACTION - Hides implementation details and exposes only the essential features to the user.
+
+
+	[RUNTIME]
+
+	[WHY]
+		- Hides unnecessary details.
+		- Improves security and maintainability.
+		- Focuses on "what to do" instead of "how to do it".
+
+	[TYS]
+		- Abstract Class
+		- Abstract Method
+
+	[LIB]
+		abc (Abstract Base Class)
+
+	[FUN]
+		ABC
+		@abstractmethod
+
+	[USA]
+		from abc import ABC, abstractmethod
+
+		class Animal(ABC):
+			@abstractmethod
+			def sound(self):
+				pass
+
+		class Dog(Animal):
+			def sound(self):
+				print("Bark")
+
+		d = Dog()
+		d.sound()
+
+	[RES]
+		Bark
+
+	[CAT]
+		- Cannot create an object of an abstract class.
+		- A child class must implement all abstract methods, otherwise it also becomes abstract.
+
+	[VER]
+		- Available in all Python versions (using the `abc` module).
+
+	-> SOLID PRINCIPLES - Five design principles used in Object-Oriented Programming to create maintainable, flexible, and scalable software.
+
+	[USC]
+		- scalable
+		- easy evaluation
+	[TYS]
+
+	1. S -> Single Responsibility Principle (SRP)
+		- A class should have only one reason to change.
+		- One class = one responsibility.
+
+	2. O -> Open/Closed Principle (OCP)
+		- Software entities should be open for extension but closed for modification.
+		- Add new behavior without changing existing code.
+
+	3. L -> Liskov Substitution Principle (LSP)
+		- Child classes should be replaceable with their parent classes without breaking the program.
+		- Subclass must behave like its superclass.
+
+	4. I -> Interface Segregation Principle (ISP)
+		- A class should not be forced to implement methods it does not use.
+		- Prefer small, specific interfaces.
+
+	5. D -> Dependency Inversion Principle (DIP)
+		- High-level modules should depend on abstractions, not concrete implementations.
+		- High-level classes should not depend directly on to the low level classes.
+		- Depend on interfaces, not details.
+
+
+	-> BUILDER PATTERN - A creational design pattern used to construct complex objects step by step.
+
+	[WHY]
+		- Avoids large constructors with many parameters.
+		- Creates objects in a flexible way.
+		- Separates object creation logic from the final object.
+
+	[TYS]
+		- Creational Design Pattern
+
+	[COMPONENTS]
+		- Builder      -> Defines steps to create an object.
+		- Concrete Builder -> Implements object creation steps.
+		- Director     -> Controls the building process.
+		- Product      -> Final object being created.
+
+	[USA]
+
+		class Computer:
+			def __init__(self):
+				self.cpu = None
+				self.ram = None
+
+			def __str__(self):
+				return f"{self.cpu}, {self.ram}"
+
+
+		class ComputerBuilder:
+			def __init__(self):
+				self.computer = Computer()
+
+			def set_cpu(self, cpu):
+				self.computer.cpu = cpu
+				return self
+
+			def set_ram(self, ram):
+				self.computer.ram = ram
+				return self
+
+			def build(self):
+				return self.computer
+
+
+		computer = (
+			ComputerBuilder()
+			.set_cpu("i7")
+			.set_ram("16GB")
+			.build()
+		)
+
+		print(computer)
+
+	[RES]
+		i7, 16GB
+
+	[USC]
+		- Object has many configuration options.
+		- Object creation requires multiple steps.
+
+	[EXA]
+		- Building a Computer
+		- Creating a House
+		- Generating complex Reports
+
+	-> STRATEGY PATTERN - A behavioral design pattern that allows selecting an algorithm or behavior at runtime without changing the client code.
+
+	[WHY]
+		- Avoids large if-else conditions.
+		- Allows different behaviors to be swapped easily.
+		- Follows Open/Closed Principle.
+
+	[TYS]
+		- Behavioral Design Pattern
+
+	[COMPONENTS]
+		- Strategy        -> Defines common behavior/interface.
+		- Concrete Strategy -> Implements different algorithms.
+		- Context         -> Uses a strategy object.
+
+	[USA]
+
+		class Payment:
+			def pay(self, amount):
+				pass
+
+
+		class CreditCard(Payment):
+			def pay(self, amount):
+				print(f"Paid {amount} using Credit Card")
+
+
+		class UPI(Payment):
+			def pay(self, amount):
+				print(f"Paid {amount} using UPI")
+
+
+		class Checkout:
+			def __init__(self, strategy):
+				self.strategy = strategy
+
+			def process_payment(self, amount):
+				self.strategy.pay(amount)
+
+
+		c = Checkout(UPI())
+		c.process_payment(100)
+
+
+	[RES]
+		Paid 100 using UPI
+
+
+	[ANE]
+		c = Checkout(CreditCard())
+		c.process_payment(100)
+
+	[RES]
+		Paid 100 using Credit Card
+
+
+	[USC]
+		- Easy to add new behaviors.
+		- Reduces code duplication.
+		- Runtime behavior switching.
+
+	[EXA]
+		- Payment methods (UPI, Card, PayPal)
+		- Sorting algorithms
+		- Compression methods
+		- Authentication methods
+
+	-> OBSERVER PATTERN - A behavioral design pattern where one object (Subject) notifies multiple dependent objects (Observers) automatically when its state changes.
+
+	[WHY]
+		- Creates loose coupling between objects.
+		- Automatically updates dependent objects.
+		- Useful for event-based systems.
+
+	[TYS]
+		- Behavioral Design Pattern
+
+	[COMPONENTS]
+		- Subject   -> Maintains state and observers.
+		- Observer  -> Receives updates.
+		- notify()  -> Sends updates to all observers.
+
+	[USA]
+
+		class Observer:
+			def update(self, message):
+				pass
+
+
+		class User(Observer):
+			def __init__(self, name):
+				self.name = name
+
+			def update(self, message):
+				print(self.name, "received:", message)
+
+
+		class Channel:
+			def __init__(self):
+				self.observers = []
+
+			def subscribe(self, observer):
+				self.observers.append(observer)
+
+			def notify(self, message):
+				for observer in self.observers:
+					observer.update(message)
+
+
+		channel = Channel()
+
+		u1 = User("Alice")
+		u2 = User("Bob")
+
+		channel.subscribe(u1)
+		channel.subscribe(u2)
+
+		channel.notify("New video uploaded")
+
+
+	[RES]
+
+		Alice received: New video uploaded
+		Bob received: New video uploaded
+
+
+	[ADV]
+		- Loose coupling.
+		- Easy to add/remove observers.
+		- Supports event-driven programming.
+
+	[USC]
+		- YouTube subscribers getting notifications.
+		- Stock price alerts.
+		- GUI button click events.
+		- Weather updates.
+
+	-> ADAPTER PATTERN - A structural design pattern that allows incompatible classes to work together by converting one interface into another expected interface.
+
+	[WHY]
+		- Makes existing code reusable.
+		- Connects classes with incompatible interfaces.
+		- Avoids modifying existing classes.
+
+	[TYS]
+		- Structural Design Pattern
+
+	[COMPONENTS]
+		- Target   -> Interface expected by the client.
+		- Adapter  -> Converts the interface.
+		- Adaptee  -> Existing class with incompatible interface.
+		- Client   -> Uses the Target interface.
+
+	[USA]
+
+		class OldPrinter:
+			def print_text(self, text):
+				print("Old Printer:", text)
+
+
+		class PrinterAdapter:
+			def __init__(self, old_printer):
+				self.old_printer = old_printer
+
+			def print(self, text):
+				self.old_printer.print_text(text)
+
+
+		class Computer:
+			def print_document(self, printer, text):
+				printer.print(text)
+
+
+		old = OldPrinter()
+		adapter = PrinterAdapter(old)
+
+		computer = Computer()
+		computer.print_document(adapter, "Hello")
+
+
+	[RES]
+
+		Old Printer: Hello
+
+
+	[ADV]
+		- Reuses existing classes.
+		- Reduces code changes.
+		- Improves compatibility.
+
+	[EXA]
+		- USB-C adapter for old USB devices.
+		- Payment gateway adapters.
+		- API response format conversion.
+
+	[CAT]
+		- Too many adapters can make the design complex.
+
+	[VER]
+		- Commonly used in Object-Oriented Design.
+

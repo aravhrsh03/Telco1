@@ -1,0 +1,914 @@
+=========================================================
+MONGODB COMPRESSED NOTES
+Date = 30/07/2026
+=========================================================
+
+ABBREVIATION:
+---------------------------------------------------------
+LIB  -> Library
+USA  -> Usage [Example Code]
+PAR  -> Parameters
+SYN  -> Syntax
+WHY  -> Why this is used
+EXA  -> Example
+MET  -> Methods
+CAT  -> Cannot have it
+ALI  -> Alias
+RES  -> Expected Result
+OPT  -> Optional
+ANE  -> Another Example
+FUN  -> Functions used
+DAM  -> Data Members
+TYS  -> Types
+VER  -> Python Version
+USC  -> Use Cases
+
+[COM] -> CLI Command
+[INS] -> Install Library
+[STE] -> Steps
+
+
+=========================================================
+MONGODB OVERVIEW
+=========================================================
+
+MongoDB:
+    - NoSQL Database
+    - Document Oriented Database
+    - Schema-less Database
+    - Stores Unstructured / Semi Structured Data
+    - Data stored in BSON format
+    - BSON = Binary JSON
+
+Structure:
+
+MongoDB
+   |
+   |-- Database
+          |
+          |-- Collection (Similar to Table)
+                  |
+                  |-- Document (Similar to Record)
+                          |
+                          |-- Field : Value
+
+
+Example:
+
+Database:
+    Student
+
+Collection:
+    Details
+
+Document:
+
+{
+    "name":"John",
+    "age":21,
+    "course":"Python"
+}
+
+
+WHY:
+---------------------------------------------------------
+- Flexible data model
+- Faster development
+- Handles large amount of data
+- Easy horizontal scaling
+
+
+=========================================================
+INSTALLATION
+=========================================================
+
+[INS]
+
+MongoDB Server:
+    Install MongoDB Community Edition
+
+Python Driver:
+
+[COM]
+pip install pymongo
+
+
+Check MongoDB:
+
+[COM]
+mongosh
+
+
+=========================================================
+MONGODB SHELL
+=========================================================
+
+[COM]
+
+mongosh
+
+
+WHY:
+---------------------------------------------------------
+- Provides MongoDB terminal
+- Execute database commands directly
+
+
+Basic Commands:
+
+SHOW DATABASES:
+
+show dbs
+
+
+CREATE / USE DATABASE:
+
+use student
+
+
+SHOW COLLECTIONS:
+
+show collections
+
+
+DROP DATABASE:
+
+db.dropDatabase()
+
+
+=========================================================
+PYMONGO LIBRARY
+=========================================================
+
+LIB:
+    pymongo
+
+
+VER:
+    Python 3.x
+
+
+IMPORT:
+
+from pymongo import MongoClient
+
+
+=========================================================
+CONNECT TO MONGODB
+=========================================================
+
+SYN:
+
+MongoClient(connection_url)
+
+
+USA:
+
+from pymongo import MongoClient
+
+
+url = "mongodb://localhost:27017/"
+
+client = MongoClient(url)
+
+
+print(client.list_database_names())
+
+
+RES:
+
+Displays available databases
+
+
+=========================================================
+CREATE DATABASE AND COLLECTION
+=========================================================
+
+
+USA:
+
+db = client["student"]
+
+col = db["std1"]
+
+
+NOTE:
+
+MongoDB creates database and collection
+only after inserting data.
+
+
+EXA:
+
+col.insert_one(
+{
+"name":"Alex",
+"age":20
+}
+)
+
+
+=========================================================
+DATABASE METHODS
+=========================================================
+
+MET:
+
+list_database_names()
+
+WHY:
+    Display databases
+
+
+USA:
+
+client.list_database_names()
+
+
+
+MET:
+
+drop_database()
+
+USA:
+
+client.drop_database("student")
+
+
+
+=========================================================
+COLLECTION METHODS
+=========================================================
+
+
+CREATE COLLECTION:
+
+USA:
+
+db.create_collection("students")
+
+
+SHOW COLLECTIONS:
+
+db.list_collection_names()
+
+
+
+DROP COLLECTION:
+
+USA:
+
+col.drop()
+
+
+
+=========================================================
+DOCUMENT OPERATIONS (CRUD)
+=========================================================
+
+
+C -> CREATE
+R -> READ
+U -> UPDATE
+D -> DELETE
+
+
+=========================================================
+INSERT DOCUMENT
+=========================================================
+
+
+MET:
+
+insert_one()
+
+
+SYN:
+
+collection.insert_one(document)
+
+
+
+USA:
+
+col.insert_one(
+{
+"name":"Ram",
+"age":25,
+"city":"Bangalore"
+}
+)
+
+
+
+RES:
+
+One document inserted
+
+
+---------------------------------------------------------
+
+
+MET:
+
+insert_many()
+
+
+USA:
+
+col.insert_many(
+[
+{
+"name":"John",
+"age":22
+},
+{
+"name":"Sam",
+"age":23
+}
+]
+)
+
+
+
+=========================================================
+READ DOCUMENT
+=========================================================
+
+
+MET:
+
+find_one()
+
+
+SYN:
+
+collection.find_one(query)
+
+
+USA:
+
+data = col.find_one()
+
+print(data)
+
+
+
+RES:
+
+Returns first document
+
+
+---------------------------------------------------------
+
+
+MET:
+
+find()
+
+
+USA:
+
+for data in col.find():
+    print(data)
+
+
+
+RES:
+
+Returns all documents
+
+
+---------------------------------------------------------
+
+
+FILTER QUERY:
+
+
+USA:
+
+col.find(
+{
+"age":20
+}
+)
+
+
+
+=========================================================
+QUERY OPERATORS
+=========================================================
+
+
+Comparison Operators:
+
+
+$gt  -> Greater Than
+
+$lt  -> Less Than
+
+$gte -> Greater Equal
+
+$lte -> Less Equal
+
+$eq  -> Equal
+
+$ne  -> Not Equal
+
+
+EXA:
+
+
+col.find(
+{
+"age":
+{
+"$gt":18
+}
+}
+)
+
+
+
+=========================================================
+LOGICAL OPERATORS
+=========================================================
+
+
+$and
+
+$or
+
+$not
+
+$nor
+
+
+EXA:
+
+
+col.find(
+{
+"$or":
+[
+{"age":20},
+{"city":"Delhi"}
+]
+}
+)
+
+
+
+=========================================================
+UPDATE DOCUMENT
+=========================================================
+
+
+MET:
+
+update_one()
+
+
+USA:
+
+col.update_one(
+{
+"name":"Ram"
+},
+{
+"$set":
+{
+"age":30
+}
+}
+)
+
+
+
+---------------------------------------------------------
+
+
+MET:
+
+update_many()
+
+
+USA:
+
+col.update_many(
+{
+"city":"Bangalore"
+},
+{
+"$set":
+{
+"country":"India"
+}
+}
+)
+
+
+
+=========================================================
+DELETE DOCUMENT
+=========================================================
+
+
+MET:
+
+delete_one()
+
+
+USA:
+
+col.delete_one(
+{
+"name":"Ram"
+}
+)
+
+
+
+---------------------------------------------------------
+
+
+MET:
+
+delete_many()
+
+
+USA:
+
+col.delete_many(
+{
+"age":20
+}
+)
+
+
+
+=========================================================
+SORTING
+=========================================================
+
+
+MET:
+
+sort()
+
+
+USA:
+
+col.find().sort(
+"age",
+1
+)
+
+
+1  -> Ascending
+
+-1 -> Descending
+
+
+
+=========================================================
+LIMIT RECORDS
+=========================================================
+
+
+MET:
+
+limit()
+
+
+USA:
+
+col.find().limit(5)
+
+
+
+=========================================================
+SKIP RECORDS
+=========================================================
+
+
+MET:
+
+skip()
+
+
+USA:
+
+col.find().skip(5)
+
+
+
+=========================================================
+INDEXING
+=========================================================
+
+
+WHY:
+
+- Improves search speed
+- Faster query execution
+
+
+CREATE INDEX:
+
+
+USA:
+
+col.create_index(
+[
+("name",1)
+]
+)
+
+
+VIEW INDEX:
+
+
+col.index_information()
+
+
+
+=========================================================
+AGGREGATION
+=========================================================
+
+
+WHY:
+
+Used for data processing and calculations.
+
+
+MET:
+
+aggregate()
+
+
+
+Pipeline:
+
+Document
+   |
+   |
+Aggregation Stage
+   |
+   |
+Result
+
+
+
+Common Stages:
+
+$match
+$group
+$sort
+$limit
+$project
+
+
+
+EXA:
+
+
+col.aggregate(
+[
+{
+"$group":
+{
+"_id":"$city",
+"count":
+{
+"$sum":1
+}
+}
+}
+]
+)
+
+
+
+=========================================================
+MONGODB DATA TYPES
+=========================================================
+
+
+TYS:
+
+String
+
+Integer
+
+Boolean
+
+Array
+
+Object
+
+Null
+
+Date
+
+ObjectId
+
+Binary Data
+
+
+
+EXA:
+
+
+{
+"name":"Alex",
+"skills":
+[
+"Python",
+"MongoDB"
+],
+"active":true
+}
+
+
+
+=========================================================
+OBJECT ID
+=========================================================
+
+
+Every MongoDB document has:
+
+
+"_id"
+
+
+Example:
+
+{
+"_id":
+ObjectId("65ab123")
+}
+
+
+WHY:
+
+- Unique identifier
+- Automatically generated
+
+
+=========================================================
+PROJECTION
+=========================================================
+
+
+WHY:
+
+Select required fields only.
+
+
+EXA:
+
+
+col.find(
+{},
+{
+"name":1,
+"age":1
+}
+)
+
+
+
+=========================================================
+PYMONGO CONNECTION OPTIONS
+=========================================================
+
+
+Connection URL:
+
+
+mongodb://localhost:27017/
+
+
+Remote:
+
+
+mongodb+srv://username:password@cluster.mongodb.net/
+
+
+=========================================================
+MONGODB ATLAS
+=========================================================
+
+
+MongoDB cloud database service.
+
+
+WHY:
+
+- Cloud hosting
+- Backup
+- Monitoring
+- Scaling
+
+
+
+=========================================================
+COMMON USE CASES
+=========================================================
+
+
+USC:
+
+- Web Applications
+- Real-time Applications
+- IoT Applications
+- E-commerce Systems
+- Social Media Platforms
+- Data Analytics
+- Content Management Systems
+- Machine Learning Data Storage
+
+
+
+=========================================================
+MONGODB ADVANTAGES
+=========================================================
+
+
+- Flexible Schema
+- High Performance
+- Easy Scaling
+- JSON-like Documents
+- Developer Friendly
+- Large Community
+
+
+
+=========================================================
+MONGODB LIMITATIONS
+=========================================================
+
+
+CAT:
+
+- Complex joins are difficult
+- Large transactions are slower than SQL
+- More storage due to duplicate data
+- No fixed schema validation by default
+
+
+
+=========================================================
+COMMON PYTHON MONGODB FLOW
+=========================================================
+
+
+[STE]
+
+
+1. Install pymongo
+
+2. Import MongoClient
+
+3. Connect MongoDB Server
+
+4. Select Database
+
+5. Select Collection
+
+6. Perform CRUD Operations
+
+7. Close Connection
+
+
+
+USA:
+
+
+from pymongo import MongoClient
+
+
+client = MongoClient(
+"mongodb://localhost:27017/"
+)
+
+
+db = client["company"]
+
+collection = db["employee"]
+
+
+collection.insert_one(
+{
+"name":"Tom",
+"salary":50000
+}
+)
+
+
+for emp in collection.find():
+    print(emp)
+

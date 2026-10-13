@@ -1,0 +1,34 @@
+POWERSHELL
+
+ -> this is for administrative purpose
+ -> working specifically for windows
+ -> maily used to work near to os commands and files/folders
+
+ABBREVIATION:
+
+ -> OFF - official
+ -> IMP - Important
+
+COMMANDS:
+
+-> pwd, Get-Location [OFF] --- get the current location
+-> ls, Get-Childitems [OFF] --- list of sub files
+-> ni, New-Item [OFF] --- create (folder, file)
+
+	ni -ItemType <type> -Path <file-name>
+		<type> - file or folder	
+
+-> <content> > <file-name> --- write content to file
+	
+	"Hello Data" > file.txt
+
+-> Get-Content <file-name> - get data from file
+-> Set-Content -Path </path/to/file-name> <content> --- override data
+-> Add-Content -Path </path/to/file-name> <content> --- append at the end of the file
+-> @"
+<multi-line-content>
+<multi-line-content>
+"@ Set-Content <file-name> --- for multiline insertion.
+
+
+[IMP - Folder creation [Admin - only @ system32]]

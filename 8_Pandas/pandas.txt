@@ -1,0 +1,2506 @@
+ABBREVIATION:
+	-> LIB = LIBRARY
+	-> USA = USAGE [example code]
+	-> PAR = PARAMETERS
+	-> SYN = syntax
+	-> WHY = Why this is used
+	-> EXA = Example
+	-> MET = METHODS
+	-> CAT = Cannot have it
+	-> ALI = Alias
+	-> RES = Expected Result
+	-> OPT = Optionalx
+	-> ANE = Another Example
+	-> FUN = Functions used
+	-> DAM = Data Members
+	-> TYS = Types
+	-> VER = Python version
+	-> USC = Use Cases
+
+    -> [COM] - CLI Command
+    -> [INS] - install this library
+    -> [RUN] - Run command
+    
+Date = (27/7/2026)
+
+Pandas
+    [LIB] pandas
+    - works with structured data 
+    - used in data engineering
+    - dtypes = [Series, DataFrame]
+    - data science, data analysis
+
+Series
+    - one dimentional
+    - capable of storing same or also different dtypes
+    - position=, label= also called as index
+    - mutable, ordered, fast
+    - float64, int64, datetime64, bool, object, str, category
+    - use default index, automatic
+
+        Position 
+            = where the row/column is located (0-based numbering).
+            = Use iloc for positions.
+            = iloc → I = Integer position
+        Index 
+            = the label that identifies the row/column.
+            = Use loc for index labels.
+            = loc → Label location
+
+    - Align by index not by position
+    - it uses position for calculation not by label
+
+    [USA]
+        import pandas as pd
+        s1 = pd.Series(["k", "l", "j"]) # index automatic
+        print(s1)
+
+        m1 = pd.Series(["Iron Man", "Captain America", "Thor"], [1,2,3]) # [1,2,3] act as keys
+
+    [NOT]
+        The dtype object comes from NumPy, 
+            it describes the type of element in a ndarray. 
+        Every element in an ndarray must have the same size in bytes. 
+        For int64 and float64, they are 8 bytes. 
+        But for strings, the length of the string is not fixed. 
+        So instead of saving the bytes of strings in the ndarray directly, Pandas uses an object ndarray, which saves pointers to objects; because of this the dtype of this kind ndarray is object.
+
+    [MET]
+        .concat() 
+            - concat two Series
+            [SYN]
+                - pandas.concat(<Series1>, <Series2>)
+        .drop()
+            - drop by label or multiple labels
+            [SYN]
+                - <series>.drop(<label-name>)
+                - <series>.drop([<label-names>])
+        
+        .head() - returns first five (else mention the offset inside as a parameter)
+        .tail() - returns last five of the series
+        
+        Aggregate METHODS
+            .max(), .min(), .sum(), .mean()
+        
+        Data Members
+            .index = returns indexes list
+            .values = returns values list
+            .shape = returns tuple of shape (r, c)
+            .size = size of the series (length)
+            .ndim = returns the dimention of the series
+        
+        .sort_values() = sort by values
+        .sort_index() = sort by index
+        .describe() = returns all aggregated stats data
+    
+    category
+        - it is a dtype
+        - it groups and provides the unique values
+
+        [USA]
+            colors = pd.Series(["R", "B", "R"], dtype=category)
+            print(colors)
+        
+        [RES]
+            Categories (2, object): ['R', 'B']
+        
+        .cat.codes - returns the codes assigned for the values in the category
+        .isna() = return true if nan
+        .notna() = returns true if not nan
+        .dropna() = deletes the records from series which contain nan as the value
+        .fillna() = fills the value for na values
+        .ffill() = fills the nan value with the imediate after value from the nan
+        .bfill() = vice versa of ffill()
+    
+    datetime
+        - dtype: datetime64[ns]
+        - stores date & time
+        - missing value = NaT
+
+        [USA]
+            s = pd.to_datetime(pd.Series(["2025-01-01", "2025-01-02"]))
+
+        [MET]
+            pd.to_datetime()   = convert to datetime
+            pd.date_range()    = create date sequence
+
+            .dt.year
+            .dt.month
+            .dt.day
+            .dt.hour
+            .dt.minute
+            .dt.second
+
+            .dt.day_name()
+            .dt.month_name()
+
+            .dt.strftime()     = format datetime
+
+            .min(), .max()
+            .sort_values()
+
+            .isna()
+            .fillna()
+            .dropna()
+
+        Format
+            %Y = year
+            %m = month
+            %d = day
+            %H = hour
+            %M = minute
+            %S = second
+
+        Frequency
+            D = day
+            W = week
+            M = month
+            Y = year
+
+        NaT
+            = missing datetime
+
+DataFrame
+    - two-dimensional data structure
+    - similar to Excel table / CSV
+    - collection of Series
+    - contains rows, columns, index, values
+    - each column can have different dtype
+    - mutable and ordered
+
+    Structure
+        Rows    = records
+        Columns = features
+        Index   = row labels
+        Values  = actual data
+
+    [USA]
+        import pandas as pd
+
+        df = pd.DataFrame({
+            "Name": ["one", "two", "three"],
+            "Age": [12, 23, 34]
+        })
+
+        print(df)
+
+
+    Creating DataFrame from Series
+
+    [SYN]
+        df = pd.DataFrame({
+            "column1": series1,
+            "column2": series2
+        })
+
+        - index can be set using index parameter
+
+
+    Index
+        - row identifier
+        - default index starts from 0
+        - can use custom labels
+
+        .index
+            - returns row indexes
+
+        .columns
+            - returns column names
+
+
+    DataFrame Attributes
+
+        .shape - returns (rows, columns)
+        .size - total number of values
+        .ndim - dimension (always 2)
+        .values - returns underlying values
+        .dtypes - returns dtype of each column
+
+    Accessing Data
+
+        df["column"] - select single column
+        df[["col1", "col2"]] - select multiple columns
+        df.loc[] - access using labels
+        df.iloc[] - access using position
+
+    Adding / Removing Data
+
+        df["new_col"] = values
+            - add new column
+
+        df.drop()
+            - remove rows or columns
+
+        df.rename()
+            - rename columns
+
+    Common Methods
+
+        .head()
+            - first 5 rows
+
+        .tail()
+            - last 5 rows
+
+        .info()
+            - summary of DataFrame
+
+        .describe()
+            - statistical summary
+
+        .sort_values()
+            - sort by column values
+
+        .sort_index()
+            - sort by index
+
+
+    Missing Values
+
+        NaN / None
+            - missing value
+
+        .isna()
+            - check missing values
+
+        .notna()
+            - check non-missing values
+
+        .dropna()
+            - remove missing records
+
+        .fillna()
+            - replace missing values
+
+
+    Combining DataFrames
+
+        pd.concat()
+            - combine DataFrames vertically/horizontally
+
+        pd.merge()
+            - combine using common columns
+
+
+    Selecting Rows
+
+        df.loc[row_label]
+            - select by index label
+
+        df.iloc[row_position]
+            - select by position
+
+
+    Important Difference
+
+        Index
+            = row label
+            = use loc
+
+        Position
+            = row location (0-based)
+            = use iloc
+
+
+    DataFrame vs Series
+
+        Series
+            - 1D
+            - single column
+
+        DataFrame
+            - 2D
+            - multiple columns
+            - collection of Series
+
+pivot()
+        - reshapes DataFrame
+        - converts unique values from one column into new columns
+        - used to create summary tables (like Excel Pivot Table)
+        - does not aggregate values (each index-column combination must be unique)
+
+    [SYN]
+        df.pivot(
+            index=<row-column>,
+            columns=<column-to-expand>,
+            values=<value-column>
+        )
+
+
+    [USA]
+
+        import pandas as pd
+
+        df = pd.DataFrame({
+            "Name": ["A", "A", "B", "B"],
+            "Year": [2023, 2024, 2023, 2024],
+            "Sales": [100, 150, 200, 250]
+        })
+
+        result = df.pivot(
+            index="Name",
+            columns="Year",
+            values="Sales"
+        )
+
+        print(result)
+
+
+    [RES]
+
+    Year    2023   2024
+    Name
+    A        100    150
+    B        200    250
+
+
+    Parameters
+
+        index
+            - column used as row labels
+
+        columns
+            - column values become new columns
+
+        values
+            - data to fill inside the table
+
+
+    Example thinking
+
+    Original:
+
+    Name   Year   Sales
+    A      2023   100
+    A      2024   150
+    B      2023   200
+    B      2024   250
+
+
+    Pivot:
+
+            2023   2024
+    A        100    150
+    B        200    250
+
+
+    Difference
+
+    pivot()
+        - only reshapes
+        - no duplicate index-column pairs allowed
+        - no aggregation
+
+
+    pivot_table()
+        - pivot + aggregation
+        - handles duplicate values
+        - uses functions like sum, mean, count
+
+
+    [SYN]
+
+    df.pivot_table(
+        index=<row>,
+        columns=<column>,
+        values=<value>,
+        aggfunc=<function>
+    )
+
+
+    Memory Trick
+
+        pivot()
+            = rearrange data
+
+        pivot_table()
+            = rearrange + calculate
+
+    set_index()
+        - changes one or more columns into DataFrame index
+        - replaces the default index (0,1,2...)
+        - useful for label-based indexing with loc[]
+        - original column is removed by default
+
+
+        [SYN]
+
+            df.set_index(<column-name>)
+
+            df.set_index(<column-name>, inplace=True)
+
+
+        [USA]
+
+            import pandas as pd
+
+            df = pd.DataFrame({
+                "ID": [101, 102, 103],
+                "Name": ["A", "B", "C"],
+                "Age": [20, 25, 30]
+            })
+
+            df = df.set_index("ID")
+
+            print(df)
+
+
+        [RES]
+
+            Name  Age
+        ID
+        101     A    20
+        102     B    25
+        103     C    30
+
+
+        Before set_index()
+
+            Index   ID   Name   Age
+            0    101    A     20
+            1    102    B     25
+            2    103    C     30
+
+
+        After set_index()
+
+            ID     Name   Age
+            101     A     20
+            102     B     25
+            103     C     30
+
+
+        --------------------------------------------------
+
+
+        Access after set_index()
+
+            loc[]
+                - uses the new index labels
+
+
+            df.loc[102]
+
+            RES:
+
+            Name    B
+            Age     25
+
+
+        --------------------------------------------------
+
+
+        Keep original column
+
+        [SYN]
+
+            df.set_index(
+                "ID",
+                drop=False
+            )
+
+
+        Result:
+
+            ID   Name  Age
+        ID
+        101   101    A    20
+        102   102    B    25
+
+
+        --------------------------------------------------
+
+
+        Modify original DataFrame
+
+            [SYN]
+
+            df.set_index(
+                "ID",
+                inplace=True
+            )
+
+            - no need to assign back
+
+
+        --------------------------------------------------
+
+
+        Reset Index
+
+            reset_index()
+                - converts index back into a normal column
+                - creates default index again
+
+
+            [SYN]
+
+            df.reset_index()
+
+
+        --------------------------------------------------
+
+
+        Multiple Index (MultiIndex)
+
+            - use multiple columns as index
+
+
+            [SYN]
+
+            df.set_index(
+                ["col1", "col2"]
+            )
+
+
+        Example:
+
+            Country   Year   Sales
+            USA       2024   100
+            USA       2025   150
+
+
+            set_index(["Country", "Year"])
+
+
+        Result:
+
+                    Sales
+        Country Year
+        USA     2024   100
+        USA     2025   150
+
+
+        --------------------------------------------------
+
+
+        Memory Trick
+
+            set_index()
+                = make a column become the row label
+
+            reset_index()
+                = convert row label back into a column
+
+            loc[]
+                = search using index labels
+
+map
+    - do the calculation in place
+    - applies to series
+    - goes element by element
+
+    [USA]
+        import pandas as pd
+        s = pd.Series([1,2,3,4])
+        print(s.map(lambda x: x * 10))
+    
+apply
+    - similar to map
+    - used for DataFrames
+    - goes by columns
+
+    [USA]
+        ages = pd.Series([20, 25, 30])
+        print(ages.apply(lambda x: x + 5))
+        print(ages.memory_usage()) # returns the memory usage 
+
+----------------------------------------------------------------------------
+
+Date = (28/7/2026)
+
+EDA – EXPLORATORY DATA ANALYSIS
+===============================
+
+    [WHY]
+        Exploratory Data Analysis (EDA) is the process of
+        understanding, cleaning, and analyzing a dataset
+        before building any Machine Learning model.
+
+    [USC]
+        - Understand the dataset
+        - Detect errors
+        - Clean data
+        - Discover hidden patterns
+        - Find relationships between variables
+        - Generate business insights
+        - Prepare data for Machine Learning
+
+    [MET]
+        - Data Inspection
+        - Data Cleaning
+        - Statistical Analysis
+        - Data Visualization
+        - Feature Understanding
+        - Correlation Analysis
+
+
+    IMPORT LIBRARIES
+    ================
+
+        [ALI]
+            import pandas as pd
+            import numpy as np
+            import matplotlib.pyplot as plt
+            import seaborn as sns
+
+
+    LOAD DATASET
+    ============
+
+        [USA]
+            df = pd.read_csv("data.csv")
+
+        [RES]
+            Loads the dataset into a Pandas DataFrame.
+
+
+    DATA INSPECTION
+    ===============
+
+    1. View First Records
+    ---------------------
+
+        [WHY]
+            Displays the first few rows.
+
+        [USA]
+            df.head()
+
+    2. View Last Records
+    --------------------
+
+        [WHY]
+            Displays the last few rows.
+
+        [USA]
+            df.tail()
+
+    3. Dataset Shape
+    ----------------
+
+        [WHY]
+            Returns number of rows and columns.
+
+        [USA]
+            df.shape
+
+    4. Dataset Information
+    ----------------------
+
+        [WHY]
+            Shows column names, data types,
+            non-null values, and memory usage.
+
+        [USA]
+            df.info()
+
+    5. Column Names
+    ---------------
+
+        [WHY]
+            Lists all column names.
+
+        [USA]
+            df.columns
+
+    6. Data Types
+    -------------
+
+        [WHY]
+            Displays data type of every column.
+
+        [USA]
+            df.dtypes
+
+
+    DATA CLEANING
+    =============
+
+    1. Missing Values
+    -----------------
+
+        [WHY]
+            Finds missing (NULL/NaN) values.
+
+        [USA]
+            df.isnull()
+
+        Count missing values:
+
+            df.isnull().sum()
+
+        Remove missing values:
+
+            df.dropna()
+
+        Fill missing values:
+
+            df.fillna(0)
+
+            df.fillna(df.mean(numeric_only=True))
+
+
+    2. Duplicate Values
+    -------------------
+
+        [WHY]
+            Finds duplicate records.
+
+        [USA]
+            df.duplicated()
+
+        Count duplicates:
+
+            df.duplicated().sum()
+
+        Remove duplicates:
+
+            df.drop_duplicates()
+
+
+    3. Rename Columns
+    -----------------
+
+        [WHY]
+            Changes column names.
+
+        [USA]
+            df.rename(
+                columns={"Old":"New"},
+                inplace=True
+            )
+
+
+    4. Change Data Type
+    -------------------
+
+        [WHY]
+            Converts one data type into another.
+
+        [USA]
+            df["Age"] = df["Age"].astype(int)
+
+
+    STATISTICAL SUMMARY
+    ===================
+
+        [WHY]
+            Displays summary statistics for
+            numerical columns.
+
+        [USA]
+            df.describe()
+
+        [RES]
+            Shows:
+                - Count
+                - Mean
+                - Standard Deviation
+                - Minimum
+                - 25%
+                - 50% (Median)
+                - 75%
+                - Maximum
+
+        Include all columns:
+
+            df.describe(include="all")
+
+
+    RELATIONSHIP ANALYSIS
+    =====================
+
+    Correlation
+    -----------
+
+        [WHY]
+            Measures relationship between
+            numerical variables.
+
+        [USA]
+            df.corr(numeric_only=True)
+
+        Visualize Correlation:
+
+            sns.heatmap(
+                df.corr(numeric_only=True),
+                annot=True,
+                cmap="coolwarm"
+            )
+
+            plt.show()
+
+
+    DATA VISUALIZATION
+    ==================
+
+    Histogram
+    ---------
+
+        [WHY]
+            Shows data distribution.
+
+        [USA]
+            sns.histplot(df["Age"])
+            plt.show()
+
+
+    Box Plot
+    --------
+
+        [WHY]
+            Detects outliers.
+
+        [USA]
+            sns.boxplot(
+                x=df["Salary"]
+            )
+
+            plt.show()
+
+
+    Scatter Plot
+    ------------
+
+        [WHY]
+            Finds relationships between two variables.
+
+        [USA]
+            sns.scatterplot(
+                data=df,
+                x="Age",
+                y="Salary"
+            )
+
+            plt.show()
+
+
+    Count Plot
+    ----------
+
+        [WHY]
+            Counts categorical values.
+
+        [USA]
+            sns.countplot(
+                data=df,
+                x="Department"
+            )
+
+            plt.show()
+
+
+    COMMON EDA FUNCTIONS
+    ====================
+
+        [FUN]
+            head()
+            tail()
+            sample()
+            shape
+            info()
+            columns
+            dtypes
+            describe()
+            value_counts()
+            unique()
+            nunique()
+            isnull()
+            sum()
+            duplicated()
+            drop_duplicates()
+            dropna()
+            fillna()
+            rename()
+            astype()
+            corr()
+            sort_values()
+            groupby()
+
+
+    DATA CLEANING CHECKLIST
+    =======================
+
+        [MET]
+            ✓ Load dataset
+            ✓ View dataset
+            ✓ Check shape
+            ✓ Check data types
+            ✓ Check missing values
+            ✓ Fill or remove missing values
+            ✓ Check duplicate values
+            ✓ Remove duplicates
+            ✓ Generate statistical summary
+            ✓ Detect outliers
+            ✓ Analyze relationships
+            ✓ Visualize data
+
+
+    ADVANTAGES
+    ==========
+
+        [MET]
+            - Better understanding of data
+            - Detects data quality issues
+            - Improves Machine Learning accuracy
+            - Generates business insights
+            - Helps in feature selection
+            - Makes data ready for modeling
+
+
+    LIMITATIONS
+    ===========
+
+        [CAT]
+            - Time-consuming for large datasets
+            - Requires domain knowledge
+            - Mostly manual interpretation
+            - Visualization becomes difficult for huge datasets
+
+
+    QUICK SUMMARY
+    =============
+
+        head()               -> First 5 rows
+        tail()               -> Last 5 rows
+        shape                -> Rows and columns
+        info()               -> Dataset information
+        describe()           -> Statistical summary
+        isnull()             -> Missing values
+        isnull().sum()       -> Count missing values
+        duplicated()         -> Duplicate rows
+        duplicated().sum()   -> Count duplicates
+        drop_duplicates()    -> Remove duplicates
+        dropna()             -> Remove missing values
+        fillna()             -> Fill missing values
+        corr()               -> Correlation matrix
+        value_counts()       -> Frequency count
+        unique()             -> Unique values
+        groupby()            -> Group data
+
+
+    KEY POINTS
+    ==========
+
+        - EDA stands for Exploratory Data Analysis.
+        - Performed before Machine Learning.
+        - Main goals:
+            • Understand the data
+            • Clean the data
+            • Find patterns
+            • Detect outliers
+            • Analyze relationships
+            • Generate business insights
+        - Common libraries:
+            • Pandas
+            • NumPy
+            • Matplotlib
+            • Seaborn
+        - A good EDA results in cleaner, more reliable data
+        and better-performing Machine Learning models.
+        
+MATPLOTLIB – BASIC VISUALIZATION
+================================
+
+        [LIB]
+            matplotlib
+
+        [INS]
+            pip install matplotlib
+
+        [ALI]
+            import matplotlib.pyplot as plt
+
+
+    WHAT IS MATPLOTLIB?
+    ===================
+
+        [WHY]
+            - Python library for creating graphs and charts.
+            - Used for data visualization.
+            - Provides complete control over plot customization.
+            - Foundation library for Seaborn.
+
+        [USC]
+            - Data Visualization
+            - Exploratory Data Analysis (EDA)
+            - Scientific Computing
+            - Machine Learning Visualization
+            - Business Reports
+
+        [MET]
+            - Line Charts
+            - Bar Charts
+            - Scatter Plots
+            - Histograms
+            - Pie Charts
+            - Box Plots
+            - Subplots
+            - Figure Customization
+
+
+    BASIC USAGE
+    ===========
+
+        [USA]
+            import matplotlib.pyplot as plt
+
+            x = [1, 2, 3, 4]
+            y = [10, 20, 30, 40]
+
+            plt.plot(x, y)
+            plt.title("Graph")
+            plt.xlabel("Month")
+            plt.ylabel("Revenue")
+            plt.show()
+
+        [RES]
+            Displays a simple line graph.
+
+
+    BASIC SYNTAX
+    ============
+
+        [SYN]
+            plt.plot(x, y)
+
+            plt.title("Title")
+            plt.xlabel("X-axis")
+            plt.ylabel("Y-axis")
+
+            plt.show()
+
+
+    COMMON MATPLOTLIB PLOTS
+    =======================
+
+    1. Line Plot
+    ------------
+
+        [WHY]
+            Displays trends or changes over time.
+
+        [SYN]
+            plt.plot(x, y)
+
+        [PAR]
+            x
+            y
+            color
+            linestyle
+            linewidth
+            marker
+
+        [EXA]
+            x = [1,2,3,4]
+            y = [10,20,30,40]
+
+            plt.plot(x, y)
+            plt.show()
+
+        [ANE]
+            plt.plot(
+                x,
+                y,
+                color="red",
+                marker="o",
+                linestyle="--"
+            )
+
+            plt.show()
+
+
+    2. Scatter Plot
+    ---------------
+
+        [WHY]
+            Shows the relationship between two variables.
+
+        [SYN]
+            plt.scatter(x, y)
+
+        [PAR]
+            x
+            y
+            color
+            s
+
+        [EXA]
+            plt.scatter(x, y)
+            plt.show()
+
+
+    3. Bar Chart
+    ------------
+
+        [WHY]
+            Compares values between categories.
+
+        [SYN]
+            plt.bar(x, y)
+
+        [EXA]
+            plt.bar(x, y)
+            plt.show()
+
+
+    4. Horizontal Bar Chart
+    -----------------------
+
+        [WHY]
+            Displays bar chart horizontally.
+
+        [SYN]
+            plt.barh(x, y)
+
+        [EXA]
+            plt.barh(x, y)
+            plt.show()
+
+
+    5. Histogram
+    ------------
+
+        [WHY]
+            Displays frequency distribution.
+
+        [SYN]
+            plt.hist(data)
+
+        [PAR]
+            bins
+            color
+
+        [EXA]
+            data = [1,2,2,3,3,3,4,4,5]
+
+            plt.hist(data)
+            plt.show()
+
+
+    6. Pie Chart
+    ------------
+
+        [WHY]
+            Shows percentage contribution.
+
+        [SYN]
+            plt.pie(values)
+
+        [PAR]
+            labels
+            autopct
+            colors
+
+        [EXA]
+            values = [40,30,20,10]
+            labels = ["A","B","C","D"]
+
+            plt.pie(
+                values,
+                labels=labels,
+                autopct="%1.1f%%"
+            )
+
+            plt.show()
+
+
+    7. Box Plot
+    -----------
+
+        [WHY]
+            Shows spread and outliers.
+
+        [SYN]
+            plt.boxplot(data)
+
+        [EXA]
+            data = [2,4,5,6,8,10,12]
+
+            plt.boxplot(data)
+            plt.show()
+
+
+    CUSTOMIZATION
+    =============
+
+    Change Figure Size
+    ------------------
+
+        [USA]
+            plt.figure(figsize=(8,5))
+
+
+    Change Line Color
+    -----------------
+
+        [USA]
+            plt.plot(
+                x,
+                y,
+                color="green"
+            )
+
+
+    Change Line Style
+    -----------------
+
+        [USA]
+            plt.plot(
+                x,
+                y,
+                linestyle="--"
+            )
+
+
+    Add Marker
+    ----------
+
+        [USA]
+            plt.plot(
+                x,
+                y,
+                marker="o"
+            )
+
+
+    Add Grid
+    --------
+
+        [USA]
+            plt.grid(True)
+
+
+    Add Legend
+    ----------
+
+        [USA]
+            plt.plot(
+                x,
+                y,
+                label="Revenue"
+            )
+
+            plt.legend()
+
+
+    Add Title & Labels
+    ------------------
+
+        [USA]
+            plt.title("Monthly Revenue")
+            plt.xlabel("Month")
+            plt.ylabel("Revenue")
+
+
+    USEFUL PARAMETERS
+    =================
+
+        [PAR]
+
+            x           -> X-axis values
+            y           -> Y-axis values
+            color       -> Line color
+            linewidth   -> Line thickness
+            linestyle   -> Line style
+            marker      -> Marker style
+            markersize  -> Marker size
+            label       -> Legend text
+            figsize     -> Figure size
+            bins        -> Histogram bins
+            labels      -> Pie chart labels
+            autopct     -> Percentage format
+            alpha       -> Transparency
+
+
+    COMPLETE EXAMPLE
+    ================
+
+        [USA]
+            import matplotlib.pyplot as plt
+
+            x = [1,2,3,4]
+            y = [10,20,30,40]
+
+            plt.figure(figsize=(8,5))
+
+            plt.plot(
+                x,
+                y,
+                color="blue",
+                marker="o",
+                linewidth=2,
+                label="Revenue"
+            )
+
+            plt.title("Monthly Revenue")
+            plt.xlabel("Month")
+            plt.ylabel("Revenue")
+
+            plt.grid(True)
+            plt.legend()
+
+            plt.show()
+
+        [RES]
+            Displays a customized line graph with title,
+            labels, grid, markers, and legend.
+
+
+    ADVANTAGES
+    ==========
+
+        [MET]
+            - Easy to learn
+            - Highly customizable
+            - Large variety of charts
+            - Widely used in Python
+            - Works well with NumPy & Pandas
+            - Base library for Seaborn
+
+
+    LIMITATIONS
+    ===========
+
+        [CAT]
+            - Requires more code than Seaborn
+            - Default styles are less attractive
+            - Statistical plots require manual coding
+
+
+    COMMON FUNCTIONS
+    ================
+
+        [FUN]
+            plt.plot()
+            plt.scatter()
+            plt.bar()
+            plt.barh()
+            plt.hist()
+            plt.pie()
+            plt.boxplot()
+            plt.figure()
+            plt.title()
+            plt.xlabel()
+            plt.ylabel()
+            plt.grid()
+            plt.legend()
+            plt.show()
+            plt.savefig()
+            plt.subplot()
+
+
+    QUICK SUMMARY
+    =============
+
+        plot()      -> Line graph
+        scatter()   -> Scatter plot
+        bar()       -> Vertical bar chart
+        barh()      -> Horizontal bar chart
+        hist()      -> Histogram
+        pie()       -> Pie chart
+        boxplot()   -> Box plot
+        figure()    -> Create figure
+        show()      -> Display graph
+        savefig()   -> Save graph
+
+
+    KEY POINTS
+    ==========
+
+        - Matplotlib is the most popular Python visualization library.
+        - Imported using:
+                import matplotlib.pyplot as plt
+        - Used for creating static, animated, and interactive graphs.
+        - Provides complete customization of plots.
+        - Seaborn is built on top of Matplotlib.
+        
+SEABORN – STATISTICAL VISUALIZATION
+==================================
+
+        [LIB]
+            seaborn
+
+        [INS]
+            pip install seaborn
+
+        [ALI]
+            import seaborn as sns
+            import matplotlib.pyplot as plt
+
+
+    WHAT IS SEABORN?
+    ================
+
+        [WHY]
+            - Python statistical data visualization library.
+            - Built on top of Matplotlib.
+            - Works seamlessly with Pandas DataFrames.
+            - Used to analyze and visualize data easily.
+
+        [USC]
+            - Data Analysis
+            - Exploratory Data Analysis (EDA)
+            - Statistical Visualization
+            - Machine Learning Data Visualization
+            - Correlation Analysis
+
+        [MET]
+            - Attractive default themes
+            - Built-in statistical plots
+            - Easy Pandas integration
+            - Supports categorical & numerical data
+            - Built-in datasets
+
+
+    LOAD SAMPLE DATASET
+    ===================
+
+        [USA]
+            import seaborn as sns
+
+            tips = sns.load_dataset("tips")
+            print(tips.head())
+
+        [RES]
+            Displays the first 5 rows of the "tips" dataset.
+
+        [MET]
+            - tips
+            - iris
+            - titanic
+            - penguins
+            - diamonds
+
+
+    BASIC SYNTAX
+    ============
+
+        [SYN]
+            sns.plot_type(
+                data=dataframe,
+                x="column1",
+                y="column2"
+            )
+
+            plt.show()
+
+        [EXA]
+            sns.scatterplot(
+                data=tips,
+                x="total_bill",
+                y="tip"
+            )
+
+            plt.show()
+
+
+    COMMON SEABORN PLOTS
+    ====================
+
+    1. Scatter Plot
+    ---------------
+
+        [WHY]
+            Shows the relationship between two numerical variables.
+
+        [SYN]
+            sns.scatterplot(
+                data=df,
+                x="column1",
+                y="column2"
+            )
+
+        [PAR]
+            data
+            x
+            y
+            hue
+            style
+            size
+
+        [EXA]
+            sns.scatterplot(
+                data=tips,
+                x="total_bill",
+                y="tip"
+            )
+
+            plt.show()
+
+        [ANE]
+            sns.scatterplot(
+                data=tips,
+                x="total_bill",
+                y="tip",
+                hue="sex"
+            )
+
+            plt.show()
+
+
+    2. Line Plot
+    ------------
+
+        [WHY]
+            Displays trends over ordered or time-series data.
+
+        [SYN]
+            sns.lineplot(
+                data=df,
+                x="column1",
+                y="column2"
+            )
+
+        [PAR]
+            data
+            x
+            y
+            hue
+            style
+
+        [EXA]
+            sns.lineplot(
+                data=tips,
+                x="size",
+                y="tip"
+            )
+
+            plt.show()
+
+
+    3. Bar Plot
+    -----------
+
+        [WHY]
+            Compares average values of categories.
+
+        [SYN]
+            sns.barplot(
+                data=df,
+                x="column1",
+                y="column2"
+            )
+
+        [PAR]
+            data
+            x
+            y
+            palette
+            color
+
+        [EXA]
+            sns.barplot(
+                data=tips,
+                x="day",
+                y="total_bill"
+            )
+
+            plt.show()
+
+
+    4. Count Plot
+    -------------
+
+        [WHY]
+            Counts occurrences of each category.
+
+        [SYN]
+            sns.countplot(
+                data=df,
+                x="column"
+            )
+
+        [EXA]
+            sns.countplot(
+                data=tips,
+                x="day"
+            )
+
+            plt.show()
+
+
+    5. Histogram
+    ------------
+
+        [WHY]
+            Displays numerical data distribution.
+
+        [SYN]
+            sns.histplot(
+                data=df,
+                x="column"
+            )
+
+        [PAR]
+            data
+            x
+            kde
+            bins
+
+        [EXA]
+            sns.histplot(
+                data=tips,
+                x="total_bill"
+            )
+
+            plt.show()
+
+        [ANE]
+            sns.histplot(
+                data=tips,
+                x="total_bill",
+                kde=True
+            )
+
+            plt.show()
+
+
+    6. Box Plot
+    -----------
+
+        [WHY]
+            Shows spread, quartiles, median and outliers.
+
+        [SYN]
+            sns.boxplot(
+                data=df,
+                x="column1",
+                y="column2"
+            )
+
+        [EXA]
+            sns.boxplot(
+                data=tips,
+                x="day",
+                y="total_bill"
+            )
+
+            plt.show()
+
+
+    7. Violin Plot
+    --------------
+
+        [WHY]
+            Shows distribution along with density.
+
+        [SYN]
+            sns.violinplot(
+                data=df,
+                x="column1",
+                y="column2"
+            )
+
+        [EXA]
+            sns.violinplot(
+                data=tips,
+                x="day",
+                y="total_bill"
+            )
+
+            plt.show()
+
+
+    8. Pair Plot
+    ------------
+
+        [WHY]
+            Shows relationships among all numerical columns.
+
+        [SYN]
+            sns.pairplot(dataframe)
+
+        [EXA]
+            sns.pairplot(tips)
+
+            plt.show()
+
+
+    9. Heatmap
+    ----------
+
+        [WHY]
+            Displays correlations using colors.
+
+        [EXA]
+            corr = tips.corr(numeric_only=True)
+
+            sns.heatmap(
+                corr,
+                annot=True,
+                cmap="coolwarm"
+            )
+
+            plt.show()
+
+
+    10. KDE Plot
+    ------------
+
+        [WHY]
+            Shows probability density of data.
+
+        [SYN]
+            sns.kdeplot(
+                data=df,
+                x="column"
+            )
+
+        [EXA]
+            sns.kdeplot(
+                data=tips,
+                x="total_bill",
+                fill=True
+            )
+
+            plt.show()
+
+
+    CUSTOMIZATION
+    =============
+
+    Change Theme
+    ------------
+
+        [USA]
+            sns.set_theme(style="darkgrid")
+
+        [OPT]
+            sns.set_theme(style="white")
+            sns.set_theme(style="ticks")
+            sns.set_theme(style="dark")
+            sns.set_theme(style="whitegrid")
+
+
+    Change Figure Size
+    ------------------
+
+        [USA]
+            plt.figure(figsize=(8,5))
+
+            sns.scatterplot(
+                data=tips,
+                x="total_bill",
+                y="tip"
+            )
+
+            plt.show()
+
+
+    Change Color
+    ------------
+
+        [USA]
+            sns.barplot(
+                data=tips,
+                x="day",
+                y="tip",
+                color="green"
+            )
+
+        [ANE]
+            sns.barplot(
+                data=tips,
+                x="day",
+                y="tip",
+                palette="viridis"
+            )
+
+
+    Title & Labels
+    --------------
+
+        [USA]
+            sns.scatterplot(
+                data=tips,
+                x="total_bill",
+                y="tip"
+            )
+
+            plt.title("Total Bill vs Tip")
+            plt.xlabel("Total Bill")
+            plt.ylabel("Tip")
+
+            plt.show()
+
+
+    USEFUL PARAMETERS
+    =================
+
+        [PAR]
+
+            data      -> Dataset
+            x         -> X-axis
+            y         -> Y-axis
+            hue       -> Color grouping
+            style     -> Marker style
+            size      -> Marker size
+            palette   -> Color palette
+            color     -> Single color
+            annot     -> Display values
+            cmap      -> Color map
+            kde       -> Density curve
+            fill      -> Fill KDE area
+            bins      -> Number of histogram bins
+
+
+    COMPLETE EXAMPLE
+    ================
+
+        [USA]
+            import seaborn as sns
+            import matplotlib.pyplot as plt
+
+            tips = sns.load_dataset("tips")
+
+            sns.set_theme(style="darkgrid")
+
+            sns.scatterplot(
+                data=tips,
+                x="total_bill",
+                y="tip",
+                hue="sex"
+            )
+
+            plt.title("Total Bill vs Tip")
+            plt.xlabel("Total Bill")
+            plt.ylabel("Tip")
+
+            plt.show()
+
+        [RES]
+            Displays a scatter plot showing Total Bill vs Tip,
+            with different colors for each gender.
+
+
+    ADVANTAGES
+    ==========
+
+        [MET]
+            - Easy to learn
+            - Beautiful default plots
+            - Built on Matplotlib
+            - Excellent for EDA
+            - Works with Pandas
+            - Large collection of visualization methods
+
+
+    LIMITATIONS
+    ===========
+
+        [CAT]
+            - Less customizable than raw Matplotlib
+            - Mainly focused on statistical plots
+            - Requires Matplotlib backend
+
+
+    COMMON FUNCTIONS
+    ================
+
+        [FUN]
+            sns.scatterplot()
+            sns.lineplot()
+            sns.barplot()
+            sns.countplot()
+            sns.histplot()
+            sns.boxplot()
+            sns.violinplot()
+            sns.pairplot()
+            sns.heatmap()
+            sns.kdeplot()
+            sns.set_theme()
+            sns.load_dataset()
+
+
+    QUICK SUMMARY
+    =============
+
+        scatterplot() -> Relationship between numerical variables
+        lineplot()    -> Trend visualization
+        barplot()     -> Compare category averages
+        countplot()   -> Count categorical values
+        histplot()    -> Data distribution
+        boxplot()     -> Quartiles & outliers
+        violinplot()  -> Distribution with density
+        pairplot()    -> Pairwise relationships
+        heatmap()     -> Correlation matrix
+        kdeplot()     -> Probability density estimation
+
+
+    KEY POINTS
+    ==========
+
+        - Built on Matplotlib.
+        - Best suited for Statistical Visualization.
+        - Import using:
+                import seaborn as sns
+        - Display graphs using:
+                plt.show()
+        - Works seamlessly with Pandas DataFrames.
+        - Includes multiple built-in datasets for learning.
+
+
+DATA SOURCING
+=============
+
+    [WHY]
+        Data Sourcing is the process of collecting data
+        from different sources for analysis, reporting,
+        or Machine Learning.
+
+    [USC]
+        - Business Analytics
+        - Machine Learning
+        - Data Engineering
+        - Data Warehousing
+        - Reporting
+
+    [MET]
+        - Internal Sources
+        - External Sources
+        - Structured Data
+        - Semi-Structured Data
+        - Unstructured Data
+
+
+DATA INGESTION
+==============
+
+    [WHY]
+        Data Ingestion is the process of importing,
+        collecting, and transferring data from one
+        or more sources into a storage system or
+        processing platform.
+
+    [USC]
+        - Data Warehouse
+        - Data Lake
+        - ETL Pipeline
+        - Machine Learning Pipeline
+
+    [TYS]
+
+        1. Batch Ingestion
+            - Data is collected at scheduled intervals.
+            - Suitable for historical data.
+            - Example:
+                Daily sales report.
+
+        2. Real-Time (Streaming) Ingestion
+            - Data arrives continuously.
+            - Suitable for live applications.
+            - Example:
+                Stock market data, IoT sensors.
+
+
+TYPES OF DATA SOURCES
+=====================
+
+    [TYS]
+
+        1. Internal Data Sources
+            - Company databases
+            - ERP Systems
+            - CRM Systems
+            - Sales Records
+            - Employee Records
+
+        2. External Data Sources
+            - Government datasets
+            - Public APIs
+            - Social Media
+            - Third-party vendors
+            - Market research reports
+
+        3. Structured Data
+            - Organized in rows and columns.
+            - Stored in SQL databases.
+            - Example:
+                MySQL, PostgreSQL
+
+        4. Semi-Structured Data
+            - Has some structure but no fixed schema.
+            - Example:
+                JSON, XML, CSV
+
+        5. Unstructured Data
+            - No predefined format.
+            - Example:
+                Images, Videos, Audio, Emails, PDFs
+
+
+COMMON DATA SOURCES
+===================
+
+    [MET]
+        - SQL Databases
+        - NoSQL Databases
+        - CSV Files
+        - Excel Files
+        - JSON Files
+        - XML Files
+        - APIs
+        - Cloud Storage
+        - IoT Devices
+        - Social Media
+        - Log Files
+
+
+QUICK DIFFERENCE
+================
+
+    Data Sourcing
+        -> Finding and collecting data.
+
+    Data Ingestion
+        -> Moving collected data into a system
+           for storage or processing.
+
+
+SQLITE3 + PANDAS (COMPRESSED NOTES)
+==================================
+
+DATABASE CREATION
+=================
+
+    [LIB]
+        sqlite3
+        pandas
+
+    [INS]
+        pip install pandas
+
+    [ALI]
+        import sqlite3
+        import pandas as pd
+
+    [WHY]
+        SQLite is a lightweight, file-based relational database.
+        Used to store structured data without a database server.
+
+    [USA]
+        conn = sqlite3.connect("shop.db")
+        cur = conn.cursor()
+
+    [RES]
+        Creates (or opens) "shop.db" database.
+
+
+CREATE TABLES
+=============
+
+Customer Table
+--------------
+
+    [USA]
+        cur.execute("""
+        CREATE TABLE IF NOT EXISTS Customer(
+            customer_id INTEGER PRIMARY KEY,
+            customer_name TEXT,
+            city TEXT
+        )
+        """)
+
+Product Table
+-------------
+
+    [USA]
+        cur.execute("""
+        CREATE TABLE IF NOT EXISTS Product(
+            product_id INTEGER PRIMARY KEY,
+            product_name TEXT,
+            price REAL
+        )
+        """)
+
+Sales Table
+-----------
+
+    [USA]
+        cur.execute("""
+        CREATE TABLE IF NOT EXISTS Sales(
+            sale_id INTEGER PRIMARY KEY,
+            customer_id INTEGER,
+            product_id INTEGER,
+            quantity INTEGER,
+            sale_date TEXT
+        )
+        """)
+
+
+INSERT RECORDS
+==============
+
+    [USA]
+
+        customers = [
+            (1,"John","New York"),
+            (2,"Alice","Chicago"),
+            (3,"David","Boston")
+        ]
+
+        products = [
+            (101,"Laptop",850),
+            (102,"Mouse",20),
+            (103,"Keyboard",40)
+        ]
+
+        sales = [
+            (1,1,101,1,"2025-01-01"),
+            (2,2,102,2,"2025-01-03"),
+            (3,1,103,1,"2025-01-05")
+        ]
+
+        cur.executemany(
+            "INSERT INTO Customer VALUES(?,?,?)",
+            customers
+        )
+
+        cur.executemany(
+            "INSERT INTO Product VALUES(?,?,?)",
+            products
+        )
+
+        cur.executemany(
+            "INSERT INTO Sales VALUES(?,?,?,?,?)",
+            sales
+        )
+
+        conn.commit()
+
+
+READ TABLES USING PANDAS
+========================
+
+    [USA]
+
+        customer_df = pd.read_sql(
+            "SELECT * FROM Customer",
+            conn
+        )
+
+        product_df = pd.read_sql(
+            "SELECT * FROM Product",
+            conn
+        )
+
+        sales_df = pd.read_sql(
+            "SELECT * FROM Sales",
+            conn
+        )
+
+    [RES]
+        Converts SQL tables into Pandas DataFrames.
+
+
+MERGING TABLES USING PANDAS
+===========================
+
+Customer + Sales
+----------------
+
+    [USA]
+
+        merge1 = pd.merge(
+            customer_df,
+            sales_df,
+            on="customer_id",
+            how="inner"
+        )
+
+Sales + Product
+---------------
+
+    [USA]
+
+        final_df = pd.merge(
+            merge1,
+            product_df,
+            on="product_id",
+            how="inner"
+        )
+
+    [RES]
+        Final DataFrame contains
+
+            Customer
+                +
+            Sales
+                +
+            Product
+
+
+MERGE TYPES
+===========
+
+    [TYS]
+
+        inner
+            Returns matching records only.
+
+        left
+            Returns all rows from left table.
+
+        right
+            Returns all rows from right table.
+
+        outer
+            Returns all records from both tables.
+
+
+BASIC EDA
+=========
+
+View Data
+---------
+
+    df.head()
+
+Last Records
+------------
+
+    df.tail()
+
+Dataset Shape
+-------------
+
+    df.shape
+
+Column Names
+------------
+
+    df.columns
+
+Dataset Information
+-------------------
+
+    df.info()
+
+Statistics
+----------
+
+    df.describe()
+
+Missing Values
+--------------
+
+    df.isnull().sum()
+
+Duplicate Rows
+--------------
+
+    df.duplicated().sum()
+
+Unique Values
+-------------
+
+    df["city"].unique()
+
+Frequency Count
+---------------
+
+    df["city"].value_counts()
+
+Sorting
+-------
+
+    df.sort_values("price")
+
+Filtering
+---------
+
+    df[df["price"] > 500]
+
+Grouping
+--------
+
+    df.groupby("city")["quantity"].sum()
+
+Highest Price Product
+---------------------
+
+    df.nlargest(5,"price")
+
+Lowest Price Product
+--------------------
+
+    df.nsmallest(5,"price")
+
+
+NEW COLUMN
+==========
+
+    [USA]
+
+        df["Total"] = (
+            df["price"] *
+            df["quantity"]
+        )
+
+
+BUSINESS INSIGHTS
+=================
+
+Total Revenue
+
+    df["Total"].sum()
+
+Average Revenue
+
+    df["Total"].mean()
+
+Highest Sale
+
+    df["Total"].max()
+
+Lowest Sale
+
+    df["Total"].min()
+
+Top Customers
+
+    df.groupby(
+        "customer_name"
+    )["Total"].sum()
+
+Top Selling Products
+
+    df.groupby(
+        "product_name"
+    )["quantity"].sum()
+
+Sales by City
+
+    df.groupby(
+        "city"
+    )["Total"].sum()
+
+
+SAVE RESULT
+===========
+
+    [USA]
+
+        df.to_csv(
+            "sales_report.csv",
+            index=False
+        )
+
+
+CLOSE DATABASE
+==============
+
+    [USA]
+
+        conn.close()
+
+
+COMMON SQLITE FUNCTIONS
+=======================
+
+    [FUN]
+
+        connect()
+        cursor()
+        execute()
+        executemany()
+        commit()
+        close()
+
+
+COMMON PANDAS FUNCTIONS
+=======================
+
+    [FUN]
+
+        pd.read_sql()
+        pd.merge()
+        head()
+        tail()
+        shape
+        info()
+        describe()
+        isnull()
+        duplicated()
+        unique()
+        value_counts()
+        sort_values()
+        groupby()
+        nlargest()
+        nsmallest()
+        to_csv()
+
+
+WORKFLOW
+========
+
+    Create Database
+            ↓
+    Create Tables
+            ↓
+    Insert Records
+            ↓
+    Commit Changes
+            ↓
+    Read Tables using read_sql()
+            ↓
+    Merge Tables using pd.merge()
+            ↓
+    Perform EDA
+            ↓
+    Generate Business Insights
+            ↓
+    Export Report
+            ↓
+    Close Database
+
+
+KEY POINTS
+==========
+
+    • sqlite3 creates a local file-based database.
+    • connect() opens or creates the database.
+    • cursor() executes SQL queries.
+    • executemany() inserts multiple records.
+    • commit() permanently saves changes.
+    • pd.read_sql() loads SQL tables into DataFrames.
+    • pd.merge() joins multiple DataFrames.
+    • EDA helps understand, clean, and analyze data.
+    • Always close the connection using conn.close().
+
+
+---------------------------------------------------------------------
+
+ETL 
+    - Extract
+    - Transform
+    - Load
+
+    (CSV, Excel, API, SQL)
+        |
+        V
+    Extract
+        |
+        V
+    Raw Collected Data
+        |
+        V
+    Transform(Clean + Convert + Merge + Validate)
+        |
+        V
+    Clean Data
+        |
+        V
+    Load
+        |
+        V
+    Data Warehouse / Database
+
+ELT 
+    - Extract
+    - Load
+    - Transform
+
+    - used in cloud

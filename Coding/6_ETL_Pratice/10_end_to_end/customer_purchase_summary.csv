@@ -1,0 +1,7 @@
+CustomerID,CustomerName,TotalOrders,TotalPurchase,TotalQuantity
+C101,John,2,101600.0,4
+C104,Unknown,1,36000.0,3
+C106,Sophia,1,30000.0,1
+C105,Alex,1,4600.0,4
+C102,Emma,1,4000.0,5
+C103,Raj,1,1500.0,1

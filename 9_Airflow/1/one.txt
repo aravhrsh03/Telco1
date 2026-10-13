@@ -1,0 +1,218 @@
+ABBREVIATION:
+	-> LIB = LIBRARY
+	-> USA = USAGE [example code]
+	-> PAR = PARAMETERS
+	-> SYN = syntax
+	-> WHY = Why this is used
+	-> EXA = Example
+	-> MET = METHODS
+	-> CAT = Cannot have it
+	-> ALI = Alias
+	-> RES = Expected Result
+	-> OPT = Optionalx
+	-> ANE = Another Example
+	-> FUN = Functions used
+	-> DAM = Data Members
+	-> TYS = Types
+	-> VER = Python version
+	-> USC = Use Cases
+
+    -> [COM] - CLI Command
+    -> [INS] - install this library
+    -> [STE] - Steps
+
+Date = (29/7/2026)
+
+Airflow: (Available in python alone)
+    Orchestration is the automated,
+    coordination, scheduling, monitoring and management
+    of multiple tasks that have dependencies
+
+    Airflow is an orchestration tool
+
+        Core Orchestration Concepts:
+            1. Workflow – A complete sequence of related tasks.
+            2. DAG (Directed Acyclic Graph) – Defines task flow with no cycles or loops.
+            3. Task – A single unit of work in a workflow. (done with down Stream (do after another) / Up stream (do before another))
+            4. Operator – Defines the action a task performs.
+            5. Dependency – Specifies the execution order of tasks.
+            6. Scheduling – Runs workflows automatically at set times.
+            7. Retry – Re-runs failed tasks automatically.
+            8. Monitoring – Tracks workflow and task execution status.
+            9. Logging – Records execution details for debugging.
+            10. Trigger – Starts a workflow or task based on a schedule or event.
+        
+        Some Airflow Operators
+
+            Python Operator – Executes a Python function or script.
+            Bash Operator – Runs Bash or shell commands.
+            Email Operator – Sends emails from an Airflow workflow.
+            SQL Operator – Executes SQL queries on a database.
+            Transform Operators – Perform data transformation and processing tasks.
+            Sensor Operators – Wait until a specific condition or event is met.
+            Branch Operators – Choose one execution path based on conditions.
+            Trigger Operators – Trigger another DAG or workflow execution.
+            LatestOnly Operator – Runs tasks only for the most recent DAG execution.
+
+[USA]
+
+    [STE]
+        - Create a virtual environment
+
+            python3 -m venv airflow_venv
+
+    [STE]
+        - Activate the virtual environment
+
+            source airflow_venv/bin/activate
+
+    [STE]
+        - Upgrade pip
+
+            pip install --upgrade pip
+
+    [INS]
+        - Install Apache Airflow
+
+            pip install apache-airflow
+
+    [STE]
+        - Set the Airflow home directory
+
+            export AIRFLOW_HOME=~/airflow
+
+            [Note: export AIRFLOW_HOME=~/airflow sets the directory where Airflow stores its configuration (airflow.cfg), 
+                    logs, plugins, and database. If you don't set it, Airflow uses ~/airflow as the default anyway, 
+                    so this step is optional unless you want a custom location.]
+
+    [STE]
+        - Verify Airflow installation
+
+            airflow --version
+
+    [STE]
+        - Initialize the Airflow database
+
+            airflow db migrate
+
+    [STE]
+        - Create an admin user
+
+            airflow users create \
+              --username admin \
+              --firstname Admin \
+              --lastname User \
+              --role Admin \
+              --email admin@example.com
+
+            Password: admin123
+
+    [STE]
+        - Start the Airflow Scheduler
+
+            airflow scheduler
+
+    [STE]
+        - Start the Airflow Webserver
+
+            airflow webserver --port 8080
+
+    [STE]
+        - Open Airflow UI
+
+            http://localhost:8080
+
+            Username: admin
+            Password: admin123
+
+------------------------------------------------------------------------------
+
+Date = (30/7/2026)
+
+-> Writing DAG for airflow
+
+[USA]
+    from airflow import DAG
+    from airflow.operators.python import PythonOperator
+    from datetime import datetime
+
+    # Function to execute
+    def print_message():
+        print("Hi DAG")
+
+    # Create DAG
+    with DAG(
+        dag_id="first_dag",
+        start_date=datetime(2026, 1, 1),
+        schedule="@daily",      # Runs once every day
+        catchup=False,          # Prevents backfilling old runs
+        tags=["example"],
+    ) as dag:
+
+        # Define task
+        task1 = PythonOperator(
+            task_id="print_message_task",
+            python_callable=print_message,
+        )
+
+        # Task execution order
+        task1
+
+[PAR]
+    dag_id                 → Unique name of the DAG.
+    start_date             → Date from which the DAG starts scheduling.
+    schedule               → Defines how often the DAG runs.
+    catchup                → If False, skips missed past runs.
+    end_date               → Stops scheduling after this date.
+    default_args           → Default settings shared by all tasks.
+    description            → Brief description of the DAG.
+    tags                   → Labels used to organize DAGs in the UI.
+    max_active_runs        → Maximum DAG runs allowed at the same time.
+    max_active_tasks       → Maximum tasks running concurrently.
+    is_paused_upon_creation → Creates the DAG in a paused state.
+    template_searchpath    → Directory for Jinja template files.
+    doc_md                 → Markdown documentation displayed in the UI.
+
+[ANE]
+
+    from airflow import DAG
+    from airflow.operators.python import PythonOperator
+    from datetime import datetime
+
+    # Extract
+    def extract():
+        print("Reading data from source...")
+
+    # Transform
+    def transform():
+        print("Cleaning and transforming data...")
+
+    # Load
+    def load():
+        print("Loading data into database...")
+
+    with DAG(
+        dag_id="etl_pipeline",
+        start_date=datetime(2024, 1, 1),
+        schedule="@daily",
+        catchup=False,
+    ) as dag:
+
+        extract_task = PythonOperator(
+            task_id="extract",
+            python_callable=extract,
+        )
+
+        transform_task = PythonOperator(
+            task_id="transform",
+            python_callable=transform,
+        )
+
+        load_task = PythonOperator(
+            task_id="load",
+            python_callable=load,
+        )
+
+        # ETL order
+        extract_task >> transform_task >> load_task
+

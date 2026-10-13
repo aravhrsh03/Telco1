@@ -1,0 +1,255 @@
+
+    DATE: (13/07/2026)
+
+	=> OOPS
+		- Object Oriented Programming language
+		- Risk of security
+			- Low (OOPS)
+			- High (FPL, SPL)
+
+	[Note: 4 PL,
+		- Functional Programming language - all the logics is inbuilt [Top Down]
+		- Structural Programming language
+		- Procederal Programming language [Bottom Up]
+	]
+
+	-> class - template of the object
+
+	[USA]
+		class <class-name>:
+			def __init__(self, <params>):
+				self.<params> = <params>
+			def <method-name>(self, <params>):
+				<statements>
+
+	[Note: if not mentioned it initialize with default constructor]
+	[USA]
+		class emp:
+			def display(self):
+				print(self.name)
+
+		e = emp()
+		e.name = "Madhan" # if not called it shows `Attribute Error`
+		e.display()
+
+	[RES]
+		Madhan
+
+	-> static - common for all objects
+
+	[USA]
+		class emp:
+			company = "Prodapt" # static
+	
+			def display(self):
+				print(self.company)
+				print(self.emp)
+
+		e = emp()
+		e.emp = "madhan"
+		e.display()
+
+	[RES]
+		Prodapt
+		madhan
+	
+	[Note: We can change the static variable with Class, we can update the static variable for the particular object using that object itself]
+
+	[SYN]
+		<class-name>.<static-variable> = <update-value> # Updates for all object
+		<class-object>.<static-variable> = <update-value> # Updates only for this object alone
+
+	[TYS]
+		- Nested Class
+			[SYN]
+				class <outer>:
+					class <inner>:
+						def <method>(self):
+							<statement>
+				<variable> = <outer>.<inner>() # inner is the shared object
+
+	-> __repr__(self) = it is a class method
+		          = invoked when using inside the print function with obj
+			  = it returns what it has in return
+
+	-> dataclass = get data members and assign ([ALI] pydantic)
+			[LIB] - dataclasses
+	
+			[VER] - python 3.7
+	
+			[USA]
+				from dataclasses import dataclass
+	
+				@dataclass
+				class emp:
+					id: int
+					name: string
+
+				e1 = emp(101, "Flemming")
+	
+			[Note: it prints the object using the print function , no need of __repr__]
+
+	-> Singleton Class - a Class has only one object
+
+	[USA]
+		class Single:
+			_instance = None
+			def __new__(cls):
+				if cls._instance is None:
+					cls._instance = super().__new__(cls)
+				return cls._instance
+
+		o1 = Single() # Same instance
+		o2 = Single() # Same instance
+
+	-> Enum class - an Enum class is a way to define a set of named constant values that are unique and immutable.
+
+	[USA]
+		from enum import Enum
+
+		class Color(Enum):
+    			RED = 1
+    			GREEN = 2
+    			BLUE = 3
+
+		# Usage
+		print(Color.RED)        # Color.RED
+		print(Color.RED.value)  # 1
+		print(Color.RED.name)   # 'RED'
+
+	-> Frozen class -  a frozen class (created with @dataclass(frozen=True)) is an immutable dataclass — once an instance is created, its attributes cannot be modified.
+
+	[USA]
+		from dataclasses import dataclass
+
+		@dataclass(frozen=True)
+		class Point:
+    			x: int
+    			y: int
+
+		p = Point(1, 2)
+		# p.x = 3  # Raises: dataclasses.FrozenInstanceError
+
+	-> Factory class - A factory class in Python is a class whose main job is to create and return objects (instances) of other classes, without the calling code needing to know the exact class being instantiated.
+
+	[RunTime]
+
+	[USA]
+
+		class ShapeFactory:
+    			def create_shape(self, shape_type):
+        			if shape_type == "circle":
+            				return Circle()
+        			elif shape_type == "square":
+            				return Square()
+        			else:
+            				raise ValueError("Unknown shape type")
+
+		class Circle:
+    			def draw(self):
+        			print("Drawing a Circle")
+
+		class Square:
+    			def draw(self):
+        			print("Drawing a Square")
+
+		# Usage
+		factory = ShapeFactory()
+		shape = factory.create_shape("circle")
+		shape.draw()  # Output: Drawing a Circle
+
+	-> Proxy Class - it holds the object of the of the original class as a proxy
+	
+	[USA]
+		class Printer:
+			def print_doc(self):
+				print("printing")
+	
+		class PrinterProxy:
+			def __init__(self):
+				self.printer = Printer()
+	
+			def print_doc(self):
+				print("Permission Checked")
+				self.printer.print_doc()
+
+		p = PrinterProxy()
+
+		p.print_doc()
+
+	-> meta class - A metaclass in Python is a class that defines how other classes are created and behave.
+
+	[COMPILE TIME]
+
+	[USA]
+		class std(type):
+			pass
+
+		class demo(metaclass=std):
+			pass
+
+		print(type(demo))
+
+	[ANE]
+		class MyMeta(type):
+			def __new__(cls, name, bases, attrs):
+				def hello(self):
+					print("Hello")
+
+				attrs["hello"] = hello
+				return super().__new__(cls, name, bases, attrs)
+
+		class Student(metaclass=MyMeta):
+			pass
+	
+		class Employee(metaclass=MyMeta):
+			pass
+
+		s = Student()
+		e = Employee()
+		s.hello()
+
+	-> Instance Method
+
+		Default method type in classes.
+		First parameter is self (the instance).
+		Can access and modify instance attributes and class attributes.
+
+	-> Class Method
+
+		Declared with @classmethod.
+		First parameter is cls (the class).
+		Can access and modify class attributes, but not instance-specific data.
+
+	-> Static Method
+
+		Declared with @staticmethod.
+		No self or cls parameter.
+		Behaves like a normal function inside a class — cannot access instance or class data unless explicitly passed.
+
+	[EXA]
+
+		class Demo:
+    			class_var = "class level"
+
+   			def instance_method(self):
+        			return f"Instance method: {self.class_var}"
+
+    			@classmethod
+    			def class_method(cls):
+        			return f"Class method: {cls.class_var}"
+
+    			@staticmethod
+    			def static_method():
+        			return "Static method: no access to class/instance data"
+
+		obj = Demo()
+		print(obj.instance_method())  # via instance
+		print(Demo.class_method())    # via class
+		print(Demo.static_method())   # via class
+
+	[Default, Parameterized, copy]
+
+	-> @property - getter in python
+	-> @<method-name>.setter - setter in python
+	[Note: do not use the private in python because it is encoded]

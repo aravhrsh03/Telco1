@@ -1,0 +1,142 @@
+
+
+
+    DATE: (08/07/2026)
+
+  -> Reduce = it compress/reduce the list
+     [LIB - functools]
+     [SYN]
+	reduce(<callback-function>, iterable[initializer])
+
+     [USA]
+	from functools import reduce
+	numbers = [10, 20, 30, 40]
+	res = reduce(lambda x, y:x if x>y else 	y, numbers)
+	print(res)
+
+  -> enumerate() = function that returns (iterator, <current-value>)
+	[PAR]
+	start = <iterator start point> (eg. start=0, start=3)
+
+	[USA]
+	for ind, val in enumerate("MNC", start=3):
+		print(ind, val)
+
+  -> iter() = an object for the iteration
+	[SYN]
+	   <variable> = iter(<list-name>)
+
+  -> next() = accept iter object and return next element [starts at -1]
+	[SYN]
+	   next(<iter-object>) # [Note: also accept <tuple-object>, <cycle-object>]
+	[PAR]
+	   string_value
+	[USA]
+	   next(<iter-object>, <string-value>) # accept generator object
+	[WHY]
+	   The string-value returns when the iterator ends
+
+  -> OneHotEncoding = returns encoded version with 0s and 1s
+	[EXA]
+	   Mango = [0, 0, 1]
+	   Apple = [1, 0, 0]
+	[WHY]
+	   Triggers 1 when matches else 0
+
+  -> NamedTuple - creates object like the struct/pydantic basemodel
+	[LIB] - collections
+	[PAR]
+		<tuple-name> = Gets tuple name
+		<variable-name> = Gets tuple variables
+	[SYN]
+		<variable-name> = namedtuple(<tuple-name>, [variable-names])
+	[USA]
+		from collections import namedtuple
+		Student = namedtuple("Student", ["name", "id", "marks"])
+		s = Student("Steve Jobs", 111, 100)
+		print(s.name)
+
+  -> Set - Unique set of values
+	[MET]
+		remove(<value>) = remove if value available else throw error
+		discard(<value>) = remove if value available else doesn't throw error
+		pop() = remove random set value
+		union() = combines sets [ALI] = '|'
+		intersection() = get common values of sets [ALI] = '&'
+		difference() = get set 1 values which is not in set 2 [ALI] = '-'
+		symmetric_difference() = exclude common values [ALI] = '^'
+	
+	[CAT] - list inside set
+
+  -> FrozenSet = make set immutable
+	[SYN]
+		<variable_name> = frozenset(<set_object>)
+	[MET]
+		=> union, intersection, difference, symmetric_difference
+
+	Nested FrozenSet = combine frozenset in the separated nested format
+	[RES]
+		frozenset({frozenset(<set-1-values>), frozenset(<set-2-value>)})
+	[USA]
+		fs1 = {f1, f2}
+	[SYN]
+		<variable_name> = {<frozenset_object>, <frozenset_object>}
+	
+		[Note: works for frozenset, not for set]
+
+  -> Combinations = returns all the combinations of the set as a individual tuple
+	[SYN]
+		combinations(start_index, end_index)
+	[LIB]
+		itertools
+	[USA]
+		from itertools import combinations
+		power = {1, 2, 3}
+		for r in range(len(power)):
+			power.extend(combinations(power, r))
+
+  	-> combine two set
+	[RES]
+		Error: unhashable
+	    -> so combine two set values
+	[SYN]
+		<variable_name> = {*set_object, *set_object ...}
+		[NOTE: asterisk unpack the values]
+	[USA]
+		a = {1, 2, 3}
+		b = {3, 4}
+		c = {*a, *b}
+		print(a)
+ 
+  -> Zip = combines the two set/list/tuple like a pair
+	[USA]
+		s1 = {"a", "b"}
+		s2 = {10, 11}
+		print(list(zip(s1, s2)))
+	[SYN]
+		<collection-d-type>(zip(<non_primitive_object-1>, <non_primitive_object-2>))
+	
+	[Note: if one object does not have pair it leave the data]
+
+
+  -> Hash - returns number as number, string as hashed_values
+	[USA]
+		hash("string")
+	[SYN]
+		hash(<value>)
+	[Note: it also accept frozenset - hashable, [not set, not list - unhashable]]
+
+  -> Dict - key, value pair, key can be any data type which can hashable
+	[Note: key cannot be list, set - unhashable]
+	
+	[MET]
+		get() = return if available else fallback string_value
+		[PAR]
+			key = specifies key
+			<fallback_string>[OPT]
+	
+		items() = get key and value
+		keys() = get keys alone
+		values() = get values alone
+ 
+

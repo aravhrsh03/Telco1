@@ -1,0 +1,70 @@
+
+	-> STRINGS
+		- Array of Chars
+		- Immutable
+		- accepts single, double, triple quotes
+		- escape chars = \t, \r, \n
+	
+	-> string with \ = accept multi line input from IDLE and deliver it as single no spaced line
+		[USA]
+			s = "Hello" \
+			    "World"
+		[RES]
+			HelloWorld
+	
+	-> ord(<char>) = returns ASCII code
+	-> chr(<ASCII-code>) = returns char
+	-> r"" = raw string inside the quotes (used for paths)
+
+	-> Format String
+		[SYN]
+			-> "%<required-char>"%(<string-value>)
+			-> f"{variable}"
+			-> "{} {}".format(<variable-name1>, <variable-name2>)
+		[USA]
+			name = "Madhan"
+			id = 1
+			print("%s id %d"%(name, id))
+			print(f"{name}")
+			print("{} {}".format(name, id))
+
+	-> is operator - checks of same memory
+
+		[Note: Python stores the identical strings in the same memory]
+		[USA]
+			a = "python"
+			b = "python"
+			print(a is b) # True
+
+			b = "".join(["py","thon"]) # different memory allocation [Force interning method]
+	
+			print(a is b) # False
+
+	-> maketrans = is a method in python is used to create a mapping table for character replacements.
+		[USA]
+			table = str.maketrans("", "", "aeiou")
+			print("education".translate(table))
+
+		[SYN]
+			<variable> = str.maketrans("", "", "")
+
+			First Arg = characters to replace
+			Second Arg = replacement characters
+			Third Arg = characters to delete
+	
+		[ANE]
+			table = str.maketrans({
+					"a": "@",
+					"e": "3",
+					"i": "1",
+					"o": "0"
+				})
+			text = "education"
+			print(text.translate(table)) # 3duc@t10n
+
+		[ANE]
+			table = str.maketrans("abc", "xyz")
+			text = text.translate(table)
+	
+			# a -> x, b -> y, c -> z
+

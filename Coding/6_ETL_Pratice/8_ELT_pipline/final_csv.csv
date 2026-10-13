@@ -1,0 +1,6 @@
+,SaleID,CustomerID,ProductID,Quantity,ProductName,Price,CustomerName,City,TotalSales
+0,S001,C101,P101,1,Laptop,50000,Alice,New York,50000
+1,S002,C102,P102,3,Mouse,800,Bob,Chicago,2400
+2,S003,C103,P103,2,Keyboard,1500,Charlie,Dallas,3000
+3,S004,C104,P104,1,Monitor,12000,Diana,Seattle,12000
+4,S005,C101,P102,5,Mouse,800,Alice,New York,4000

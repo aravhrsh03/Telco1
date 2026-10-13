@@ -1,0 +1,9 @@
+ShippingID,OrderID,ShippingStatus,DeliveryCity
+SH001,O1001,Delivered,New York
+SH002,O1002,Delivered,Chicago
+SH003,O1003,Delivered,Dallas
+SH004,O1004,Shipped,Seattle
+SH005,O1005,Delivered,New York
+SH006,O1006,Processing,Boston
+SH007,O1007,Delivered,Miami
+SH008,O1008,Pending,New York

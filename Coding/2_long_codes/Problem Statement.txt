@@ -1,0 +1,365 @@
+Problem Statement
+
+Implement a class named CallUsageAnalyzer that tracks call usage records for telecom customers.
+
+Each call record contains:
+
+customer_id (string)
+
+call_minutes (float or int)
+
+call_type (string: "local", "STD", or "ISD")
+
+Your class must support adding call records and generating summaries from them.
+
+Required Class and Methods
+You must create a class named exactly: CallUsageAnalyzer
+
+It must contain the following methods with the exact same names:
+
+1. add_call_record(customer_id, call_minutes, call_type)
+Adds a new call record.
+
+Raise ValueError if:
+
+customer_id is empty or blank
+
+call_minutes is less than or equal to 0
+
+call_type is not one of: "local", "STD", "ISD"
+
+2. total_minutes_per_customer()
+Returns a dictionary where:
+
+key = customer_id
+
+value = total call minutes for that customer
+
+Example: {"C101": 25, "C102": 30}
+
+3. total_minutes_per_call_type()
+Returns a dictionary where:
+
+key = call_type
+
+value = total call minutes for that call type
+
+Example: {"local": 45, "STD": 20, "ISD": 10}
+
+4. top_customer_by_usage()
+Returns a tuple:
+
+(customer_id, total_minutes)
+
+for the customer with the highest total call usage.
+
+If no records exist, return None.
+
+If there is a tie, return the customer whose customer_id is lexicographically smaller.
+
+5. total_network_call_minutes()
+Returns the total call minutes across all records.
+
+Important Instructions
+For evaluation consistency:
+
+Use the class name exactly as CallUsageAnalyzer
+
+Use the method names exactly as given
+
+Do not rename methods
+
+Do not change the return types
+
+Do not print anything inside the class methods unless explicitly asked
+
+The evaluator will create an object of your class and call these methods directly
+
+Input Constraints
+
+1 <= number of records <= 10^4
+customer_id length: 1 to 30
+0 < call_minutes <= 10^6
+call_type must be one of:
+"local"
+"STD"
+"ISD"
+Sample Input
+
+analyzer = CallUsageAnalyzer()
+
+analyzer.add_call_record("C101", 15, "local")
+analyzer.add_call_record("C102", 20, "STD")
+analyzer.add_call_record("C101", 10, "ISD")
+analyzer.add_call_record("C103", 25, "local")
+analyzer.add_call_record("C102", 5, "local")
+
+print(analyzer.total_minutes_per_customer())
+print(analyzer.total_minutes_per_call_type())
+print(analyzer.top_customer_by_usage())
+print(analyzer.total_network_call_minutes())
+Sample Output
+
+{'C101': 25, 'C102': 25, 'C103': 25}
+{'local': 45, 'STD': 20, 'ISD': 10}
+('C101', 25)
+75
+
+class CallRecord:
+    def __init__(customer_id, call_minutes, call_type):
+        self.customer_id = customer_id
+        self.call_minutes = call_minutes
+        self.call_type = call_type
+
+class CallUsageAnalyzer:
+    VALID_CALL_TYPES = {"local", "STD", "ISD"}
+
+    def __init__(self):
+        self.call_records = []
+
+    def add_call_record(self, customer_id, call_minutes, call_type):
+        if customer_id == None or customer_id == "":
+            raise ValueError("customer_id is empty or blank")
+        if call_minutes <= 0:
+            raise ValueError("call_minutes cannot be 0 or negatives")
+        if call_type not in self.VALID_CALL_TYPES:
+            raise ValueError("call_type is invalid")
+        
+        self.call_records.append(CallRecord(customer_id, call_minutes, call_type))
+
+    def total_minutes_per_customer(self):
+        total_mins_per_cus = dict()
+
+        for calllogs in self.call_records:
+            if calllogs.customer_id not in total_mins_per_cus:
+                total_mins_per_cus[calllogs.customer_id] = calllogs.call_minutes
+            else:
+                total_mins_per_cus[calllogs.customer_id] += calllogs.call_minutes
+        
+        return total_mins_per_cus
+
+    def total_minutes_per_call_type(self):
+        total_minutes_by_call_type = {
+            self.VALID_CALL_TYPES[0]: 0,
+            self.VALID_CALL_TYPES[1]: 0,
+            self.VALID_CALL_TYPES[2]: 0,
+        }
+
+        for calllogs in self.call_records:
+            total_minutes_by_call_type[callogs.call_type] += 1
+        
+        return total_minutes_by_call_type
+
+    def top_customer_by_usage(self):
+        if len(self.call_records) == 0:
+            return None
+            
+        total_customer_usage = dict()
+
+        for calllogs in self.call_records:
+            if calllogs.customer_id not in total_customer_usage:
+                total_customer_usage[calllogs.customer_id] = 1
+            else:
+                total_customer_usage[calllogs.customer_id] += 1
+        
+        max_usage = 0
+        for key, value in total_customer_usage.items():
+            max_usage = max(value, max_usage)
+        
+        customers_ids = []
+        for key, value in total_customer_usage.items():
+            if value == max_usage:
+                customers_ids.append(key)
+        
+        customers_ids.sort()
+
+        return customers_ids[0]
+
+    def total_network_call_minutes(self):
+        total_call_minutes_by_network = 0
+
+        for calllogs in self.call_records:
+            total_call_minutes_by_network += calllogs.call_minutes
+
+        return total_call_minutes_by_network
+
+
+------------------------------------------------------------------------------------------------
+
+Broadband Outage Tracker
+15 marks
+python
+Problem Statement
+Implement a class named BroadbandOutageTracker that tracks internet outage records reported by broadband customers.
+
+Each outage record contains:
+
+area_code (string) — the service area where the outage occurred
+
+duration_minutes (float or int) — how long the outage lasted
+
+severity (string: "minor", "major", or "critical")
+
+Required Class and Methods
+You must create a class named exactly: BroadbandOutageTracker
+
+It must contain the following methods with the exact same names:
+
+1. add_outage_record(area_code, duration_minutes, severity)
+
+Adds a new outage record.
+
+Raise ValueError if:
+
+area_code is empty or blank
+
+duration_minutes is less than or equal to 0
+
+severity is not one of: "minor", "major", "critical"
+
+2. total_downtime_per_area()
+
+Returns a dictionary where:
+
+key = area_code
+
+value = total outage duration (minutes) for that area
+
+Example: {"A1": 45, "A2": 30}
+
+3. outage_count_per_severity()
+
+Returns a dictionary where:
+
+key = severity
+
+value = number of outages of that severity
+
+Example: {"minor": 3, "major": 2, "critical": 1}
+
+4. most_affected_area()
+
+Returns the area_code (string) with the highest total downtime.
+
+If no records exist, return None.
+If there is a tie, return the area_code that is lexicographically smaller.
+
+5. total_outages()
+
+Returns the total number of outage records.
+
+Important Instructions
+For evaluation consistency:
+
+Use the class name exactly as BroadbandOutageTracker
+
+Use the method names exactly as given
+
+Do not rename methods
+
+Do not change the return types
+
+Do not print anything inside the class methods unless explicitly asked
+
+The evaluator will create an object of your class and call these methods directly
+
+Input Constraints
+
+1 <= number of records <= 10^4
+area_code length: 1 to 20
+0 < duration_minutes <= 10^5
+severity must be one of:
+"minor"
+"major"
+"critical"
+Sample Input
+
+tracker = BroadbandOutageTracker()
+
+tracker.add_outage_record("A1", 20, "minor")
+tracker.add_outage_record("A2", 30, "major")
+tracker.add_outage_record("A1", 25, "critical")
+tracker.add_outage_record("A3", 15, "minor")
+tracker.add_outage_record("A2", 10, "minor")
+
+print(tracker.total_downtime_per_area())
+print(tracker.outage_count_per_severity())
+print(tracker.most_affected_area())
+print(tracker.total_outages())
+Sample Output
+
+{'A1': 45, 'A2': 40, 'A3': 15}
+{'minor': 3, 'major': 1, 'critical': 1}
+'A1'
+5
+
+class Outage:
+    def __init__(self, area_code, duration_minutes, severity):
+        self.area_code = area_code
+        self.duration_minutes = duration_minutes
+        self.severity = severity
+
+class BroadbandOutageTracker:
+    VALID_SEVERITIES = {"minor", "major", "critical"}
+
+    def __init__(self):
+        self.outage_records = []
+
+    def add_outage_record(self, area_code, duration_minutes, severity):
+        if area_code is None or area_code.strip() == "":
+            raise ValueError("area_code is empty")
+        if duration_minutes <= 0:
+            raise ValueError("duration_minutes cannot be negative")
+        if severity.lower() not in self.VALID_SEVERITIES:
+            raise ValueError("severity not found")
+        
+        self.outage_records.append(Outage(area_code, duration_minutes, severity))
+
+    def total_downtime_per_area(self):
+        total_downtime_by_area = dict()
+
+        for outage_log in self.outage_records:
+            current_area = outage_log.area_code
+            current_duration = outage_log.duration_minutes
+
+            if current_area not in self.outage_records:
+                total_downtime_by_area[current_area] = current_duration
+            else:
+                total_downtime_by_area[current_area] += current_duration
+        
+        return total_downtime_by_area
+
+    def outage_count_per_severity(self):
+        outage_count_by_severity = {
+            self.VALID_SEVERITIES[0]: 0,
+            self.VALID_SEVERITIES[1]: 0,
+            self.VALID_SEVERITIES[2]: 0
+        }
+
+        for outage_log in self.outage_records:
+            outage_count_by_severity[outage_log.severity] += 1
+        
+        return outage_count_by_severity
+
+    def most_affected_area(self):
+        if self.outage_records == []:
+            return None
+
+        affected_area_with_downtime = self.total_downtime_per_area()
+
+        area_code_ = None
+        duration_ = 0
+
+        for area_code_key, duration_value in affected_area_with_downtime.items():
+            if duration_ < duration_value:
+                duration_ = duration_value
+                area_code = area_code_key
+            
+            elif duration_ == duration_value:
+                if area_code_ > area_code_key:
+                    area_code_ = area_code_key
+        
+        return area_code_
+
+    def total_outages(self):
+        return len(self.outage_records)

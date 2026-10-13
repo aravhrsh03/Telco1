@@ -1,0 +1,6 @@
+OrderID,Customer,Product,TotalSales
+101,John,Laptop,100000
+102,Emma,Mouse,800
+105,Emma,Monitor,60000
+103,Raj,Laptop,150000
+104,Unknown,Keyboard,3000

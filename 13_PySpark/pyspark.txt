@@ -1,0 +1,1068 @@
+ABBREVIATION:
+	-> LIB = LIBRARY
+	-> USA = USAGE [example code]
+	-> PAR = PARAMETERS
+	-> SYN = syntax
+	-> WHY = Why this is used
+	-> EXA = Example
+	-> MET = METHODS
+	-> CAT = Cannot have it
+	-> ALI = Alias
+	-> RES = Expected Result
+	-> OPT = Optional
+	-> ANE = Another Example
+	-> FUN = Functions used
+	-> DAM = Data Members
+	-> TYS = Types
+	-> VER = Python version
+	-> USC = Use Cases
+
+    -> [COM] - CLI Command
+    -> [INS] - install this library
+    -> [STE] - Steps
+
+Date = (10/8/2026)
+
+1. What is Big Data?
+    Extreamly large, fast-growing, and complex amounts of data that traditional computer systems cannot efficiently store, process and analyze.
+
+    Data = Information.
+
+    [WHY]
+        - Recommendation
+        - Personalization
+    
+    [TEC]
+        - Hadoop
+        - Hive
+        - Spark (Java)
+        - PySpark (distributed environment (others like pandas are single thread))
+        - Hive
+        - HDFS - Hadoop Distributed File systems
+
+Hadoop
+	- it divide and distributes to computers
+
+HDFS
+	- it is a processor which is going to store the data
+
+MapReduce
+	- it is a processing
+
+cluster
+	- it is the process of dividing the data across available servers of syste
+
+Spark:
+	- it is a open source distrubuted data engine.
+
+	[EXA][STE]
+		- 100 GB
+		- Split across machines
+		- process
+		- keep userful intermediate data in memory
+		- continue processing
+		- final result
+
+PySpark
+	- Distributed systems
+	- Spark is a distributed computing system
+	- It can process large amounts of data across multiple machines
+	- Spark supports multi-threaded and distributed execution
+	- We can use Spark through CLI / shell
+	- PySpark is the Python API for Apache Spark
+	- It is an external API / library
+	- Mainly used for big data processing and analytics
+	- Supports batch processing and streaming
+	- Can work with structured and semi-structured data
+
+	[LIB]
+		pyspark
+
+	[USA]
+		from pyspark.sql import SparkSession
+		from pyspark.sql.functions import sum
+
+		spark = SparkSession.builder \
+				.appName("CustomerAnalysis") \
+				.master("local[*]") \
+				.getOrCreate()
+
+		data = [
+			(1, "John", 25, 1000),
+			(2, "Alice", 35, 2000),
+			(3, "Bob", 40, 1500),
+			(4, "David", 28, 1200),
+			(5, "Emma", 45, 3000)
+		]
+
+		columns = ["id", "name", "age", "purchase"]
+
+		df = spark.createDataFrame(data, columns)
+
+		print("Original Data:")
+		df.show()
+
+		filtered_df = df.filter(df.age > 30)
+
+		print("Customers above 30:")
+		filtered_df.show()
+
+		total_purchase = filtered_df.select(
+			sum("purchase").alias("total_purchase")
+		)
+
+		print("Total Purchase:")
+		total_purchase.show()
+
+		spark.stop()
+
+	[SPARK SESSION]
+
+		- SparkSession is the entry point for working with Spark
+		- It is used to create DataFrames
+		- It manages the Spark application
+		- We can configure the Spark application using SparkSession
+
+	spark = SparkSession.builder \
+			.appName("CustomerAnalysis") \
+			.master("local[*]") \
+			.getOrCreate()
+
+	[APP NAME]
+
+		- `appName()` gives a name to the Spark application
+		- Useful for identifying the application in Spark UI
+
+	.appName("CustomerAnalysis")
+
+	[MASTER]
+
+	- `master()` specifies where Spark should run
+	- `local[*]` means run Spark locally
+	- `*` means use all available CPU cores
+
+	.master("local[*]")
+
+	[DATAFRAME]
+
+		- DataFrame is a distributed collection of data
+		- Data is organized into rows and columns
+		- Similar to a table in a database
+		- DataFrames are immutable
+		- DataFrames support SQL-like operations
+
+
+	[ANE]
+		from pyspark.sql import SparkSession
+
+		spark = SparkSession.builder \
+				.appName("MyFirstSparkApp") \
+				.master("local[*]") \
+				.getOrCreate()
+
+		students = [
+			(<name>, <id>),
+			...
+		]
+
+		columns = [<col1>, <col2>]
+		df = spark.createDataFrame(students, columns)
+		df.show()
+		df.printSchema() # kind of similar to describe in pandas
+		df.select(<col-name>).show()
+		df.filter(df.age > 30).show()
+		spark.stop()
+
+RDD - Resilient Distributed Dataset
+
+	- RDD = Resilient Distributed Dataset
+	- Distributed, immutable, fault-tolerant collection
+	- Data divided into partitions and processed in parallel
+	- Supports lazy evaluation and lineage
+	- Accessed using SparkContext
+
+	[RESILIENT]
+
+		- Fault tolerant
+		- Lost partitions recreated using lineage
+
+	[DISTRIBUTED]
+
+		- Data divided into partitions
+		- Partitions processed in parallel
+
+	[DATASET]
+
+		- Collection of data
+		- Can contain any Python object
+
+	[CREATE]
+
+		- parallelize() creates RDD from Python collection
+
+		sc = spark.sparkContext
+
+		data = [10, 20, 30, 40, 50]
+
+		rdd = sc.parallelize(data)
+
+	[PARTITIONS]
+
+		- Data divided into partitions
+		- Number of partitions can be specified
+		- Default partition size is 8 in pyspark,
+		rdd = sc.parallelize(data, 2)
+
+		rdd.getNumPartitions()
+
+	[TRANSFORMATION]
+
+		- Creates new RDD
+		- Lazy execution
+		- Examples: map(), filter(), flatMap(), reduceByKey()
+
+		rdd2 = rdd.map(lambda x: x * 2)
+
+	[MAP]
+
+		- Applies function to every element
+		- One input -> one output
+
+		rdd.map(lambda x: x * 2)
+
+	[FILTER]
+
+		- Selects elements matching condition
+
+		rdd.filter(lambda x: x > 30)
+
+	[FLAT MAP]
+
+		- map() + flatten
+		- One input -> zero or multiple outputs
+
+		rdd.flatMap(lambda x: x.split(" "))
+
+	[REDUCE]
+
+		- Combines all elements into one value
+
+		rdd.reduce(lambda x, y: x + y)
+
+	[REDUCE BY KEY]
+
+		- Combines values having same key
+
+		rdd.reduceByKey(lambda x, y: x + y)
+
+	[KEY-VALUE]
+
+		- Elements can be (key, value)
+		- Used for grouping and aggregation
+
+		rdd = sc.parallelize([
+		("A", 10),
+		("B", 20),
+		("A", 30)
+		])
+
+	[ACTION]
+
+		- Triggers execution
+		- Examples: collect(), count(), first(), reduce()
+
+		rdd2 = rdd.map(lambda x: x * 2)
+
+		rdd2.collect()
+
+	[COLLECT]
+
+		- Returns all data to driver
+		- Avoid for very large data
+
+		rdd.collect()
+
+	[COUNT]
+
+		- Returns number of elements
+
+		rdd.count()
+
+	[LAZY EVALUATION]
+
+		- Transformations are not executed immediately
+		- Execution starts when action is called
+
+		rdd2 = rdd.filter(lambda x: x > 20)
+
+		rdd2.collect()
+
+	[LINEAGE]
+
+		- Records transformation sequence
+		- Used to recover lost partitions
+
+		rdd2 = rdd.map(lambda x: x * 2)
+		rdd3 = rdd2.filter(lambda x: x > 5)
+
+	[CACHE]
+
+		- Keeps RDD for reuse
+		- Avoids recomputation
+
+		rdd.cache()
+
+	[PERSIST]
+
+		- Stores RDD using storage level
+
+		from pyspark import StorageLevel
+
+		rdd.persist(StorageLevel.MEMORY_AND_DISK)
+
+	[UNPERSIST]
+
+		- Removes cached/persisted RDD
+
+		rdd.unpersist()
+
+	[RDD VS DATAFRAME]
+
+		- RDD -> low-level, unstructured, more control
+		- DataFrame -> high-level, structured, optimized
+		- DataFrame preferred for most structured-data processing
+
+		rdd = sc.parallelize([(1, "John", 25)])
+
+		df = spark.createDataFrame(
+			rdd,
+			["id", "name", "age"]
+		)
+
+	RDD Processing pipeline = SparkSession -> context -> RDD creation -> transform -> caching -> actions
+		from pyspark.sql import SparkSession
+
+		spark = SparkSession.builder
+		.appName("RDDExample")
+		.master("local[*]")
+		.getOrCreate()
+
+		sc = spark.sparkContext
+
+		data = [10, 20, 30, 40, 50]
+
+		rdd = sc.parallelize(data)
+
+		rdd2 = rdd.map(lambda x: x * 2)
+
+		rdd2.cache()
+
+		print(rdd2.collect())
+
+		print(rdd2.count())
+
+		spark.stop()
+	
+	REPARTITION:
+
+		- Changes number of RDD partitions
+		- Can increase or decrease partitions
+		- Causes shuffle
+		- Returns new RDD
+
+		rdd2 = rdd.repartition(4)
+
+		[GET PARTITIONS]
+
+			- Returns partition count
+
+			rdd.getNumPartitions()
+
+		[EXAMPLE]
+
+			rdd = sc.parallelize([10, 20, 30, 40], 2)
+
+			print(rdd.getNumPartitions())
+
+			rdd2 = rdd.repartition(4)
+
+			print(rdd2.getNumPartitions())
+
+			rdd3 = rdd2.coalesce(2)
+
+			print(rdd3.getNumPartitions())
+
+		[REPARTITION VS COALESCE]
+
+			- repartition() -> increase/decrease partitions + shuffle
+			- coalesce() -> mainly decrease partitions + less shuffle
+
+				2 partitions
+					↓
+				repartition(4)
+					↓
+				4 partitions
+					↓
+				coalesce(2)
+					↓
+				2 partitions
+
+	[STRUCTTYPE]
+
+		- StructType is used to define a DataFrame schema
+		- StructField defines each column
+		- Common types: StringType(), IntegerType(), DoubleType()
+		- Used when converting an RDD into a DataFrame
+
+	[STRUCT FIELD]
+
+		- StructField defines column name, data type, and nullable
+		- Format: StructField(name, type, nullable)
+
+	[USA]
+
+		from pyspark.sql.types import StructType, StructField, StringType, IntegerType
+
+		schema = StructType([
+			StructField("name", StringType(), True),
+			StructField("age", IntegerType(), True)
+		])
+
+		rdd = sc.parallelize([
+			("John", 25),
+			("Alice", 30)
+		])
+
+		df = spark.createDataFrame(rdd, schema)
+
+		df.show()
+
+	[STRING TYPE]
+
+		- StringType() -> string/text values
+
+	[INTEGER TYPE]
+
+		- IntegerType() -> integer values
+
+	[SCHEMA]
+
+		- RDD -> data
+		- StructType -> schema
+		- StructField -> column definition
+
+	rdd = sc.parallelize([
+		("John", 25),
+		("Alice", 30)
+	])
+
+	schema = StructType([
+		StructField("name", StringType(), True),
+		StructField("age", IntegerType(), True)
+	])
+
+	df = spark.createDataFrame(rdd, schema)
+
+--------------------------------------------------------------------
+
+Date = (11/8/2026)
+
+Aggregation Functions
+
+[USA]
+	from pyspark.sql import SparkSession
+
+	spark = SparkSession.builder.appName("EmployeeData").master("local[*]").getOrCreate()
+
+	data = [
+		(1, "Alice", "IT", 75000),
+		(2, "Bob", "HR", 65000),
+		(3, "Charlie", "Finance", 80000),
+		(4, "David", "IT", 72000)
+	]
+
+	columns = ["id", "name", "dept", "salary"]
+
+	df = spark.createDataFrame(data, columns)
+
+	df.show()
+
+[FUN]
+	df.count()                              → Total number of rows
+	df.select(sum("salary"))                → Sum of column
+	df.select(avg("salary"))                → Average of column
+	df.select(min("salary"))                → Minimum value
+	df.select(max("salary"))                → Maximum value
+	df.select(count_distinct("dept"))       → Number of unique values
+	df.groupBy("dept")                      → Group rows by column
+	df.groupBy("dept").agg(sum("salary"))   → Aggregate by group
+	df.agg(sum("salary"), avg("salary"))    → Aggregate entire DataFrame
+
+Conditional Aggregation
+
+	[USA]
+		from pyspark.sql.functions import *
+
+		df.agg(
+			sum(when(col("salary") > 70000, col("salary"))).alias("high_salary_sum"),
+			avg(when(col("salary") > 70000, col("salary"))).alias("high_salary_avg"),
+			count(when(col("salary") > 70000, 1)).alias("high_salary_count")
+		)
+
+	[FUN]:
+
+		when(condition, value)                    → Apply condition
+		sum(when(...))                            → Conditional sum
+		avg(when(...))                            → Conditional average
+		count(when(...))                          → Conditional count
+		groupBy(...).agg(...)                     → Conditional aggregation per group
+
+	[EXA]:
+
+		df.groupBy("dept").agg(
+			sum(when(col("salary") > 70000, col("salary"))).alias("high_salary")
+		)
+
+		→ Calculates the total salary > 70,000 for each department.
+
+Joins
+
+[USA]
+	from pyspark.sql import SparkSession
+
+	spark = (
+		SparkSession.builder
+		.master("local[*]")
+		.appName("JoinPractice")
+		.getOrCreate()
+	)
+
+	# Employee DataFrame
+	employees_data = [
+		(1, "Alice", 101, 75000),
+		(2, "Bob", 102, 65000),
+		(3, "Charlie", 103, 80000),
+		(4, "David", 104, 70000),
+		(5, "Eve", 105, 60000)
+	]
+
+	employees_columns = ["emp_id", "name", "dept_id", "salary"]
+
+	employees_df = spark.createDataFrame(
+		employees_data,
+		employees_columns
+	)
+
+
+	# Department DataFrame
+	departments_data = [
+		(101, "IT"),
+		(102, "HR"),
+		(103, "Finance"),
+		(106, "Marketing")
+	]
+
+	departments_columns = ["dept_id", "dept_name"]
+
+	departments_df = spark.createDataFrame(
+		departments_data,
+		departments_columns
+	)
+
+
+	employees_df.show()
+	departments_df.show()
+
+[MET]
+	# INNER JOIN
+	# → Matching rows only | LEFT + RIGHT columns
+	employees_df.join(departments_df, "dept_id", "inner").show()
+
+	# LEFT JOIN
+	# → All LEFT rows + matching RIGHT rows | LEFT + RIGHT columns
+	employees_df.join(departments_df, "dept_id", "left").show()
+
+	# RIGHT JOIN
+	# → All RIGHT rows + matching LEFT rows | LEFT + RIGHT columns
+	employees_df.join(departments_df, "dept_id", "right").show()
+
+	# FULL JOIN
+	# → All rows from LEFT + RIGHT | LEFT + RIGHT columns
+	employees_df.join(departments_df, "dept_id", "full").show()
+
+	# LEFT SEMI JOIN
+	# → Matching LEFT rows only | LEFT columns only
+	employees_df.join(departments_df, "dept_id", "left_semi").show()
+
+	# LEFT ANTI JOIN
+	# → Non-matching LEFT rows only | LEFT columns only
+	employees_df.join(departments_df, "dept_id", "left_anti").show()
+
+	# CROSS JOIN
+	# → Every LEFT row × every RIGHT row | LEFT + RIGHT columns | No condition
+	employees_df.crossJoin(departments_df).show()
+
+	# CONDITION JOIN
+	# → Join using a custom condition/expression | LEFT + RIGHT columns
+	employees_df.join(
+		departments_df,
+		employees_df.dept_id == departments_df.dept_id,
+		"inner"
+	).show()
+
+	# BROADCAST JOIN
+	# → Broadcast small DataFrame to workers | Avoids large shuffle
+	from pyspark.sql.functions import broadcast
+
+	employees_df.join(
+		broadcast(departments_df),
+		"dept_id",
+		"inner"
+	).show()
+
+		Normal Join:
+		Large DF ←→ Large DF
+				↓
+			Shuffle
+
+		Broadcast Join:
+		Small DF → copied to workers
+		Large DF ←→ Small DF
+				↓
+		Less shuffle
+
+	BROADCAST JOIN
+
+		Small table
+			↓
+		Copy to every worker
+			↓
+		Big table stays distributed
+			↓
+		Join locally
+			↓
+		Less shuffle → Faster
+
+PERSIST() — PySpark
+
+	[PERSIST]
+		→ Stores a DataFrame's computed data for reuse.
+		→ Avoids recomputing the same DataFrame repeatedly.
+
+	[WHY]
+		→ Use when the same DataFrame is used multiple times.
+
+	[LIB]
+		→ from pyspark import StorageLevel
+
+	[SYN]
+		→ df.persist()
+
+	[USA]
+		df2 = df.filter(df.salary > 70000)
+
+		df2.persist()
+
+		df2.count()
+		df2.show()
+
+		→ First action computes and caches df2.
+		→ Later actions can reuse the persisted data.
+
+	[STORAGE]
+		→ Default: MEMORY_AND_DISK
+
+	[EXA]
+		df.persist(StorageLevel.MEMORY_AND_DISK)
+
+	[UNPERSIST]
+		→ Remove DataFrame from cache/storage.
+
+		df2.unpersist()
+
+	[DIFF]
+		cache()   → Shortcut for persist(MEMORY_AND_DISK)
+		persist() → Allows choosing storage level
+
+	[USC]
+		→ Reusing the same DataFrame multiple times.
+		→ Expensive transformations.
+		→ Iterative processing.
+
+	[QUICK MEMORY]
+		persist() → Compute once → Store → Reuse
+		unpersist() → Remove stored data
+
+ORC = Optimized Row Columnar
+
+	→ Columnar file format used in Hadoop/Spark
+	→ Stores data column-wise, not row-wise
+	→ Faster for reading only required columns
+	→ Supports compression → saves storage
+	→ Supports predicate pushdown → reads only relevant data
+	→ Commonly used with Hive and Spark
+
+	Normal row storage:
+		Row 1 → id, name, dept, salary
+		Row 2 → id, name, dept, salary
+
+		ORC:
+		id     → 1, 2, 3, 4
+		name   → Alice, Bob, ...
+		dept   → IT, HR, ...
+		salary → 75000, 65000, ...
+	
+	ORC → Columnar + Compressed + Fast reads
+
+	[US]
+		df.write.orc("employees.orc")
+
+		df = spark.read.orc("employees.orc")
+
+VIEW
+    → Temporary named result of a DataFrame/query.
+    → Does not store a separate copy of data.
+
+	[WHY]
+		→ Reuse DataFrame as a SQL table/view.
+
+	[SYN]
+		df.createOrReplaceTempView("view_name")
+
+	[USA]
+		df.createOrReplaceTempView("emp_view")
+		spark.sql("SELECT * FROM emp_view").show()
+
+GLOBAL TEMP VIEW
+    → View available across SparkSessions.
+
+	[SYN]
+		df.createOrReplaceGlobalTempView("view_name")
+
+	[USA]
+		df.createOrReplaceGlobalTempView("emp_view")
+		spark.sql("SELECT * FROM global_temp.emp_view").show()
+
+SUBQUERY
+    → Query inside another query.
+
+	[WHY]
+		→ Use one query's result inside another query.
+
+	[SYN]
+		SELECT ...
+		FROM ...
+		WHERE column IN (SELECT ...)
+
+	[USA]
+		spark.sql("""
+			SELECT *
+			FROM emp_view
+			WHERE salary > (
+				SELECT AVG(salary)
+				FROM emp_view
+			)
+		""").show()
+
+	[RES]
+		→ Employees earning above average salary.
+
+
+CTE = Common Table Expression
+    → Named temporary query result using WITH.
+
+	[WHY]
+		→ Organize complex SQL into smaller steps.
+
+	[SYN]
+		WITH cte_name AS (
+			SELECT ...
+		)
+		SELECT ...
+		FROM cte_name
+
+	[USA]
+		spark.sql("""
+			WITH high_salary AS (
+				SELECT *
+				FROM emp_view
+				WHERE salary > 70000
+			)
+			SELECT *
+			FROM high_salary
+		""").show()
+
+	[RES]
+		→ Employees with salary > 70000.
+
+
+CTE + AGGREGATION
+
+	[USA]
+		spark.sql("""
+			WITH dept_avg AS (
+				SELECT dept, AVG(salary) AS avg_salary
+				FROM emp_view
+				GROUP BY dept
+			)
+			SELECT *
+			FROM dept_avg
+			WHERE avg_salary > 70000
+		""").show()
+
+TYPICAL PYSPARK FLOW
+
+    DataFrame
+        ↓
+    createOrReplaceTempView()
+        ↓
+    Spark SQL
+        ├── VIEW
+        ├── SUBQUERY
+        └── CTE
+
+
+UDF = User Defined Function
+
+	[UDF]
+		→ Custom function created by the user for logic not available
+		in built-in Spark functions.
+
+	[WHY]
+		→ Apply custom Python logic to DataFrame columns.
+
+	[LIB]
+		→ from pyspark.sql.functions import udf
+		→ from pyspark.sql.types import StringType
+
+	[SYN]
+		→ udf(python_function, return_type)
+
+	[USA]
+		from pyspark.sql.functions import udf, col
+		from pyspark.sql.types import StringType
+
+		def get_grade(salary):
+			return "High" if salary >= 70000 else "Low"
+
+		grade_udf = udf(get_grade, StringType())
+
+		df.withColumn(
+			"grade",
+			grade_udf(col("salary"))
+		).show()
+
+	[RES]
+		→ Creates a new "grade" column based on salary.
+
+	[PAR]
+		→ python_function → Custom Python function
+		→ return_type    → UDF output data type
+
+	[OPT]
+		→ Prefer built-in functions such as:
+			when()
+			concat()
+			regexp_replace()
+			upper()
+			lower()
+		whenever possible.
+
+	[ANE]
+		from pyspark.sql.functions import udf, col
+		from pyspark.sql.types import IntegerType
+
+		def add_bonus(salary):
+			return salary + 5000
+
+		bonus_udf = udf(add_bonus, IntegerType())
+
+		df.withColumn(
+			"new_salary",
+			bonus_udf(col("salary"))
+		).show()
+
+Vectorized UDF
+
+	[PANDAS UDF]
+		→ Vectorized UDF for PySpark.
+
+	[WHY]
+		→ Run Python logic efficiently on batches of data.
+
+	[LIB]
+		→ from pyspark.sql.functions import pandas_udf
+
+	[SYN]
+		→ @pandas_udf(return_type)
+
+	[USA]
+		@pandas_udf(IntegerType())
+		def add_bonus(salary):
+			return salary + 5000
+
+	[CAT]
+		→ Requires Pandas.
+		→ Still has Python overhead.
+		→ Built-in Spark functions are usually preferred when available.
+
+	[QUICK MEMORY]
+		Normal UDF
+			→ Row-by-row Python
+
+		Pandas UDF
+			→ Batch/column-wise Python
+			→ Vectorized
+			→ Generally faster
+
+JDBC + PySpark
+    → Connect PySpark with an external database using JDBC.
+
+	[FLOW]
+		PySpark → JVM → Spark → JDBC → Database
+
+	[LIB]
+		from pyspark.sql import SparkSession
+
+	[STE]
+		1. Create SparkSession
+		2. Define JDBC URL
+		3. Define connection properties
+		4. Read table into DataFrame
+
+	[USA]
+		from pyspark.sql import SparkSession
+
+		spark = (
+			SparkSession.builder
+			.master("local[*]")
+			.appName("JDBCExample")
+			.getOrCreate()
+		)
+
+		url = "jdbc:mysql://localhost:3306/company"
+
+		properties = {
+			"user": "root",
+			"password": "password",
+			"driver": "com.mysql.cj.jdbc.Driver"
+		}
+
+		df = (
+			spark.read
+			.jdbc(
+				url=url,
+				table="employees",
+				properties=properties
+			)
+		)
+
+		df.show()
+
+	[PAR]
+		url        → Database connection URL
+		table      → Database table name
+		properties → Connection details
+			user     → Database username
+			password → Database password
+			driver   → JDBC driver
+
+	[SYN]
+		spark.read.jdbc(
+			url,
+			table,
+			properties
+		)
+
+	[RES]
+		→ Database table is loaded into a Spark DataFrame.
+
+	[QUICK MEMORY]
+		Session → URL → Properties → Read → DataFrame
+
+
+	ERROR QUICK NOTES (During Training)
+
+		[JAR]
+			→ "JDBC driver not found" / driver config error
+			→ Add the correct JDBC driver JAR to Spark.
+			→ Example: MySQL Connector/J JAR.
+
+		[DRIVER]
+			→ MySQL driver:
+			com.mysql.cj.jdbc.Driver
+			→ `cj` → modern MySQL Connector/J driver.
+
+		[PRIMARY KEY]
+			→ Duplicate primary key → INSERT/APPEND fails.
+			→ Ensure IDs are unique before appending.
+
+		[COMMON]
+			→ Driver/JAR error       → Check JDBC JAR
+			→ Class not found        → Check driver name + JAR
+			→ Connection error       → Check URL, host, port, DB
+			→ Authentication error   → Check username/password
+			→ Duplicate key          → Check primary key values
+			→ Schema error           → Check DataFrame vs table schema
+
+		[MEMORY]
+			JAR → Driver available
+			cj  → MySQL driver
+			PK  → Must be unique
+
+	JDBC + PySpark — CRUD
+
+		[C = CREATE]
+		[USA]
+			→ Write new DataFrame rows to DB table.
+
+			df.write.jdbc(
+				url=url,
+				table="employees",
+				mode="append",
+				properties=properties
+			)
+
+			→ append = add rows to existing table
+
+
+		[R = READ]
+		[USA]
+			→ Read DB table into DataFrame.
+
+			df = spark.read.jdbc(
+				url=url,
+				table="employees",
+				properties=properties
+			)
+
+
+		[U = UPDATE]
+		[USA]
+			→ No direct `update()` method in PySpark JDBC.
+			→ Use SQL through JDBC / database-side SQL.
+
+			UPDATE employees
+			SET salary = 80000
+			WHERE emp_id = 1;
+
+
+		[D = DELETE]
+		[USA]
+			→ No direct `delete()` method in PySpark JDBC.
+			→ Use SQL through JDBC / database-side SQL.
+
+			DELETE FROM employees
+			WHERE emp_id = 1;
+
+
+		[QUICK MEMORY]
+			CREATE → df.write.jdbc(..., mode="append")
+			READ   → spark.read.jdbc(...)
+			UPDATE → SQL UPDATE
+			DELETE → SQL DELETE
+
+		[NOTE]
+			→ PySpark JDBC is mainly convenient for READ/WRITE.
+			→ UPDATE/DELETE usually require database-side SQL or another
+			JDBC/SQL approach.

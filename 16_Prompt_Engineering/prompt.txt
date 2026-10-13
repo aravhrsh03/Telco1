@@ -1,0 +1,108 @@
+ABBREVIATION:
+	-> LIB = LIBRARY
+	-> USA = USAGE [example code]
+	-> PAR = PARAMETERS
+	-> SYN = syntax
+	-> WHY = Why this is used
+	-> EXA = Example
+	-> MET = METHODS
+	-> CAT = Cannot have it
+	-> ALI = Alias
+	-> RES = Expected Result
+	-> OPT = Optional
+	-> ANE = Another Example
+	-> FUN = Functions used
+	-> DAM = Data Members
+	-> TYS = Types
+	-> VER = Python version
+	-> USC = Use Cases
+
+    -> [COM] - CLI Command
+    -> [INS] - install this library
+    -> [STE] - Steps
+
+Date: (02/09/2026)
+
+PROMPT ENGINEERING — NOTES
+
+Ai Capabilities:
+    [USC]
+        - Face Detection
+        - Spam Detection
+        - Ai Assisstents
+        - Gaming
+        - Anamoly Detection
+
+Generative Ai:
+    - Using the Generative AI we creating new content out of it
+    - it can text, audio, video, code, images, docs, ppts
+
+Agent:
+    - it is a system
+    - it understand what want to do for the task
+    - using the training it predicts
+
+    [STE]
+        - thinking -> planing -> design -> tools -> work on it.
+
+RAG
+    - Retrieve Augmented Generation
+    - it Retrieves the accessed value from the db
+
+    [STE]
+        - Documents -> Embeddings -> vector db -> Retrieve relevent information -> llm -> answer
+
+NLP
+    - NLP is a subfield of AI that focuses on developing
+      technologies that are capable of understanding, interpret and generating human language.
+
+LM
+    - Language Model
+    - it is any model that learns to predict the next word
+      in a sequence - based on what come before
+    
+    [TYS]
+        - STATS ERA = n-grams, Markov Chains
+
+            N-GRAM:
+                [STE]
+                    - uni-gram, bi-gram, tri-gram
+            
+            Markov Chain:
+                - it predicts the next token based on the limited info from previous tokens.
+
+        - NEURAL ERA = RNN, LSTM
+
+            RNN:
+                - it iterates sentence sequential
+                - maintain hidden state [carrying info of earlier words]
+            LSTM  
+                - Long short term machine
+                - it redefined version of RNN
+
+        - TRANSFORMERS = Encoder- Decoder (T5), Decoder- only (GPT), Encoder-only (BERT)
+            Encoder - Understands and represence the Input
+            Decoder - it generates the output
+
+LLM
+    - Large Language Models
+    - It is a Transformer based, Language model that's 
+      trained at massive scale, So while the core idea is still "predict that next token".
+      the scale and architecture make all the difference.
+
+    [STE]
+        - Input -> predict tokens -> 
+
+Tokenization
+    - Tokenization is the precess of breaking down text into
+      smaller units called tokens. These tokens can be words, subwords, characters,
+      or even sentences, depending on the level of granularity required for a specific application.
+
+Embeddings:
+    - Embeddings are vector representations of words that attempt to capture its meaning.
+
+* Q (Query): What information is the current token looking for?
+* K (Key): What information does each token contain to be matched against the query?
+* V (Value): What information should be retrieved if a key matches the query?
+
+In one line: Q asks, K matches, V provides.

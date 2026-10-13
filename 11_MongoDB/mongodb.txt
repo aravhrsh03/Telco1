@@ -1,0 +1,55 @@
+ABBREVIATION:
+	-> LIB = LIBRARY
+	-> USA = USAGE [example code]
+	-> PAR = PARAMETERS
+	-> SYN = syntax
+	-> WHY = Why this is used
+	-> EXA = Example
+	-> MET = METHODS
+	-> CAT = Cannot have it
+	-> ALI = Alias
+	-> RES = Expected Result
+	-> OPT = Optionalx
+	-> ANE = Another Example
+	-> FUN = Functions used
+	-> DAM = Data Members
+	-> TYS = Types
+	-> VER = Python version
+	-> USC = Use Cases
+
+    -> [COM] - CLI Command
+    -> [INS] - install this library
+    -> [STE] - Steps
+
+Date = (30/7/2026)
+
+MongoDB:
+    - No SQL database
+    - No SCHEMA
+    - Stores the Unstructed Data
+    - it has collections (Table)
+    - each collections have documents (Record)
+
+    [Note: to show the database in compass you should have the collection with atleast a document]
+
+    - stores as BSON - Binary JSON
+
+MongoSHELL
+    - [COMMAND] mongosh
+    - it provides the mongodb terminal works in the terminal itself
+
+    [USA]
+        from pymongo import MongoClient
+
+        url = "mongodb://localhost:27017/"
+        client = MongoClient(url)
+
+        print(client.list_database_names()) # provides the available db names
+    
+        # creating a collection inside db inside client
+
+        db = client["student"]
+        col = db["std1"]
+
+        col.insert_one({})
+        print(client.list_database_names()) # provides the available db names

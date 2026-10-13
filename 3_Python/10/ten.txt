@@ -1,0 +1,167 @@
+
+    DATE: (16/07/2026)
+
+	- task
+		- a unit of work
+		- higher level concept
+		- represents a job or activity to be completed
+		- can contain multiple processes
+
+	- process (have more than 1 thread)
+		- a program which is currently running
+		- an active instance of a program
+		- has its own memory and resources
+		- can contain multiple threads
+		- managed by the operating system
+
+		seperate - memory
+				 - GIL
+				 - cpu cores
+				 - python interpreter
+
+	- thread (can have sub threads)
+		- smaller unit under the process
+		- smallest unit of execution
+		- performs a specific task inside a process
+		- shares memory and resources of the process
+		- multiple threads can run simultaneously
+
+	[EXA]
+		- browsing in Chrome (task)
+			- Chrome application running (process)
+				- loading webpage (thread)
+				- handling user input (thread)
+				- playing video (thread)
+
+	GIL (Global Interpreter Lock)
+		- a lock in CPython that allows only one thread to execute Python bytecode at a time
+		- prevents multiple threads from modifying Python objects simultaneously and avoids memory conflicts
+		- threads can run concurrently (switching between tasks), but CPU-bound Python code does not get true parallel execution on multiple CPU cores
+
+		[WHY]
+			- Memory Management
+			- Reference 
+			- Prevent corruption (in task/memory)
+
+		[CONS]
+			- slow (because direct connect to cpu)
+
+	[Notes: threads executes one by one]
+
+	- Process
+		- independent execution unit with separate memory
+		- runs tasks in parallel using multiple CPU cores
+		- avoids Python GIL limitation
+
+	[LIB]
+		multiprocessing
+
+	[USA]
+		from multiprocessing import Process
+
+		def worker():
+			print("Hello from worker process")
+
+		if __name__ == "__main__":
+			P = Process(target=worker)
+			P.start()   # starts process
+			P.join()    # waits for process completion
+	
+	[ANE]
+		from multiprocessing import Process
+		import time
+
+		def worker():
+			for i in range(3):
+				print(f"{name} : {i}")
+				time.sleep(1)
+			print("Hello from worker process", os.getpid())
+
+		if __name__ == "__main__":
+			P = Process(target=worker, args=("process-1",))
+			P2 = Process(target=worker, args=("process-2",))
+			P.start()   # starts process
+			P2.start()
+
+			P.join()    # waits for process completion
+			P2.join()
+			print("Main process finished")
+
+	Multiprocessing (Python)
+    - runs multiple processes independently to achieve parallel execution
+    - bypasses Python GIL and uses multiple CPU cores
+
+	[Process]
+		- creates a new independent process
+		- used to run a function in parallel
+
+	[Pool]
+		- creates a group of worker processes
+		- automatically distributes tasks among workers
+
+		[USA]
+			from multiprocessing import Pool
+
+			def square(num): 
+				return num * num
+			
+			if __name__ == "__main__":
+				nums = [1, 2, 3, 4, 5]
+				with Pool(processes=2) as pool:
+					result = pool.map(square, nums)
+				print(result)
+
+	[Queue]
+		- allows safe data sharing between processes
+		- follows FIFO (First In First Out) communication
+
+		[USA]
+			from multiprocessing import Process, Queue
+
+			def worker(q):
+				for i in range(1, 6):
+					q.put(i)
+			
+			if __name__ == "__main__":
+				q = Queue()
+
+				p = Process(target=worker, args=(q,))
+				p.start()
+				p.join()
+
+				while not q.empty():
+					print(q.get())
+
+	[Pipe]
+		- creates a communication channel between two processes
+		- used for direct sending and receiving data
+
+	[Lock]
+		- allows only one process to access shared data at a time
+		- prevents race conditions
+
+	[Semaphore]
+		- controls how many processes can access a resource simultaneously
+		- useful for limiting resource usage
+
+	[Event]
+		- sends a signal between processes
+		- used to notify a process that something happened
+
+	[Condition]
+		- allows processes to wait until a specific condition is met
+		- used for advanced process synchronization
+
+	[Value]
+		- creates a shared single variable between processes
+		- used for sharing numbers or simple data
+
+	[Array]
+		- creates a shared memory array between processes
+		- used for sharing multiple values
+
+	[Manager]
+		- provides shared objects between processes
+		- supports shared list, dictionary, and other data structures
+
+

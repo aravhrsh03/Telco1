@@ -1,0 +1,606 @@
+ABBREVIATION:
+	-> LIB = LIBRARY
+	-> USA = USAGE [example code]
+	-> PAR = PARAMETERS
+	-> SYN = syntax
+	-> WHY = Why this is used
+	-> EXA = Example
+	-> MET = METHODS
+	-> CAT = Cannot have it
+	-> ALI = Alias
+	-> RES = Expected Result
+	-> OPT = Optionalx
+	-> ANE = Another Example
+	-> FUN = Functions used
+	-> DAM = Data Members
+	-> TYS = Types
+	-> VER = Python version
+	-> USC = Use Cases
+
+    -> [COM] - CLI Command
+    -> [INS] - install this library
+    -> [RUN] - Run command
+    
+Date = (27/7/2026)
+
+Pandas
+    [LIB] pandas
+    - works with structured data 
+    - used in data engineering
+    - dtypes = [Series, DataFrame]
+    - data science, data analysis
+
+Series
+    - one dimentional
+    - capable of storing same or also different dtypes
+    - position=, label= also called as index
+    - mutable, ordered, fast
+    - float64, int64, datetime64, bool, object, str, category
+    - use default index, automatic
+
+        Position 
+            = where the row/column is located (0-based numbering).
+            = Use iloc for positions.
+            = iloc → I = Integer position
+        Index 
+            = the label that identifies the row/column.
+            = Use loc for index labels.
+            = loc → Label location
+
+    - Align by index not by position
+    - it uses position for calculation not by label
+
+    [USA]
+        import pandas as pd
+        s1 = pd.Series(["k", "l", "j"]) # index automatic
+        print(s1)
+
+        m1 = pd.Series(["Iron Man", "Captain America", "Thor"], [1,2,3]) # [1,2,3] act as keys
+
+    [NOT]
+        The dtype object comes from NumPy, 
+            it describes the type of element in a ndarray. 
+        Every element in an ndarray must have the same size in bytes. 
+        For int64 and float64, they are 8 bytes. 
+        But for strings, the length of the string is not fixed. 
+        So instead of saving the bytes of strings in the ndarray directly, Pandas uses an object ndarray, which saves pointers to objects; because of this the dtype of this kind ndarray is object.
+
+    [MET]
+        .concat() 
+            - concat two Series
+            [SYN]
+                - pandas.concat(<Series1>, <Series2>)
+        .drop()
+            - drop by label or multiple labels
+            [SYN]
+                - <series>.drop(<label-name>)
+                - <series>.drop([<label-names>])
+        
+        .head() - returns first five (else mention the offset inside as a parameter)
+        .tail() - returns last five of the series
+        
+        Aggregate METHODS
+            .max(), .min(), .sum(), .mean()
+        
+        Data Members
+            .index = returns indexes list
+            .values = returns values list
+            .shape = returns tuple of shape (r, c)
+            .size = size of the series (length)
+            .ndim = returns the dimention of the series
+        
+        .sort_values() = sort by values
+        .sort_index() = sort by index
+        .describe() = returns all aggregated stats data
+    
+    category
+        - it is a dtype
+        - it groups and provides the unique values
+
+        [USA]
+            colors = pd.Series(["R", "B", "R"], dtype=category)
+            print(colors)
+        
+        [RES]
+            Categories (2, object): ['R', 'B']
+        
+        .cat.codes - returns the codes assigned for the values in the category
+        .isna() = return true if nan
+        .notna() = returns true if not nan
+        .dropna() = deletes the records from series which contain nan as the value
+        .fillna() = fills the value for na values
+        .ffill() = fills the nan value with the imediate after value from the nan
+        .bfill() = vice versa of ffill()
+    
+    datetime
+        - dtype: datetime64[ns]
+        - stores date & time
+        - missing value = NaT
+
+        [USA]
+            s = pd.to_datetime(pd.Series(["2025-01-01", "2025-01-02"]))
+
+        [MET]
+            pd.to_datetime()   = convert to datetime
+            pd.date_range()    = create date sequence
+
+            .dt.year
+            .dt.month
+            .dt.day
+            .dt.hour
+            .dt.minute
+            .dt.second
+
+            .dt.day_name()
+            .dt.month_name()
+
+            .dt.strftime()     = format datetime
+
+            .min(), .max()
+            .sort_values()
+
+            .isna()
+            .fillna()
+            .dropna()
+
+        Format
+            %Y = year
+            %m = month
+            %d = day
+            %H = hour
+            %M = minute
+            %S = second
+
+        Frequency
+            D = day
+            W = week
+            M = month
+            Y = year
+
+        NaT
+            = missing datetime
+
+DataFrame
+    - two-dimensional data structure
+    - similar to Excel table / CSV
+    - collection of Series
+    - contains rows, columns, index, values
+    - each column can have different dtype
+    - mutable and ordered
+
+    Structure
+        Rows    = records
+        Columns = features
+        Index   = row labels
+        Values  = actual data
+
+    [USA]
+        import pandas as pd
+
+        df = pd.DataFrame({
+            "Name": ["one", "two", "three"],
+            "Age": [12, 23, 34]
+        })
+
+        print(df)
+
+
+    Creating DataFrame from Series
+
+    [SYN]
+        df = pd.DataFrame({
+            "column1": series1,
+            "column2": series2
+        })
+
+        - index can be set using index parameter
+
+
+    Index
+        - row identifier
+        - default index starts from 0
+        - can use custom labels
+
+        .index
+            - returns row indexes
+
+        .columns
+            - returns column names
+
+
+    DataFrame Attributes
+
+        .shape - returns (rows, columns)
+        .size - total number of values
+        .ndim - dimension (always 2)
+        .values - returns underlying values
+        .dtypes - returns dtype of each column
+
+    Accessing Data
+
+        df["column"] - select single column
+        df[["col1", "col2"]] - select multiple columns
+        df.loc[] - access using labels
+        df.iloc[] - access using position
+
+    Adding / Removing Data
+
+        df["new_col"] = values
+            - add new column
+
+        df.drop()
+            - remove rows or columns
+
+        df.rename()
+            - rename columns
+
+    Common Methods
+
+        .head()
+            - first 5 rows
+
+        .tail()
+            - last 5 rows
+
+        .info()
+            - summary of DataFrame
+
+        .describe()
+            - statistical summary
+
+        .sort_values()
+            - sort by column values
+
+        .sort_index()
+            - sort by index
+
+
+    Missing Values
+
+        NaN / None
+            - missing value
+
+        .isna()
+            - check missing values
+
+        .notna()
+            - check non-missing values
+
+        .dropna()
+            - remove missing records
+
+        .fillna()
+            - replace missing values
+
+
+    Combining DataFrames
+
+        pd.concat()
+            - combine DataFrames vertically/horizontally
+
+        pd.merge()
+            - combine using common columns
+
+
+    Selecting Rows
+
+        df.loc[row_label]
+            - select by index label
+
+        df.iloc[row_position]
+            - select by position
+
+
+    Important Difference
+
+        Index
+            = row label
+            = use loc
+
+        Position
+            = row location (0-based)
+            = use iloc
+
+
+    DataFrame vs Series
+
+        Series
+            - 1D
+            - single column
+
+        DataFrame
+            - 2D
+            - multiple columns
+            - collection of Series
+
+pivot()
+        - reshapes DataFrame
+        - converts unique values from one column into new columns
+        - used to create summary tables (like Excel Pivot Table)
+        - does not aggregate values (each index-column combination must be unique)
+
+    [SYN]
+        df.pivot(
+            index=<row-column>,
+            columns=<column-to-expand>,
+            values=<value-column>
+        )
+
+
+    [USA]
+
+        import pandas as pd
+
+        df = pd.DataFrame({
+            "Name": ["A", "A", "B", "B"],
+            "Year": [2023, 2024, 2023, 2024],
+            "Sales": [100, 150, 200, 250]
+        })
+
+        result = df.pivot(
+            index="Name",
+            columns="Year",
+            values="Sales"
+        )
+
+        print(result)
+
+
+    [RES]
+
+    Year    2023   2024
+    Name
+    A        100    150
+    B        200    250
+
+
+    Parameters
+
+        index
+            - column used as row labels
+
+        columns
+            - column values become new columns
+
+        values
+            - data to fill inside the table
+
+
+    Example thinking
+
+    Original:
+
+    Name   Year   Sales
+    A      2023   100
+    A      2024   150
+    B      2023   200
+    B      2024   250
+
+
+    Pivot:
+
+            2023   2024
+    A        100    150
+    B        200    250
+
+
+    Difference
+
+    pivot()
+        - only reshapes
+        - no duplicate index-column pairs allowed
+        - no aggregation
+
+
+    pivot_table()
+        - pivot + aggregation
+        - handles duplicate values
+        - uses functions like sum, mean, count
+
+
+    [SYN]
+
+    df.pivot_table(
+        index=<row>,
+        columns=<column>,
+        values=<value>,
+        aggfunc=<function>
+    )
+
+
+    Memory Trick
+
+        pivot()
+            = rearrange data
+
+        pivot_table()
+            = rearrange + calculate
+
+    set_index()
+        - changes one or more columns into DataFrame index
+        - replaces the default index (0,1,2...)
+        - useful for label-based indexing with loc[]
+        - original column is removed by default
+
+
+        [SYN]
+
+            df.set_index(<column-name>)
+
+            df.set_index(<column-name>, inplace=True)
+
+
+        [USA]
+
+            import pandas as pd
+
+            df = pd.DataFrame({
+                "ID": [101, 102, 103],
+                "Name": ["A", "B", "C"],
+                "Age": [20, 25, 30]
+            })
+
+            df = df.set_index("ID")
+
+            print(df)
+
+
+        [RES]
+
+            Name  Age
+        ID
+        101     A    20
+        102     B    25
+        103     C    30
+
+
+        Before set_index()
+
+            Index   ID   Name   Age
+            0    101    A     20
+            1    102    B     25
+            2    103    C     30
+
+
+        After set_index()
+
+            ID     Name   Age
+            101     A     20
+            102     B     25
+            103     C     30
+
+
+        --------------------------------------------------
+
+
+        Access after set_index()
+
+            loc[]
+                - uses the new index labels
+
+
+            df.loc[102]
+
+            RES:
+
+            Name    B
+            Age     25
+
+
+        --------------------------------------------------
+
+
+        Keep original column
+
+        [SYN]
+
+            df.set_index(
+                "ID",
+                drop=False
+            )
+
+
+        Result:
+
+            ID   Name  Age
+        ID
+        101   101    A    20
+        102   102    B    25
+
+
+        --------------------------------------------------
+
+
+        Modify original DataFrame
+
+            [SYN]
+
+            df.set_index(
+                "ID",
+                inplace=True
+            )
+
+            - no need to assign back
+
+
+        --------------------------------------------------
+
+
+        Reset Index
+
+            reset_index()
+                - converts index back into a normal column
+                - creates default index again
+
+
+            [SYN]
+
+            df.reset_index()
+
+
+        --------------------------------------------------
+
+
+        Multiple Index (MultiIndex)
+
+            - use multiple columns as index
+
+
+            [SYN]
+
+            df.set_index(
+                ["col1", "col2"]
+            )
+
+
+        Example:
+
+            Country   Year   Sales
+            USA       2024   100
+            USA       2025   150
+
+
+            set_index(["Country", "Year"])
+
+
+        Result:
+
+                    Sales
+        Country Year
+        USA     2024   100
+        USA     2025   150
+
+
+        --------------------------------------------------
+
+
+        Memory Trick
+
+            set_index()
+                = make a column become the row label
+
+            reset_index()
+                = convert row label back into a column
+
+            loc[]
+                = search using index labels
+
+map
+    - do the calculation in place
+    - applies to series
+    - goes element by element
+
+    [USA]
+        import pandas as pd
+        s = pd.Series([1,2,3,4])
+        print(s.map(lambda x: x * 10))
+    
+apply
+    - similar to map
+    - used for DataFrames
+    - goes by columns
+
+    [USA]
+        ages = pd.Series([20, 25, 30])
+        print(ages.apply(lambda x: x + 5))
+        print(ages.memory_usage()) # returns the memory usage 

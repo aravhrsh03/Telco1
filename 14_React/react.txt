@@ -1,0 +1,1019 @@
+ABBREVIATION:
+	-> LIB = LIBRARY
+	-> USA = USAGE [example code]
+	-> PAR = PARAMETERS
+	-> SYN = syntax
+	-> WHY = Why this is used
+	-> EXA = Example
+	-> MET = METHODS
+	-> CAT = Cannot have it
+	-> ALI = Alias
+	-> RES = Expected Result
+	-> OPT = Optional
+	-> ANE = Another Example
+	-> FUN = Functions used
+	-> DAM = Data Members
+	-> TYS = Types
+	-> VER = Python version
+	-> USC = Use Cases
+
+    -> [COM] - CLI Command
+    -> [INS] - install this library
+    -> [STE] - Steps
+
+Date = (12/8/2026)
+
+ReactJS
+    - UI library of JS.
+    - It is used to create Interactive Page for User.
+    - The Interactive Page is created with components.
+    - So it is called to have components based approach.
+    - It is created with 4 components (JS, HTML, CSS, JQuery).
+    - Created @2013 by Meta.
+
+VITE
+
+    Vite = Fast Dev Server + Production Build Tool
+
+    WHY VITE?
+
+        * Old approach: bundle entire app -> slow dev startup/HMR.
+        * Modern browsers support ESM.
+        * Vite uses native ESM + on-demand transformation during development.
+        * Result: fast startup + fast HMR.
+
+    DEVELOPMENT
+
+        Source -> Vite Dev Server -> Transform on demand -> Browser ESM
+        |
+        HMR
+
+    * No full production bundle.
+    * Only requested/changed modules are processed.
+    * Goal = fast developer feedback.
+
+    PRODUCTION
+
+        Source -> Vite Build -> Bundle + Tree-shake + Minify + Split -> dist/ -> Deploy
+
+        * Optimizes assets for users.
+        * Goal = efficient production delivery.
+
+    WHY SEPARATE DEV/PROD?
+
+        DEV  = optimize development speed
+        PROD = optimize application delivery
+
+    VITE ARCHITECTURE
+
+                    VITE
+                /       \
+            DEV         PROD
+            |             |
+        ESM + HMR      Build + Optimize
+            |             |
+            Browser         dist/
+
+    KEY TERMS
+
+        ESM = browser import/export module system.
+        HMR = update changed modules without full reload.
+        Bundling = package modules together.
+        Tree-shaking = remove unused code.
+        Code splitting = separate loadable chunks.
+        Transformation = convert source into browser-usable code.
+
+    MENTAL MODEL
+
+        Vite = bridge between source code and browser.
+
+        DEV: fast, on-demand module server.
+        PROD: optimized application builder.
+
+    ONE LINE
+
+        Vite avoids expensive bundling during development but performs optimized bundling/building for production.
+
+
+ESLINT
+
+    ESLint = JavaScript/TypeScript code linter.
+
+    WHY?
+    Finds problems + enforces coding rules before runtime
+
+
+React + Vite project files — shortest notes:
+
+    node_modules
+        → Installed npm packages/dependencies. Do not edit or commit.
+
+    .gitignore
+        → Tells Git which files/folders to ignore, usually node_modules, dist, env files.
+
+    eslint.config.js
+        → ESLint rules/configuration for checking code quality.
+
+    index.html
+        → Main HTML entry point; React app mounts into this page.
+
+    package-lock.json
+        → Locks exact dependency versions for consistent installs.
+
+    package.json
+        → Project metadata, dependencies, and npm scripts.
+
+    vite.config.js
+        → Vite configuration: plugins, server settings, build options, etc.
+
+    README.md
+        → Project documentation/instructions.
+
+Quick Notes:
+
+    package.json       → What the project needs
+    package-lock.json  → Exact versions
+    node_modules       → Installed packages
+    vite.config.js     → Vite configuration
+    eslint.config.js   → Code-quality rules
+    index.html         → HTML entry
+    .gitignore         → Git exclusions
+    README.md          → Documentation
+
+App.jsx
+    - it should return only one element
+    - if we have many element we should wrap up with div or fragment (<></>)
+
+REACT JSX — CAPITALIZATION
+
+    User-defined components → Capitalized
+
+        <div />, <span /> → lowercase = built-in HTML elements
+        <Foo /> → Capitalized = React component
+        <foo /> → treated as HTML/custom tag, NOT foo component
+        <Foo.Bar /> → dot notation = component/property
+
+    RULE:
+
+        lowercase   → HTML/built-in
+        Capitalized → React component
+        Dot (.)      → property/member component
+
+JSX 
+    - JavaScript syntax extension for writing HTML-like UI inside JavaScript.
+
+REACT / JAVASCRIPT DATA TYPES
+
+    Primitive types:
+        string → "Hello"
+        number → 10, 3.14
+        boolean → true / false
+        undefined → variable with no value
+        null → intentional empty value
+        bigint → 123n
+        symbol → unique identifier
+
+    Non-primitive:
+        object → { name: "John" }
+        array → [1, 2, 3]
+        function → () => {}
+
+    React commonly uses these as:
+        string → text
+        number → numbers
+        boolean → conditions/flags
+        array → lists
+        object → grouped data
+        function → event handlers/callbacks
+        null → render nothing
+
+Functional Components
+
+    [WHY]
+        Used to build UI components as functions.
+
+    [SYN]
+        function ComponentName() {
+            return <div>Hello</div>;
+        }
+
+    [USA]
+        const Welcome = () => {
+            return <h1>Welcome</h1>;
+        };
+
+    [EXA]
+        function User({ name }) {
+            return <h2>Hello, {name}</h2>;
+        }
+
+    [RES]
+        Renders UI based on the given data.
+
+    [USC]
+        Used for most modern React components.
+
+PROPS
+
+    Props = data passed from parent → child component.
+
+    Flow:
+        Parent → props → Child
+
+    Example:
+
+        Parent: <User name="John" age={25} />
+
+    Child:
+        function User(props) {
+            return <h1>{props.name}</h1>
+        }
+
+    Destructuring:
+        function User({ name, age }) {
+            return <h1>{name} - {age}</h1>
+        }
+
+    Key points:
+        Props are read-only.
+        Props can be strings, numbers, booleans, arrays, objects, functions, etc.
+        Parent controls props.
+        Child receives and uses props.
+        Props enable component reusability.
+
+    Default value:
+        function User({ name = "Guest" }) {
+            ...
+        }
+
+    Children: <Card>Hello</Card>
+
+        function Card({ children }) {
+            return <div>{children}</div>
+        }
+
+----------------------------------------------------------------------------
+
+Date = (13/8/2026)
+
+React Hooks
+
+    [WHY]
+        Hooks let functional components use React features such as
+        state, effects, references, and context.
+
+    4 Main Hooks
+
+        1. State
+            useState()
+                -> Stores and updates component data.
+
+        2. Effect
+            useEffect()
+                -> Performs side effects after rendering.
+
+        3. Reference
+            useRef()
+                -> Stores a value/reference without causing re-render.
+
+        4. Context
+            useContext()
+                -> Accesses shared data from a Context.
+
+    Performance Hooks
+
+        memo
+            -> Prevents unnecessary component re-rendering.
+
+        useCallback()
+            -> Caches a function between renders.
+
+    Custom Hooks
+
+        -> We can create our own hooks.
+        -> Custom hooks usually start with "use".
+        -> Used to reuse stateful logic between components.
+
+    [CAT]
+        -> Hooks must be called at the top level of a component
+        or custom hook.
+        -> Do not call hooks inside loops, conditions, or nested functions.
+
+    [USC]
+        -> State management
+        -> Side effects
+        -> DOM/value references
+        -> Shared data
+        -> Performance optimization
+        -> Reusable logic
+
+Counter App
+
+    [WHY]
+        -> Used to demonstrate state management in React.
+        -> useState() is used to store and update the counter value.
+
+    [USA]
+        const [count, setCount] = useState(0);
+
+        const increment = () => {
+            setCount(count + 1);
+        };
+
+        const decrement = () => {
+            setCount(count - 1);
+        };
+
+        return (
+            <>
+                <h1>{count}</h1>
+                <button onClick={increment}>+</button>
+                <button onClick={decrement}>-</button>
+            </>
+        );
+
+    [USC]
+        -> State updates
+        -> Re-rendering
+
+    [Note]
+        - we can declare n variables with n set from usestate
+
+useEffect()
+
+    [WHY]
+        -> Used to perform side effects in a component.
+        -> Runs after the component renders.
+
+    [SYN]
+        useEffect(() => {
+            // side effect
+        }, []);
+
+    [USA]
+        useEffect(() => {
+            console.log("Component rendered");
+        }, []);
+
+    [PAR]
+        1. Callback function
+            -> Code to execute.
+
+        2. Dependency array
+            -> Controls when the effect runs.
+
+        [EXA]
+            useEffect(() => {
+                console.log("Count changed");
+            }, [count]);
+
+        -> Runs when count changes.
+
+    [CAT]
+        -> Do not use useEffect for normal calculations.
+        -> Avoid unnecessary effects when the value can be calculated directly.
+
+    [USC]
+        -> API calls
+        -> Timers
+        -> Event listeners
+        -> Subscriptions
+        -> Updating external systems
+
+Fetch
+
+    [WHY]
+        -> Used to initiate HTTP network requests from JavaScript.
+        -> Provides an API for communicating with web servers and REST/HTTP APIs.
+        -> Returns a Promise that resolves to a Response object.
+        -> Can be used to retrieve, create, update, or delete server-side resources.
+        -> Supports asynchronous request/response handling without blocking JavaScript execution.
+    
+    [SYN]
+        fetch(url, options)
+            .then(response => response.json())
+            .then(data => {
+                // use data
+            })
+            .catch(error => {
+                // handle error
+            });
+
+    [USA]
+        fetch("https://api.example.com/users")
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            });
+
+    [PAR]
+        1. URL
+            -> The API endpoint to which the request is sent.
+
+        2. Options
+            -> Optional configuration for the request.
+            -> Used for method, headers, body, etc.
+
+        [EXA]
+            fetch("https://api.example.com/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: "John"
+                })
+            });
+
+        -> Sends data to the API using POST.
+
+    [MET]
+        -> GET
+            -> Retrieve data.
+
+        -> POST
+            -> Send/create data.
+
+        -> PUT
+            -> Replace existing data.
+
+        -> PATCH
+            -> Update part of existing data.
+
+        -> DELETE
+            -> Delete data.
+
+        [EXA]
+            fetch("/api/users", {
+                method: "DELETE"
+            });
+            
+    [RES]
+        -> fetch() returns a Promise<Response>.
+        -> The Promise resolves when the server response is received.
+        -> The Response object provides status, headers, and response-body methods.
+
+        [EXA]
+            const response = fetch("/api/users");
+
+            console.log(response);
+
+        -> response is a Promise, not the actual response data.
+
+        [EXA]
+            const response = await fetch("/api/users");
+
+            console.log(response);
+
+        -> response is now a Response object.
+
+        [EXA]
+            const response = await fetch("/api/users");
+            const data = await response.json();
+
+        -> response.json() also returns a Promise.
+        -> data contains the parsed JSON value.
+
+    [CAT]
+        -> fetch() does not automatically convert the response into JSON.
+        -> Use response.json() when the server returns JSON.
+        -> HTTP errors such as 404 or 500 do not automatically reject fetch().
+        -> Check response.ok when needed.
+
+        [EXA]
+            fetch("/api/users")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Request failed");
+                    }
+
+                    return response.json();
+                });
+
+    [USC]
+        -> API calls
+        -> Fetching user data
+        -> Sending form data
+        -> Creating records
+        -> Updating records
+        -> Deleting records
+        -> Communicating with backend 
+        
+useRef()
+
+    [WHY]
+        -> Used to store a value between renders.
+        -> Changing the value does not re-render the component.
+        -> Often used to access DOM elements.
+
+    [SYN]
+        const ref = useRef(initialValue);
+
+    [USA]
+        const inputRef = useRef(null);
+
+        <input ref={inputRef} />
+
+        -> inputRef.current gives the input element.
+
+    [PAR]
+        1. initialValue
+            -> The starting value of the ref.
+
+        [EXA]
+            const countRef = useRef(0);
+
+            countRef.current = 10;
+
+            console.log(countRef.current);
+            // 10
+
+    [RES]
+        -> useRef() returns an object with a .current property.
+
+            {
+                current: initialValue
+            }
+
+        -> The value stays between renders.
+        -> Changing .current does not cause a re-render.
+
+    [EXA]
+        const inputRef = useRef(null);
+
+        function focusInput() {
+            inputRef.current.focus();
+        }
+
+        -> Accesses the input and focuses it.
+
+    [CAT]
+        -> Do not use useRef when changing the value should update the UI.
+        -> Use useState() for values displayed in the UI.
+
+    [USC]
+        -> Access DOM elements
+        -> Focus inputs
+        -> Store timer IDs
+        -> Store values between renders
+        -> Avoid unnecessary re-renders
+
+    [KEY]
+        -> useState()
+            -> Value changes → component re-renders.
+
+        -> useRef()
+            -> Value changes → component does NOT re-render.
+
+
+React Router
+
+    [WHY]
+        -> Used to handle navigation between pages/components in a React app.
+        -> Changes the displayed component based on the URL.
+        -> Allows navigation without reloading the entire page.
+
+    [INS]
+        npm install react-router-dom
+
+    [SYN]
+        import {
+            BrowserRouter,
+            Routes,
+            Route
+        } from "react-router-dom";
+
+    [USA]
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+            </Routes>
+        </BrowserRouter>
+
+    [PAR]
+        1. BrowserRouter
+            -> Enables routing in the app.
+
+        2. Routes
+            -> Contains all the routes.
+
+        3. Route
+            -> Defines a URL and the component to display.
+
+    [EXA]
+        <Route
+            path="/users"
+            element={<Users />}
+        />
+
+        -> When the URL is /users,
+        the Users component is displayed.
+
+    [MET]
+        -> Link
+            -> Used to navigate between routes.
+
+        [EXA]
+            <Link to="/about">
+                About
+            </Link>
+
+        -> Navigates to /about without a page reload.
+
+    [ANE]
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
+        </Routes>
+
+    [CAT]
+        -> Route paths should be defined inside <Routes>.
+        -> Use <Link> for normal navigation instead of <a>
+        when you want React Router navigation.
+
+    [USC]
+        -> Multiple pages in a React app
+        -> Navigation
+        -> Login pages
+        -> Profile pages
+        -> Dashboard pages
+        -> Nested pages
+        -> Dynamic URLs
+
+    [KEY]
+        -> URL
+            -> Determines which component is displayed.
+
+        -> Route
+            -> Connects a URL to a component.
+
+        -> Link
+            -> Navigates to another route.
+
+        -> BrowserRouter
+            -> Enables routing.
+
+Nested Routing
+
+    [WHY]
+        -> Used when one route is inside another route.
+        -> Useful for layouts with multiple child pages.
+
+    [SYN]
+        <Route path="/dashboard" element={<Dashboard />}>
+            <Route path="profile" element={<Profile />} />
+            <Route path="settings" element={<Settings />} />
+        </Route>
+
+    [USA]
+        -> /dashboard/profile
+            -> Dashboard + Profile
+
+        -> /dashboard/settings
+            -> Dashboard + Settings
+
+    [Outlet]
+
+        [WHY]
+            -> Used to display the child route inside the parent component.
+
+        [USA]
+            function Dashboard() {
+                return (
+                    <>
+                        <h1>Dashboard</h1>
+                        <Outlet />
+                    </>
+                );
+            }
+
+        -> <Outlet /> is replaced by the matching child route.
+
+    [EXA]
+        <Routes>
+            <Route path="/dashboard" element={<Dashboard />}>
+                <Route path="profile" element={<Profile />} />
+                <Route path="settings" element={<Settings />} />
+            </Route>
+        </Routes>
+
+        function Dashboard() {
+            return (
+                <>
+                    <h1>Dashboard</h1>
+                    <Outlet />
+                </>
+            );
+        }
+
+    [RES]
+        -> /dashboard/profile
+
+            Dashboard
+            Profile
+
+        -> /dashboard/settings
+
+            Dashboard
+            Settings
+
+    [KEY]
+        -> Parent Route
+            -> Contains child routes.
+
+        -> Child Route
+            -> Nested inside the parent.
+
+        -> Outlet
+            -> Where the child component is rendered.
+
+useParams
+
+    [WHY]
+        -> Used to get dynamic values from the URL.
+        -> Returns the parameters defined in a route.
+
+    [SYN]
+        const params = useParams();
+
+    [USA]
+        <Route path="/users/:id" element={<User />} />
+
+        function User() {
+            const { id } = useParams();
+
+            console.log(id);
+        }
+
+        -> URL: /users/101
+        -> id = "101"
+
+    [PAR]
+        1. Parameter
+            -> A dynamic value in the URL.
+            -> Starts with `:` in the route.
+
+        [EXA]
+            <Route
+                path="/products/:productId"
+                element={<Product />}
+            />
+
+            const { productId } = useParams();
+
+            -> URL: /products/50
+            -> productId = "50"
+
+    [RES]
+        -> useParams() returns an object.
+
+            {
+                id: "101"
+            }
+
+        -> URL parameters are returned as strings.
+
+    [EXA]
+        <Route
+            path="/users/:id/posts/:postId"
+            element={<Post />}
+        />
+
+        const { id, postId } = useParams();
+
+        -> URL: /users/10/posts/25
+
+        -> id = "10"
+        -> postId = "25"
+
+    [CAT]
+        -> The parameter name must match the route.
+
+        <Route path="/users/:id" element={<User />} />
+
+        const { userId } = useParams();
+
+        -> userId is undefined.
+
+    [USC]
+        -> User details
+        -> Product details
+        -> Blog posts
+        -> Dynamic pages
+        -> Fetching data using an ID
+
+    [KEY]
+        -> `:id`
+            -> Defines a dynamic URL parameter.
+
+        -> `useParams()`
+            -> Gets the parameter value.
+
+        -> `/users/101`
+            -> `id = "101"`
+
+fetch API — CRUD
+
+    [WHY]
+        -> Used to send HTTP requests to an API.
+        -> CRUD means Create, Read, Update, Delete.
+        -> fetch() returns a Promise<Response>.
+
+    [GET]
+        -> Used to read/get data.
+
+        [EXA]
+            const response = await fetch("/api/users");
+            const data = await response.json();
+
+            console.log(data);
+
+    [POST]
+        -> Used to create new data.
+
+        [EXA]
+            const response = await fetch("/api/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: "John"
+                })
+            });
+
+            const data = await response.json();
+
+    [PUT]
+        -> Used to replace/update existing data.
+
+        [EXA]
+            const response = await fetch("/api/users/1", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: "Alex"
+                })
+            });
+
+    [PATCH]
+        -> Used to update part of existing data.
+
+        [EXA]
+            await fetch("/api/users/1", {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: "Alex"
+                })
+            });
+
+    [DELETE]
+        -> Used to delete data.
+
+        [EXA]
+            await fetch("/api/users/1", {
+                method: "DELETE"
+            });
+
+    [KEY]
+        -> GET
+            -> Read data.
+
+        -> POST
+            -> Create data.
+
+        -> PUT
+            -> Replace data.
+
+        -> PATCH
+            -> Partially update data.
+
+        -> DELETE
+            -> Delete data.
+
+    [FLOW]
+        -> fetch()
+            ↓
+        -> Promise<Response>
+            ↓
+        -> response.json()
+            ↓
+        -> JavaScript data
+
+
+----------------------------------------------------------------------------
+
+Date = (13/8/2026)
+
+AXIOS
+
+    [WHY]
+        -> LIB = Axios is a JavaScript library used to send HTTP requests to APIs.
+        -> Used for working with REST APIs.
+        -> Supports GET, POST, PUT, PATCH, and DELETE requests.
+        -> Axios returns a Promise.
+
+    [INS]
+        -> npm install axios
+
+    [GET]
+        -> Used to read/get data.
+
+    [EXA]
+        const response = await axios.get("/api/users");
+
+        console.log(response.data);
+
+    [POST]
+        -> Used to create new data.
+
+    [EXA]
+        const response = await axios.post("/api/users", {
+            name: "John"
+        });
+
+        console.log(response.data);
+    
+    [PUT]
+        -> Used to replace/update existing data.
+
+    [EXA]
+        const response = await axios.put("/api/users/1", {
+            name: "Alex"
+        });
+
+    
+        console.log(response.data);
+    
+    [PATCH]
+        -> Used to update part of existing data.
+
+    [EXA]
+        const response = await axios.patch("/api/users/1", {
+            name: "Alex"
+        });
+    
+        console.log(response.data);
+    
+
+    [DELETE]
+        -> Used to delete data.
+
+    [EXA]
+        const response = await axios.delete("/api/users/1");
+    
+        console.log(response.data);
+    
+    [KEY]
+        -> axios.get()
+        -> Read data.
+
+    -> axios.post()
+        -> Create data.
+
+    -> axios.put()
+        -> Replace data.
+
+    -> axios.patch()
+        -> Partially update data.
+
+    -> axios.delete()
+        -> Delete data.
+    
+
+    [IMPORTANT]
+        -> With Axios, JSON request/response handling is usually automatic.
+        -> No need to use response.json().
+        -> Response data is available through response.data.
+
+    [FETCH VS AXIOS]
+        -> fetch()
+        -> Built into modern browsers.
+        -> response.json() is needed to read JSON.
+
+    
+    -> axios
+        -> External library.
+        -> response.data contains the response data.
+    
+    [FLOW]
+        -> axios.get()
+            ↓
+        -> Promise
+            ↓
+        -> response
+            ↓
+        -> response.data
+            ↓
+        -> JavaScript data
+
+    [FOLDERS]
+        components
+        service - api fetching

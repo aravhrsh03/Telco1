@@ -1,0 +1,377 @@
+ ABBREVIATION:
+	-> LIB = LIBRARY
+	-> USA = USAGE [example code]
+	-> PAR = PARAMETERS
+	-> SYN = syntax
+	-> WHY = Why this is used
+	-> EXA = Example
+	-> MET = METHODS
+	-> CAT = Cannot have it
+	-> ALI = Alias
+	-> RES = Expected Result
+	-> OPT = Optionalx
+	-> ANE = Another Example
+	-> FUN = Functions used
+	-> DAM = Data Members
+	-> TYS = Types
+	-> VER = Python version
+	-> USC = Use Cases
+
+--------------------------------------------------------------------------------------
+
+    - file - start with test 
+            [EXA] - test_sample.py # striclty lower case test
+
+    - function - start with test
+            [EXA] - test_add() # striclty lower case test
+
+    - class - start with word test
+            [EXA] class TestCals
+    
+    func.py
+        def add(a, b):
+            return a + B
+        
+        def subtract(a, b):
+            return a - b
+
+        def multiply(a, b):
+            return a * b 
+
+        def divide(a, b):
+            return a/b 
+  
+    test_sample.py
+        # [LIB] - unittest
+
+        import unittest
+        from func import add
+
+        class Testcals(unittest.TestCase):
+            def test_add(self):
+                self.assertEqual(add(3, 3), 3)
+                # [SYN] assertEqual(<function>, <expected-result>)
+            
+            def test_subtract(self):
+                self.assertEqual(subtract(10, 5), 5)
+            
+            def test_multiply(self):
+                self.assertEqual(multiply(2, 3), 4)
+            
+            def test_divide(self):
+                self.assertEqual(divide(3, 3), 3)
+            
+        if __name__ == "__main__":
+            unittest.main()
+
+    
+        [RUN]
+            python -m unittest -v <file_name>.<class>.<function>
+            python -m unittest -v <file_name>.<class>
+            python -m unittest -v <file_name>
+        
+        [MET]
+            assertEqual()
+            assertNotEqual()
+            assertTrue()
+            assertFalse()
+            assertIsNone()
+            assertIn()
+            assertNotIn()
+            assertRaises()
+            assertIsInstance()
+            assertAlmostEqual()
+
+
+---------------------------------------------------------------------------------------
+
+PyTest
+
+PYTEST (Beginner)
+
+- File - start with test_
+	[EXA] - test_sample.py
+
+- Function - start with test_
+	[EXA] - test_add()
+
+- Class - start with Test
+	[EXA] - class TestCalc:
+		- No need to inherit unittest.TestCase
+
+
+func.py
+
+	def add(a, b):
+		return a + b
+
+	def subtract(a, b):
+		return a - b
+
+	def multiply(a, b):
+		return a * b
+
+	def divide(a, b):
+		return a / b
+
+
+test_sample.py
+
+	[LIB] - pytest
+
+	from func import *
+
+	def test_add():
+		assert add(2, 3) == 5
+
+	def test_subtract():
+		assert subtract(10, 5) == 5
+
+	def test_multiply():
+		assert multiply(2, 3) == 6
+
+	def test_divide():
+		assert divide(10, 2) == 5
+
+
+[SYN]
+
+	assert <function> == <expected_result>
+
+	Example:
+
+	assert add(2, 3) == 5
+
+
+[RUN]
+
+	Run all tests
+
+		pytest
+
+	Run with details
+
+		pytest -v
+
+	Run specific file
+
+		pytest test_sample.py
+
+	Run specific function
+
+		pytest test_sample.py::test_add
+
+	Run specific class
+
+		pytest test_sample.py::TestCalc
+
+
+[MET]
+
+	assert a == b
+
+	assert a != b
+
+	assert a > b
+
+	assert a < b
+
+	assert True
+
+	assert False
+
+	pytest.raises()
+
+
+[EXA]
+
+	import pytest
+	from func import divide
+
+	def test_divide_by_zero():
+		with pytest.raises(ZeroDivisionError):
+			divide(5, 0)
+
+
+FIXTURES
+
+	- Used to reuse setup code
+	- Runs before test function
+
+	[EXA]
+
+		import pytest
+
+		@pytest.fixture
+		def data():
+			return [1, 2, 3]
+
+		def test_length(data):
+			assert len(data) == 3
+
+
+MARKERS
+
+	- Used to group tests
+
+	[EXA]
+
+		import pytest
+
+		@pytest.mark.slow
+		def test_add():
+			assert add(2, 3) == 5
+
+	[RUN]
+
+		pytest -m slow
+
+[PAR]
+
+	assert <condition>
+
+	with pytest.raises(Exception):
+
+
+[USC]
+
+	- Unit Testing
+	- API Testing
+	- Django Testing
+	- Flask Testing
+	- Automation Testing
+	- Data Validation
+
+
+[VER]
+
+	Python 3.x
+
+	Install:
+
+		pip install pytest
+
+
+QUICK DIFFERENCE
+
+	unittest
+
+		self.assertEqual(add(2,3),5)
+
+	pytest
+
+		assert add(2,3) == 5
+
+REMEMBER
+
+	File  → test_*.py
+
+	Function → test_*
+
+	Class → Test*
+
+	Command → pytest -v
+
+	Assertion → assert
+
+	Exception → pytest.raises()
+
+	Setup → @pytest.fixture
+
+[RUN]
+    -> python -m pytest <file-name>.py
+
+[FLAGS]
+    -s = used to show the output
+
+------------------------------------------------------------------------------------
+
+FIXTURE
+
+    - Used to share common setup code
+    - Runs before the test function
+    - Avoids duplicate code
+    - Created using `@pytest.fixture`
+
+    [LIB]
+
+        import pytest
+
+    [USA]
+
+        import pytest
+
+        @pytest.fixture
+        def data():
+            return [1, 2, 3]
+
+        def test_length(data):
+            assert len(data) == 3
+
+
+    [WHY]
+
+        - Reuse setup code
+        - Cleaner tests
+        - Reduce code duplication
+
+    [SYN]
+
+        @pytest.fixture
+        def fixture_name():
+            return value
+
+        def test_name(fixture_name):
+            assert ...
+
+    [USC]
+
+        - Database connection
+        - Test data
+        - File setup
+        - Object creation
+
+    REMEMBER
+
+        @pytest.fixture
+            ↓
+        Create Fixture
+            ↓
+        Pass as Function Argument
+            ↓
+        Use in Test
+
+    [TempPath, Capsys, MonkeyPatch]
+
+    TempPath
+        - provide temporary directory for the testing file
+
+    Capsys  
+        - used to show the output
+    
+        def greet():
+            print("something")
+        
+        def test_greet(capsys):
+            greet()
+
+            captured = capsys.readouterr()
+            assert captured.out == "Welcome to pytest"
+
+            # something != Welcome to pytest
+        
+    MonkeyPatch
+        app.py
+            def get_data():
+                return "database"
+        
+        sample.py
+            def fake_data():
+                return "Mock Data"
+            
+            def test_mock(monkeypatch):
+                monkeypatch.setattr(app, "get_data", fake_data)
+
+                assert app.get_data() == "Mock Data"
+            
+        - get_data @ app.py is just changed to fake_data and checked [Not fully]

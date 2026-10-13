@@ -1,0 +1,1438 @@
+
+Date = (21/7/2026)
+
+Generic (Pydantic) – Short Notes
+
+    Definition:
+
+    * Generic allows you to create reusable models that work with different data types.
+    * It uses Python's typing.Generic with TypeVar.
+
+    Import:
+
+    from typing import Generic, TypeVar
+    from pydantic import BaseModel
+
+    T = TypeVar("T")
+
+    Example:
+
+    [USA]
+        from typing import Generic, TypeVar
+        from pydantic import BaseModel
+
+        T = TypeVar("T")
+
+        class Response(BaseModel, Generic[T]):
+        data: T
+        success: bool
+
+        user = Response[str](data="Alice", success=True)
+        number = Response[int](data=100, success=True)
+
+    [RES]:
+
+        Response[str](data="Alice", success=True)
+        Response[int](data=100, success=True)
+
+    Key Points:
+
+    * T = TypeVar("T") → Defines a placeholder type.
+    * Generic[T] → Makes the class generic.
+    * Response[str] → data must be str.
+    * Response[int] → data must be int.
+
+    Memory Tip:
+    Generic = One model, many data types.
+
+
+Field Validator (Pydantic)
+
+    [WHY]
+        -> Validate or modify a single field before or after validation.
+
+    [LIB]
+        from pydantic import BaseModel, field_validator
+
+    [SYN]
+        class Model(BaseModel):
+            field: type
+
+            @field_validator("field")
+            @classmethod
+            def validate_field(cls, value):
+                return value
+
+    [PAR]
+        "field" -> Field name to validate.
+        value   -> Current field value.
+        cls     -> Class reference.
+
+    [USA]
+        from pydantic import BaseModel, field_validator
+
+        class User(BaseModel):
+            age: int
+
+            @field_validator("age")
+            @classmethod
+            def check_age(cls, value):
+                if value < 18:
+                    raise ValueError("Age must be at least 18")
+                return value
+
+        user = User(age=20)
+
+    [RES]
+        User(age=20)
+
+    [ANE]
+        from pydantic import BaseModel, field_validator
+
+        class User(BaseModel):
+            name: str
+
+            @field_validator("name")
+            @classmethod
+            def capitalize_name(cls, value):
+                return value.title()
+
+        user = User(name="john doe")
+
+    [RES]
+        User(name='John Doe')
+
+    [NOT]
+        -> Must return the validated value.
+        -> Raise ValueError if validation fails.
+        -> Use one validator for one or more fields.
+
+    Memory Tip:
+        field_validator = Validate or transform one field.
+
+
+Custom Exception + Exception Handler (Pydantic/FastAPI)
+
+    [WHY]
+        -> Create your own exception for specific errors.
+        -> Return a custom response instead of the default error.
+
+    [LIB]
+        from fastapi import FastAPI, Request
+        from fastapi.responses import JSONResponse
+
+    [SYN]
+        class CustomException(Exception):
+            def __init__(self, message):
+                self.message = message
+
+        @app.exception_handler(CustomException)
+        async def handler(request: Request, exc: CustomException):
+            return JSONResponse(...)
+
+    [USA]
+        from fastapi import FastAPI, Request
+        from fastapi.responses import JSONResponse
+
+        app = FastAPI()
+
+        class AgeException(Exception):
+            def __init__(self, message):
+                self.message = message
+
+        @app.exception_handler(AgeException)
+        async def age_exception_handler(request: Request, exc: AgeException):
+            return JSONResponse(
+                status_code=400,
+                content={"error": exc.message}
+            )
+
+        @app.get("/user/{age}")
+        async def get_user(age: int):
+            if age < 18:
+                raise AgeException("Age must be at least 18")
+            return {"age": age}
+
+    [RES]
+        Request:
+            GET /user/15
+
+        Response:
+            {
+                "error": "Age must be at least 18"
+            }
+
+        Status Code:
+            400
+
+    [ANE]
+        class UserNotFound(Exception):
+            def __init__(self, user_id):
+                self.user_id = user_id
+
+        @app.exception_handler(UserNotFound)
+        async def user_not_found_handler(request, exc):
+            return JSONResponse(
+                status_code=404,
+                content={
+                    "message": f"User {exc.user_id} not found"
+                }
+            )
+
+    [RES]
+        Request:
+            GET /users/100
+
+        Response:
+            {
+                "message": "User 100 not found"
+            }
+
+        Status Code:
+            404
+
+    [NOT]
+        -> Custom exception must inherit from Exception.
+        -> Register handler using @app.exception_handler().
+        -> Raise using raise CustomException(...).
+        -> JSONResponse is commonly used for API error responses.
+
+    Memory Tip:
+        Custom Exception = Define your own error.
+        Exception Handler = Decide how that error is returned.
+
+File Upload (FastAPI)
+
+    [WHY]
+        -> Upload files through an API.
+        -> Supports images, PDFs, videos, documents, etc.
+
+    [LIB]
+        from fastapi import FastAPI, UploadFile, File
+
+    [SYN]
+        @app.post("/upload")
+        async def upload_file(file: UploadFile = File(...)):
+            ...
+
+    [PAR]
+        UploadFile -> Represents the uploaded file.
+        File(...)  -> Marks the parameter as a file input.
+
+    [USA]
+        from fastapi import FastAPI, UploadFile, File
+
+        app = FastAPI()
+
+        @app.post("/upload")
+        async def upload_file(file: UploadFile = File(...)):
+            content = await file.read()
+
+            return {
+                "filename": file.filename,
+                "content_type": file.content_type,
+                "size": len(content)
+            }
+
+    [RES]
+        {
+            "filename": "photo.png",
+            "content_type": "image/png",
+            "size": 24580
+        }
+
+    [FUN]
+        file.filename
+            -> Returns uploaded file name.
+
+        file.content_type
+            -> Returns MIME type.
+
+        await file.read()
+            -> Reads entire file.
+
+        await file.write(data)
+            -> Writes data to file.
+
+        await file.seek(position)
+            -> Moves file pointer.
+
+        await file.close()
+            -> Closes the file.
+
+    [ANE]
+        @app.post("/save")
+        async def save_file(file: UploadFile = File(...)):
+            with open(file.filename, "wb") as f:
+                f.write(await file.read())
+
+            return {"message": "File saved"}
+
+    [RES]
+        {
+            "message": "File saved"
+        }
+
+    [NOT]
+        -> Use UploadFile for large files (memory efficient).
+        -> Use bytes = File(...) only for small files.
+        -> Multiple files can be uploaded using list[UploadFile].
+
+    Memory Tip:
+        UploadFile = Upload + Read + Save files efficiently.
+
+Authentication (HTTP Basic)
+
+    [WHY]
+        -> Protect API endpoints using username and password.
+        -> Allow only authenticated users to access resources.
+
+    [LIB]
+        from fastapi import FastAPI, Depends, HTTPException, status
+        from fastapi.security import HTTPBasic, HTTPBasicCredentials
+        import secrets
+
+    [SYN]
+        security = HTTPBasic()
+
+        def authenticate(
+            credentials: HTTPBasicCredentials = Depends(security)
+        ):
+            ...
+
+    [PAR]
+        HTTPBasic()
+            -> Enables HTTP Basic Authentication.
+
+        HTTPBasicCredentials
+            -> Contains username and password.
+
+        Depends()
+            -> Injects authentication dependency.
+
+        secrets.compare_digest()
+            -> Securely compares credentials.
+
+    [USA]
+        from fastapi import FastAPI, Depends, HTTPException, status
+        from fastapi.security import HTTPBasic, HTTPBasicCredentials
+        import secrets
+
+        app = FastAPI()
+
+        security = HTTPBasic()
+
+        def authenticate(
+            credentials: HTTPBasicCredentials = Depends(security)
+        ):
+            username = secrets.compare_digest(
+                credentials.username,
+                "admin"
+            )
+
+            password = secrets.compare_digest(
+                credentials.password,
+                "admin123"
+            )
+
+            if not (username and password):
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid username or password"
+                )
+
+            return credentials.username
+
+        @app.get("/profile")
+        def profile(user: str = Depends(authenticate)):
+            return {"user": user}
+
+    [RES]
+        Valid Login:
+            {
+                "user": "admin"
+            }
+
+        Invalid Login:
+            Status Code: 401
+
+            {
+                "detail": "Invalid username or password"
+            }
+
+    [NOT]
+        -> Use Depends() to protect routes.
+        -> Use secrets.compare_digest() for secure comparison.
+        -> HTTP Basic sends credentials with every request.
+        -> Best used with HTTPS.
+
+    Memory Tip:
+        HTTPBasic + Depends = Secure endpoint with username & password.
+
+
+
+API Key Header Authentication (FastAPI)
+
+    [WHY]
+        -> Authenticate API requests using a secret API key.
+        -> Commonly used for internal APIs, services, and integrations.
+
+    [LIB]
+        from fastapi import FastAPI, Depends, HTTPException
+        from fastapi.security import APIKeyHeader
+
+    [SYN]
+        api_key = APIKeyHeader(name="X-API-Key")
+
+        def verify_api_key(
+            key: str = Depends(api_key)
+        ):
+            ...
+
+    [PAR]
+        APIKeyHeader()
+            -> Reads API key from request header.
+
+        name
+            -> Header name containing the API key.
+
+        Depends()
+            -> Injects API key into dependency.
+
+        key
+            -> Value received from request header.
+
+    [USA]
+        from fastapi import FastAPI, Depends, HTTPException
+        from fastapi.security import APIKeyHeader
+
+        app = FastAPI()
+
+        api_key_header = APIKeyHeader(
+            name="X-API-Key"
+        )
+
+        SECRET_KEY = "my-secret-key"
+
+        def verify_api_key(
+            key: str = Depends(api_key_header)
+        ):
+            if key != SECRET_KEY:
+                raise HTTPException(
+                    status_code=403,
+                    detail="Invalid API Key"
+                )
+
+            return key
+
+        @app.get("/data")
+        def get_data(
+            api_key: str = Depends(verify_api_key)
+        ):
+            return {
+                "message": "Access granted"
+            }
+
+    [RES]
+        Request Header:
+
+            X-API-Key: my-secret-key
+
+        Response:
+
+            {
+                "message": "Access granted"
+            }
+
+
+        Invalid Key:
+
+            Status Code: 403
+
+            {
+                "detail": "Invalid API Key"
+            }
+
+    [ANE]
+        Multiple API clients can send:
+
+            Client A:
+                X-API-Key: key-123
+
+            Client B:
+                X-API-Key: key-456
+
+        Server validates each key.
+
+    [NOT]
+        -> Keep API keys secret.
+        -> Use HTTPS to protect headers.
+        -> Store keys in environment variables.
+        -> Rotate keys regularly.
+
+    [USC]
+        -> Internal microservices.
+        -> Third-party API access.
+        -> Automation scripts.
+        -> Service-to-service authentication.
+
+    Memory Tip:
+        APIKeyHeader = Read key from header + verify access.
+
+OAuth2 + JWT Authentication (FastAPI)
+
+    [WHY]
+        -> Authenticate users using access tokens instead of sharing passwords.
+        -> Allows secure communication between client, authorization server, and resource server.
+        -> Token contains user identity and permissions.
+
+    [LIB]
+        [INS]
+            pip install python-jose[crypto]
+            pip install passlib[bcrypt]
+            pip install python-multipart
+
+        [USA]
+            from datetime import datetime, timedelta
+
+            from fastapi import (
+                Depends,
+                FastAPI,
+                HTTPException,
+                status
+            )
+
+            from fastapi.security import (
+                OAuth2PasswordBearer,
+                OAuth2PasswordRequestForm
+            )
+
+            from jose import JWTError, jwt
+
+            from passlib.context import CryptContext
+
+
+    [PAR]
+        OAuth2PasswordBearer
+            -> Reads Bearer token from Authorization header.
+
+        OAuth2PasswordRequestForm
+            -> Reads username and password from login form.
+
+        JWT
+            -> Encoded token containing user information.
+
+        SECRET_KEY
+            -> Used to sign and verify JWT token.
+
+        CryptContext
+            -> Hashes and verifies passwords.
+
+
+    [FLOW]
+
+        User
+        |
+        | username + password
+        v
+        Authorization Server
+        |
+        | generates JWT token
+        v
+        Access Token
+        |
+        | Authorization: Bearer token
+        v
+        Resource Server
+        |
+        v
+        Protected Data
+
+
+    [USA]
+
+        from datetime import datetime, timedelta
+
+        from fastapi import (
+            Depends,
+            FastAPI,
+            HTTPException,
+            status
+        )
+
+        from fastapi.security import (
+            OAuth2PasswordBearer,
+            OAuth2PasswordRequestForm
+        )
+
+        from jose import JWTError, jwt
+
+        from passlib.context import CryptContext
+
+
+        app = FastAPI()
+
+
+        SECRET_KEY = "mysecretkey"
+
+        ALGORITHM = "HS256"
+
+        ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+
+        pwd_context = CryptContext(
+            schemes=["bcrypt"],
+            deprecated="auto"
+        )
+
+
+        oauth2_scheme = OAuth2PasswordBearer(
+            tokenUrl="login"
+        )
+
+
+        users = {
+            "admin": {
+                "username": "admin",
+                "password": pwd_context.hash("admin123")
+            }
+        }
+
+
+        def verify_password(
+            plain_password,
+            hashed_password
+        ):
+            return pwd_context.verify(
+                plain_password,
+                hashed_password
+            )
+
+
+        def create_access_token(data: dict):
+
+            expire = datetime.utcnow() + timedelta(
+                minutes=ACCESS_TOKEN_EXPIRE_MINUTES
+            )
+
+            data.update(
+                {
+                    "exp": expire
+                }
+            )
+
+            return jwt.encode(
+                data,
+                SECRET_KEY,
+                algorithm=ALGORITHM
+            )
+
+
+        @app.post("/login")
+    def login(
+            form_data: OAuth2PasswordRequestForm = Depends()
+        ):
+
+            user = users.get(
+                form_data.username
+            )
+
+            if not user:
+                raise HTTPException(
+                    status_code=401,
+                    detail="Invalid user"
+                )
+
+            if not verify_password(
+                form_data.password,
+                user["password"]
+            ):
+                raise HTTPException(
+                    status_code=401,
+                    detail="Invalid password"
+                )
+
+            token = create_access_token(
+                {
+                    "sub": user["username"]
+                }
+            )
+
+            return {
+                "access_token": token,
+                "token_type": "bearer"
+            }
+
+
+        @app.get("/profile")
+    def profile(
+            token: str = Depends(oauth2_scheme)
+        ):
+
+            try:
+                payload = jwt.decode(
+                    token,
+                    SECRET_KEY,
+                    algorithms=[ALGORITHM]
+                )
+
+                username = payload.get("sub")
+
+                return {
+                    "user": username
+                }
+
+            except JWTError:
+                raise HTTPException(
+                    status_code=401,
+                    detail="Invalid token"
+                )
+
+
+    [RES]
+
+        Login Request:
+
+            username=admin
+            password=admin123
+
+
+        Response:
+
+            {
+                "access_token": "eyJhbGciOiJIUzI1...",
+                "token_type": "bearer"
+            }
+
+
+        API Request:
+
+            Authorization:
+            Bearer eyJhbGciOiJIUzI1...
+
+
+        Response:
+
+            {
+                "user": "admin"
+            }
+
+
+    [NOT]
+        -> OAuth2 does not freeze or share passwords.
+        -> It shares access tokens with limited permissions.
+        -> Resource Server stores protected resources, not credentials.
+        -> Authorization Server manages authentication and token creation.
+        -> JWT tokens should have expiry time.
+        -> Always use HTTPS.
+
+
+    [USC]
+        -> Login systems.
+        -> Single Sign-On (SSO).
+        -> Mobile apps.
+        -> Third-party API authorization.
+        -> Microservice authentication.
+
+
+    Memory Tip:
+
+        OAuth2 = Login → Generate Token → Send Token → Access Resource.
+
+
+API Database Integration (FastAPI + MySQL)
+
+    [WHY]
+        -> Connect FastAPI application with a database.
+        -> Store, retrieve, update, and delete application data.
+
+    [STRUCTURE]
+
+        project/
+        |
+        |-- main.py          -> Application entry
+        |-- models.py        -> Request/Response models
+        |-- database.py      -> Database connection
+        |-- routes/
+            |
+            |-- student.py  -> API endpoints
+
+
+    ==================================================
+    models.py
+    ==================================================
+
+    [LIB]
+
+        from pydantic import BaseModel
+
+
+    [USA]
+
+        from pydantic import BaseModel
+
+
+        class Student(BaseModel):
+            name: str
+            age: int
+            city: str
+
+
+    [RES]
+
+        Student(
+            name="John",
+            age=20,
+            city="Chennai"
+        )
+
+
+    ==================================================
+    database.py
+    ==================================================
+
+    [LIB]
+
+        import mysql.connector
+
+
+    [USA]
+
+        import mysql.connector
+
+
+        def get_connection():
+
+            connection = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="password",
+                database="school"
+            )
+
+            return connection
+
+
+    [RES]
+
+        Database connection object
+
+
+    [NOT]
+
+        -> Keeps database connection logic separate.
+        -> Reuse get_connection() in routes.
+        -> Store database credentials securely.
+
+
+    ==================================================
+    routes/student.py
+    ==================================================
+
+    [LIB]
+
+        from fastapi import APIRouter
+        from models import Student
+        from database import get_connection
+
+
+    [USA]
+
+        from fastapi import APIRouter
+        from models import Student
+        from database import get_connection
+
+
+        router = APIRouter()
+
+
+        @router.post("/students")
+        def create_student(
+            student: Student
+        ):
+
+            db = get_connection()
+
+            cursor = db.cursor()
+
+            query = """
+            INSERT INTO students(name, age, city)
+            VALUES(%s,%s,%s)
+            """
+
+            cursor.execute(
+                query,
+                (
+                    student.name,
+                    student.age,
+                    student.city
+                )
+            )
+
+            db.commit()
+
+            return {
+                "message": "Student created"
+            }
+
+
+        @router.get("/students")
+        def get_students():
+
+            db = get_connection()
+
+            cursor = db.cursor(
+                dictionary=True
+            )
+
+            cursor.execute(
+                "SELECT * FROM students"
+            )
+
+            result = cursor.fetchall()
+
+            return result
+
+
+    [RES]
+
+        POST /students
+
+        Request:
+
+        {
+            "name": "John",
+            "age": 20,
+            "city": "Chennai"
+        }
+
+
+        Response:
+
+        {
+            "message": "Student created"
+        }
+
+
+        GET /students
+
+        Response:
+
+        [
+            {
+                "name": "John",
+                "age": 20,
+                "city": "Chennai"
+            }
+        ]
+
+
+    ==================================================
+    main.py
+    ==================================================
+
+    [USA]
+
+        from fastapi import FastAPI
+        from routes.student import router
+
+
+        app = FastAPI()
+
+
+        app.include_router(
+            router
+        )
+
+
+    [RES]
+
+        API routes enabled successfully.
+
+
+    ==================================================
+    DATABASE TABLE
+    ==================================================
+
+    [USA]
+
+        CREATE TABLE students(
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(50),
+            age INT,
+            city VARCHAR(50)
+        );
+
+
+    [NOT]
+
+        -> models.py = Data validation layer.
+        -> database.py = Connection layer.
+        -> routes = API logic layer.
+        -> main.py = Application startup.
+
+
+    Memory Tip:
+
+        Model → Database → Route → Response
+
+
+API Routes (FastAPI + Database)
+
+    [WHY]
+        -> Define API endpoints that communicate with the database.
+
+    [LIB]
+
+        from fastapi import APIRouter
+
+
+    [SYN]
+
+        router = APIRouter()
+
+
+        @router.method("/path")
+        def function():
+            ...
+
+
+    [USA]
+
+        from fastapi import APIRouter
+        from database import get_connection
+
+
+        router = APIRouter()
+
+
+        @router.get("/students")
+        def read_students():
+
+            db = get_connection()
+
+            cursor = db.cursor(
+                dictionary=True
+            )
+
+            cursor.execute(
+                "SELECT * FROM students"
+            )
+
+            return cursor.fetchall()
+
+
+    [MET]
+
+        GET
+            -> Read data.
+
+        POST
+            -> Create new data.
+
+        PUT
+            -> Update complete data.
+
+        PATCH
+            -> Update partial data.
+
+        DELETE
+            -> Remove data.
+
+
+    [ANE]
+
+        @router.delete("/students/{id}")
+        def delete_student(id: int):
+
+            db = get_connection()
+
+            cursor = db.cursor()
+
+            cursor.execute(
+                "DELETE FROM students WHERE id=%s",
+                (id,)
+            )
+
+            db.commit()
+
+            return {
+                "message": "Deleted"
+            }
+
+
+    [RES]
+
+        DELETE /students/1
+
+        {
+            "message": "Deleted"
+        }
+
+
+    Memory Tip:
+
+        Route = API URL + Database Operation.
+
+FastAPI + SQLAlchemy Database Integration
+
+    [WHY]
+        -> Connect FastAPI application with SQL databases using ORM.
+        -> Work with database tables using Python classes instead of raw SQL queries.
+        -> Manage create, read, update, delete (CRUD) operations easily.
+
+
+    [STRUCTURE]
+
+        project/
+        |
+        |-- main.py              -> FastAPI application entry
+        |-- database.py          -> SQLAlchemy connection
+        |-- models.py            -> Database table models
+        |-- schemas.py           -> Pydantic request/response models
+        |-- routes/
+            |
+            |-- student.py      -> API endpoints
+
+
+    ==================================================
+    [INS]
+
+        pip install sqlalchemy
+        pip install pymysql
+
+
+    ==================================================
+    database.py
+    ==================================================
+
+    [LIB]
+
+        from sqlalchemy import create_engine
+        from sqlalchemy.orm import sessionmaker, declarative_base
+
+
+    [USA]
+
+        from sqlalchemy import create_engine
+        from sqlalchemy.orm import sessionmaker, declarative_base
+
+
+        DATABASE_URL = (
+            "mysql+pymysql://root:password@localhost/school"
+        )
+
+
+        engine = create_engine(
+            DATABASE_URL
+        )
+
+
+        SessionLocal = sessionmaker(
+            autocommit=False,
+            autoflush=False,
+            bind=engine
+        )
+
+
+        Base = declarative_base()
+
+
+        def get_db():
+
+            db = SessionLocal()
+
+            try:
+                yield db
+
+            finally:
+                db.close()
+
+
+    [RES]
+
+        SQLAlchemy database session object
+
+
+    [NOT]
+
+        -> engine = Database connection.
+        -> SessionLocal = Creates database sessions.
+        -> Base = Parent class for database models.
+        -> get_db() = Provides and closes database connection.
+
+
+    ==================================================
+    models.py
+    ==================================================
+
+    [LIB]
+
+        from sqlalchemy import Column, Integer, String
+        from database import Base
+
+
+    [USA]
+
+        from sqlalchemy import Column, Integer, String
+        from database import Base
+
+
+        class Student(Base):
+
+            __tablename__ = "students"
+
+
+            id = Column(
+                Integer,
+                primary_key=True,
+                index=True
+            )
+
+            name = Column(
+                String(50)
+            )
+
+            age = Column(
+                Integer
+            )
+
+            city = Column(
+                String(50)
+            )
+
+
+    [RES]
+
+        Python class mapped to:
+
+            students table
+
+
+    [NOT]
+
+        -> Each class represents one database table.
+        -> Column defines table fields.
+        -> __tablename__ defines table name.
+
+
+    ==================================================
+    schemas.py
+    ==================================================
+
+    [LIB]
+
+        from pydantic import BaseModel
+
+
+    [USA]
+
+        from pydantic import BaseModel
+
+
+        class StudentCreate(BaseModel):
+
+            name: str
+            age: int
+            city: str
+
+
+        class StudentResponse(StudentCreate):
+
+            id: int
+
+            class Config:
+                from_attributes = True
+
+
+    [RES]
+
+        Request:
+
+        {
+            "name": "John",
+            "age": 20,
+            "city": "Chennai"
+        }
+
+
+    ==================================================
+    routes/student.py
+    ==================================================
+
+    [LIB]
+
+        from fastapi import APIRouter, Depends
+        from sqlalchemy.orm import Session
+
+        from database import get_db
+        from models import Student
+        from schemas import StudentCreate
+
+
+    [USA]
+
+        from fastapi import APIRouter, Depends
+        from sqlalchemy.orm import Session
+
+        from database import get_db
+        from models import Student
+        from schemas import StudentCreate
+
+
+        router = APIRouter()
+
+
+        @router.post("/students")
+        def create_student(
+            student: StudentCreate,
+            db: Session = Depends(get_db)
+        ):
+
+            new_student = Student(
+                name=student.name,
+                age=student.age,
+                city=student.city
+            )
+
+
+            db.add(new_student)
+
+            db.commit()
+
+            db.refresh(new_student)
+
+
+            return new_student
+
+
+
+        @router.get("/students")
+        def get_students(
+            db: Session = Depends(get_db)
+        ):
+
+            students = db.query(
+                Student
+            ).all()
+
+            return students
+
+
+    [RES]
+
+        POST /students
+
+        {
+            "name": "John",
+            "age": 20,
+            "city": "Chennai"
+        }
+
+
+        Response:
+
+        {
+            "id": 1,
+            "name": "John",
+            "age": 20,
+            "city": "Chennai"
+        }
+
+
+        GET /students
+
+        Response:
+
+        [
+            {
+                "id": 1,
+                "name": "John",
+                "age": 20,
+                "city": "Chennai"
+            }
+        ]
+
+
+    ==================================================
+    main.py
+    ==================================================
+
+    [USA]
+
+        from fastapi import FastAPI
+
+        from database import Base, engine
+        from routes.student import router
+
+
+        Base.metadata.create_all(
+            bind=engine
+        )
+
+
+        app = FastAPI()
+
+
+        app.include_router(
+            router
+        )
+
+
+    [RES]
+
+        FastAPI + SQLAlchemy application started.
+
+
+    ==================================================
+    SQLAlchemy Methods
+    ==================================================
+
+    [MET]
+
+        db.add()
+            -> Insert new record.
+
+        db.commit()
+            -> Save changes permanently.
+
+        db.refresh()
+            -> Reload database object.
+
+        db.query()
+            -> Fetch records.
+
+        db.delete()
+            -> Remove record.
+
+
+    ==================================================
+    SQLAlchemy Flow
+    ==================================================
+
+        Request
+        |
+        v
+        Pydantic Schema
+        |
+        v
+        SQLAlchemy Model
+        |
+        v
+        Database
+        |
+        v
+        Response
+
+
+    [NOT]
+
+        -> SQLAlchemy Model = Database structure.
+        -> Pydantic Schema = API data validation.
+        -> Session = Communication between API and DB.
+        -> ORM converts Python objects into SQL queries.
+
+
+    Memory Tip:
+
+        Schema → Model → Session → Database → Response

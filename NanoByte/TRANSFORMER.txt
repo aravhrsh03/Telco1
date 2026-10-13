@@ -1,0 +1,75 @@
+TRANSFORMER
+
+Key AI/ML Terminology:
+ -> Model
+ -> Parameters
+ -> Hyperparameters
+ -> Training
+ -> Inference
+ -> Epoch
+ -> Batch Size
+ -> Loss Function
+ -> Gradient Descent
+ -> Overfitting
+ -> Underfitting
+ -> Regularization
+
+RNN Architecture -- Sequential Processing
+
+ 1. Input Sequence
+    Take a sequence on inputs and processes them one step at a time.
+
+ 2. Hidden State
+    At each step, the model updates an internal memory (hidden state) using the current input and what it remembered from before. This is how RNNs "remember" context.
+
+ 3. Recurrent Connection
+   
+
+ -> Sequential Processing
+    No parallelization - words processed one at a time.
+ -> Vanishing/Exploding Gradients
+    Gradients shrink or blow up across time steps
+ -> Limited Long Range Memory
+    Fixed size hidden state = information bottleneck
+
+
+Overcoming this limitation
+ -> Transformer - 2017
+ -> GPT-1/BERT  - 2018
+ -> GPT-3       - 2020
+ -> ChatGPT     - 2022
+ -> GPT-4       - 2023
+ -> MOE/Agents  - 2025-26
+
+
+How does it work?
+ Input -> Attention -> Output
+
+Transformer Architecture -- Overview
+ Input text -> Token Embedding -> Encoder -> Context Vectors -> Decoder + output
+
+Step 1 -> Tokenization & Embeddings
+	=> Word Embeddings - Each word is mapped to a vector of numbers leanrt during training.
+
+	=> Positional Encoding - Sine/cosine patterns added to distinguish position 0 vs position 4.
+
+Step 2 -> Self-Attention (The Core Mechanism)
+	=> Query - what the word is looking for.
+	=> Key - what each word offers
+	=> Value - what information carried.
+
+Step 3 -> Multi-Head Attention
+	=> Head 1 - Syntax & Grammer
+	=> Head 2 - Semantics
+	=> Head 3 - Long range dependencies
+
+Step 4 -> Feed Forward Network (FFN)
+	=> Input vector => Linear Layer 1 => ReLU Activation => Linear layer 2
+
+Step 5 -> Stacked Encoder Layers
+	=> Each layer builds a richer, more abstract representation.
+
+Step 6 -> Decoder - Generating Output Tokens
+	=> Generates one token at a time using masked attention + cross-attention - KV C ache + Previous Token -> Attention Layer -> FFN Layer -> SoftMax -> Sample Next Token
+	=> Cross-Attention - Reads the encoder's context vectors at every decoding step. The bridge between source sentence and target generation.
+	=> Can only see tokens already generated (no future peeking) Prevents 'cheating' - forces genuine left to right generation.

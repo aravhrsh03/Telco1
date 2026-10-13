@@ -1,0 +1,451 @@
+ABBREVIATION:
+	-> LIB = LIBRARY
+	-> USA = USAGE [example code]
+	-> PAR = PARAMETERS
+	-> SYN = syntax
+	-> WHY = Why this is used
+	-> EXA = Example
+	-> MET = METHODS
+	-> CAT = Cannot have it
+	-> ALI = Alias
+	-> RES = Expected Result
+	-> OPT = Optional
+	-> ANE = Another Example
+	-> FUN = Functions used
+	-> DAM = Data Members
+	-> TYS = Types
+	-> VER = Python version
+	-> USC = Use Cases
+
+    -> [COM] - CLI Command
+    -> [INS] - install this library
+    -> [STE] - Steps
+
+Date: (19/08/2026)
+
+CLAUDE — NOTES
+
+WHAT IS CLAUDE?
+
+* Claude is an AI assistant developed by Anthropic.
+* Claude is based on large language models (LLMs).
+* It can understand and generate text, work with code, analyze files and images, perform research, and help with many types of tasks.
+* Claude can be accessed through:
+
+  * Web
+  * Desktop
+  * Mobile
+  * API
+* Claude can be used for learning, writing, coding, analysis, research, brainstorming, translation, and working with files. ([Anthropic Help Center][2])
+
+MAIN CLAUDE PRODUCTS
+
+1. CLAUDE
+
+* General-purpose AI assistant.
+* Used for chatting, learning, writing, analysis, coding, research, etc.
+
+2. CLAUDE CODE
+
+* AI coding agent.
+* Works directly with a software project/codebase.
+* Can read and modify files.
+* Can run terminal commands.
+* Useful for coding, debugging, testing, refactoring, and development.
+
+3. CLAUDE COWORK
+
+* Agent for doing multi-step computer/work tasks.
+* Designed to work with real files, folders, tools, and projects.
+* Goes beyond simple question-and-answer interaction. 
+
+4. CLAUDE DESIGN
+
+* Claude's design-focused environment.
+* Used for design systems, visual work, and design-related tasks.
+
+5. CLAUDE API
+
+* Allows developers to integrate Claude into their own applications and systems.
+* Used when Claude needs to become part of another software product.
+
+IMPORTANT CLAUDE FEATURES
+
+[ART] ARTIFACTS
+
+* Artifacts are substantial pieces of content Claude creates in a separate workspace.
+* Examples:
+
+  * Documents
+  * Code
+  * Websites
+  * Interactive components
+  * Visual/interactive content
+* Artifacts can be edited, shared, and developed further.
+
+WHY:
+
+* Better for creating something that needs to exist as a separate output rather than only appearing as chat text. ([Anthropic Help Center][1])
+
+[PRO] PROJECTS
+
+* Projects are separate workspaces for a particular topic or task.
+* A project can have:
+
+  * Its own conversations
+  * Files
+  * Knowledge
+  * Instructions
+* Claude uses the information inside the project to understand the work better.
+
+EXA:
+
+* Python Project
+* College Project
+* Business Research
+* Personal Notes
+
+WHY:
+
+* Keeps related work together instead of putting everything into one conversation. ([Anthropic Help Center][4])
+
+[RAG] PROJECT KNOWLEDGE / RAG
+
+* RAG = Retrieval-Augmented Generation.
+* Claude can retrieve relevant information from the project's stored knowledge when answering.
+* This allows projects to work with much larger amounts of information.
+* Current Claude project RAG can expand project knowledge capacity significantly. ([Anthropic Help Center][5])
+
+[WEB] WEB SEARCH
+
+* Claude can search the web for current information.
+* Useful for:
+
+  * Recent news
+  * Current information
+  * Companies
+  * Products
+  * Events
+  * Facts that may have changed
+
+WHY:
+
+* Claude's normal knowledge may not contain the newest information.
+* Web search allows Claude to retrieve current information.
+
+[RES] RESEARCH
+
+* Research is a more advanced form of web-based investigation.
+* Claude can perform multiple searches.
+* It can investigate different parts of a question.
+* It combines information and produces a detailed answer with citations.
+
+WHY:
+
+* Useful when a question requires deep research rather than one simple search.
+
+EXA:
+
+* "Compare the best AI coding tools in 2026."
+* "Research the latest developments in quantum computing."
+
+NOTE:
+
+* Research is currently available on paid Claude plans. 
+
+[THI] EXTENDED THINKING
+
+* Gives Claude more reasoning effort for difficult problems.
+* Useful for:
+
+  * Complex coding
+  * Mathematics
+  * Analysis
+  * Planning
+  * Difficult reasoning problems
+
+NOTE:
+
+* Claude allows users to control model/effort/thinking settings depending on the available model and plan. ([Anthropic Help Center][8])
+
+[FILE] FILE UPLOAD
+
+* Claude can work with uploaded files.
+* Files can provide additional information/context.
+* Useful for:
+
+  * PDFs
+  * Documents
+  * Code
+  * Data
+  * Reports
+  * Notes
+
+[IMG] IMAGE ANALYSIS
+
+* Claude can understand and analyze images.
+* Examples:
+
+  * Read charts
+  * Analyze diagrams
+  * Describe images
+  * Extract information from visual content. ([Anthropic Help Center][2])
+
+[MEM] MEMORY
+
+* Claude can use memory to build on relevant previous context.
+* This helps make future conversations more personalized and continuous.
+* Memory can also be imported/exported according to current Claude features. ([Anthropic Help Center][1])
+
+[SKL] SKILLS
+
+* Skills give Claude specialized instructions/capabilities for particular tasks.
+* A skill can teach Claude how to perform a particular workflow.
+* Custom skills can also be created.
+
+EXA:
+
+* A skill for creating reports.
+* A skill for a company's internal workflow.
+* A skill for a particular document format.
+
+WHY:
+
+* Makes Claude more consistent at specialized tasks. ([Anthropic Help Center][9])
+
+[CON] CONNECTORS
+
+* Connectors allow Claude to work with external services/tools.
+* They provide Claude with additional information or capabilities.
+
+EXA:
+
+* Google Workspace
+* GitHub
+* Other supported applications/services
+
+WHY:
+
+* Claude can work with information outside the normal chat. ([Anthropic Help Center][9])
+
+[PLG] PLUGINS
+
+* Plugins extend Claude with additional functionality.
+* Claude provides a directory where users can browse skills, connectors, and plugins.
+* These can customize how Claude works. ([Anthropic Help Center][9])
+
+[CMD] SLASH COMMANDS / CHAT OPTIONS
+
+* Claude's chat interface provides additional options through the "+" button or "/" commands.
+* These can provide quick access to available capabilities and actions. ([Anthropic Help Center][8])
+
+[COD] CODING
+
+Claude can be used for:
+
+* Writing code
+* Explaining code
+* Debugging
+* Refactoring
+* Creating projects
+* Reviewing code
+* Learning programming
+* Working with multiple programming languages
+
+For larger software projects, Claude Code is the specialized tool.
+
+[DOC] DOCUMENT CREATION
+
+Claude can create and edit different types of content.
+
+EXA:
+
+* Notes
+* Reports
+* Documentation
+* Code files
+* Other supported files
+
+Claude can also create files through its execution environment. ([Anthropic][10])
+
+[OFF] OFFICE INTEGRATION
+
+Claude has integrations/features for working with office applications and productivity tools.
+
+Examples include:
+
+* Excel
+* PowerPoint
+* Word
+* Outlook
+* Microsoft 365
+
+Availability depends on the product and plan. ([Anthropic Help Center][1])
+
+[CLAUDE.MD]
+
+* CLAUDE.md is a Markdown file used to give Claude Code project-specific instructions.
+* Claude Code automatically reads applicable CLAUDE.md files when starting work in a directory.
+* It can contain:
+
+  * Project rules
+  * Coding conventions
+  * Important commands
+  * Architecture information
+  * Things Claude should/shouldn't do
+
+WHY:
+
+* It acts like a persistent project briefing for Claude Code. ([Anthropic Help Center][11])
+
+CLAUDE CODE — MAIN CAPABILITIES
+
+[USA]
+
+* Read project files
+* Understand project structure
+* Create files
+* Edit files
+* Delete files when authorized
+* Run commands
+* Run tests
+* Debug
+* Refactor
+* Implement features
+* Work with Git
+* Use project instructions
+* Work across multiple files
+
+MAIN IDEA:
+
+Claude Chat
+→ You mainly communicate with Claude.
+
+Claude Projects
+→ You give Claude a dedicated knowledge/workspace.
+
+Claude Artifacts
+→ Claude creates a separate usable output.
+
+Claude Code
+→ Claude works directly on a software project.
+
+Claude Cowork
+→ Claude performs multi-step work on files/tools.
+
+Claude Research
+→ Claude investigates a topic using multiple sources.
+
+Claude API
+→ Developers integrate Claude into their own software.
+
+CLAUDE — SIMPLE FEATURE MAP
+
+CHAT
+→ Ask / Learn / Write / Analyze
+
+PROJECTS
+→ Organize / Store knowledge / Give instructions
+
+ARTIFACTS
+→ Create / Edit / Share outputs
+
+WEB SEARCH
+→ Get current web information
+
+RESEARCH
+→ Deep multi-source investigation
+
+THINKING
+→ Complex reasoning
+
+FILES
+→ Upload / Read / Analyze / Create
+
+IMAGES
+→ Understand visual information
+
+MEMORY
+→ Remember relevant context
+
+SKILLS
+→ Specialized capabilities
+
+CONNECTORS
+→ Connect external tools/data
+
+PLUGINS
+→ Extend Claude
+
+CLAUDE CODE
+→ Software development
+
+COWORK
+→ Multi-step computer work
+
+API
+→ Build Claude into applications
+
+----------------------------------------------------------------------------------------------
+
+Date: (20/08/2026)
+
+FDS - Functional distribution 
+  Every project we do have it
+
+Sub Agent:
+  [STE]
+    - Claude accepts the project or work as input.
+    - Claude plan on how to do the work and what are the tools need to be used.
+    - Claude then divides it into sub tasks.
+    - And each sub task is given to each agents called sub agents.
+    
+  Bordered Work
+    - each agent should do it own work not others work.
+  
+Claude CODE:
+  - on top of it they create Cowork, Design etc.
+  - Claude code and cowork can do all the task.
+  - but claude design have the continuity.
+
+  [USC]
+    - we can work any IDEs from Claude Code
+    - open the directory.
+    - we can run on Claude code
+    - see error, fix error.
+  
+  [INS]
+    npm install -g @anthropic-ai/claude-code
+
+Connectors
+    [STE]
+      - Settings page
+      - Go to connectors
+      - you can add Gmail, Slack, Gamma, Supabase, HuggingFace etc.
+    
+    - By default we have Claude in Chrome.
+  
+Plugins
+  - It contains the Tools on which the claude can work
+  - Or it can have the commands to work instead of prompt.
+
+  [STE]
+    - settings page
+    - Go to plugins
+    - search for slash commands pack for our wish eg., Engineering
+
+Local:
+  - it allow you to add tools like docker desktop, Wsl, Ubuntu
+
+Mode
+  Auto
+  Manual
+  Accept edits 
+  Plan
+  Bypass permissions
+
+Slash commands - from Claude Code
+  /upgrade - upgrade to the current version
+  /mode - provide the modes you want to have
+  /resume - continue with previous conversation
+  /recap - it will not continue it provides the summarisation of the previous commands.

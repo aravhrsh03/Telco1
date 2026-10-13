@@ -1,0 +1,95 @@
+
+	-> FILES
+		- Readable - excel, csv, txt
+		- Non- Readable - binary, audio, video
+
+		- r = read
+		- w = write
+		- r+ = read
+		- w+ = write and read
+		- a = append
+		- a+ = if not available create, append + read
+		- rb = read binary
+
+		[FUN]
+			open() = opens file
+	
+			[PAR]
+				path: string = file path
+				flag: string = operation to do (r, w, a)
+
+		[Note: use with keyword so it auto close else manual close]
+
+			[MET]
+				write() - writes
+				read() - read file
+				seek() - seek to particular position in file
+				readline() - Reads one line at a time. Useful for large files to avoid memory issues.
+
+				readlines() - Reads all the lines in a file and returns them as a list of strings, where each element of the list is a single line from the file
+					[PAR]
+						pos: number = positional argument , accept which position to read
+	
+				close() - if not throw encryption problem [instead use with keyword]
+
+
+	-> CSV - Comma Seperated Values
+		[LIB] - csv
+	
+			[MET]
+			writer() - create an object to write data.
+				[PAR]
+				file: open_object = accept the file object created with open
+
+				[MET]
+				writerow() - accepts list of vals
+				writerows() - accept list of list of vals (for bulk inserts)
+
+			reader() - create an object to read data
+				[PAR]
+				file: open_object = accept the file object
+	
+	-> Excel
+		[LIB] - openpyxl
+	
+		[USA]
+	
+			from openpyxl import Workbook
+			wb = Workbook()
+			ws = wb.active
+
+			ws.title = "Students"
+			ws["A1"] = "Name"
+			ws["B1"] = "id"
+	
+			ws["A2"] = "Madhan"
+			ws["B2"] = "1"
+
+			wb.save("studs.xlsx")
+
+		[DAM]
+			title = name of the sheet
+			active = activate current sheet
+	
+		[MET]
+			save() - save excel file
+
+			[PAR]
+			path: string = accept string to save file
+
+	-> Image
+		- uses the binary file
+	
+		[LIB] - PIL
+	
+		[USA]
+			from PIL import Image
+			img = Image.open("img.jpeg")
+			img.show()
+
+		[MET]
+			Image.open() = opens image file
+				[PAR]
+				path: string = accepts file path
+	
+			<Image.open-object>.show() = shows output of image

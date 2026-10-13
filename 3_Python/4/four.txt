@@ -1,0 +1,238 @@
+DATE: (10/07/2026)
+
+  -> Recursion - function calls itself
+
+	=> Indirect Recursion or Mutual Recursion - consider 2 function, calling func1 in func2 and calling func2 in func1 recursively.
+
+	[USA]
+		def even(n):
+			if n == 0":
+				return True
+			return odd(n - 1)
+
+		def odd(n):
+			if n == 0:
+				return False
+			return even(n - 1)
+
+		print(even(10))
+		print(odd(7))
+	
+	=> Tail Recursion - function calls itself at the last live of the function.
+		[Note: python didn't do optimized tail recursion as it have heap, but not stack]
+
+	[USA]
+		def show(n):
+			if n == 0:
+				return
+			print(n)
+			show(n - 1)
+		show(5)
+
+	=> Head Recursion - function calls happens directly after the base condition.
+
+	[USA]
+		def show(n):
+			if n == 0:
+				return
+			show(n - 1)
+			print(n)
+		show(5)
+
+	=> Tree Recursion - similar to BST, Bactracking (the <function> that calls itself with n child <function>)
+	
+	[USA]
+		def fib(num):
+			if num <= 1:
+				return num
+			return fib(num - 1) + fib(num - 2)
+		print(fib(5))
+
+	=> Nested Recursion
+
+		-> A recursive function where the recursive call is passed as an argument to another recursive call.
+
+		[WHY]
+
+			Used when the next recursive call depends on the result of another recursive call.
+Common in theoretical recursion problems.
+
+		[SYN]
+
+			def func(n):
+    				if base_condition:
+        				return value
+    				return func(func(n - 1))
+
+		[USA]
+
+			def nested(n):
+    				if n > 100:
+        				return n - 10
+    				return nested(nested(n + 11))
+
+			print(nested(95))
+
+		[RES]
+
+			91
+
+		[EXA]
+
+			McCarthy 91 Function
+
+
+	=> Linear Recursion
+
+		-> Each function call makes exactly one recursive call.
+
+		[WHY]
+
+			Simplest form of recursion.
+			Used for traversing numbers, strings, linked lists, etc.
+
+
+		[SYN]
+
+			def func(n):
+    				if base_condition:
+        				return
+    			func(n - 1)
+
+		[USA]
+
+			def show(n):
+    				if n == 0:
+        				return
+    				print(n)
+    			show(n - 1)
+
+			show(5)
+
+		[RES]
+
+			5
+			4
+			3
+			2
+			1
+
+		[ANE]
+
+			def factorial(n):
+    				if n == 0:
+        				return 1
+    				return n * factorial(n - 1)
+
+			print(factorial(5))
+
+		[RES]
+
+			120
+	=> Binary Recursion
+
+		-> Every recursive call creates 2 recursive calls.
+
+		[WHY]
+
+			Used for divide-and-conquer algorithms.
+			Common in Fibonacci, Binary Trees, Backtracking.
+
+
+		[SYN]
+
+			def func(n):
+    				if base_condition:
+        				return
+    			func(n - 1)
+    			func(n - 2)
+
+		[USA]
+
+			def fib(n):
+    				if n <= 1:
+        				return n
+    				return fib(n - 1) + fib(n - 2)
+
+			print(fib(5))
+
+		[RES]
+
+			5
+
+		[EXA]
+
+			Fibonacci
+			Binary Tree Traversal
+
+		[CAT]
+
+			Slower because many repeated recursive calls are made.
+	
+	=> N Array Recursion (N-ary Recursion)
+
+		-> Every recursive call creates N recursive calls, where N can be any number greater than 2.
+
+		[WHY]
+
+			Used when one state can generate multiple next states.
+			Common in graph traversal, game trees, combinations, permutations.
+
+		[PAR]
+
+			Depends on the branching factor.
+
+		[SYN]
+
+			def func(node):
+    				for child in children:
+        				func(child)
+
+		[USA]
+
+			graph = {
+    				'A': ['B', 'C', 'D'],
+    				'B': [],
+    				'C': [],
+    				'D': []
+			}
+
+			def dfs(node):
+    				print(node)
+    				for child in graph[node]:
+        				dfs(child)
+
+			dfs('A')
+
+		[RES]
+
+			A
+			B
+			C
+			D
+
+		[ANE]
+
+			def print_paths(level):
+    				if level == 0:
+        				return
+
+    				for _ in range(3):      # 3 recursive calls
+        				print_paths(level - 1)
+
+			print_paths(2)
+
+		[EXA]
+
+			DFS on N-ary Trees
+			Graph Traversal
+			Game Search
+			Backtracking with multiple choices
+
+		[CAT]
+
+			Can become expensive because the number of recursive calls grows rapidly.
+
+	
+		[Nested, Linear, Binary, N Array Recursion]
+

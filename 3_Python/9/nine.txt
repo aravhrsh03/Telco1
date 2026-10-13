@@ -1,0 +1,375 @@
+
+    DATE: (15/07/2026)
+
+	-> Exception handling
+		- Error - unknown error that stops the program
+		- Exception - Predicting excepted error and prevents before stoping program.
+		- Testing - Checking or Validating whether we match the scenario with client requirement.
+
+	[SYN]
+		try:
+			<statements>
+		except:
+			<statements>
+		else: # execute when no error occurs
+			<statements>
+		finally: # optional (executes for both try/except)
+			<statements>
+
+Exception Tree
+
+BaseException
+│
+├── BaseExceptionGroup
+│   └── ExceptionGroup
+│
+├── GeneratorExit
+│
+├── KeyboardInterrupt
+│
+├── SystemExit
+│
+└── Exception
+    │
+    ├── ArithmeticError
+    │   ├── FloatingPointError
+    │   ├── OverflowError
+    │   └── ZeroDivisionError
+    │
+    ├── AssertionError
+    │
+    ├── AttributeError
+    │
+    ├── BufferError
+    │
+    ├── EOFError
+    │
+    ├── ImportError
+    │   └── ModuleNotFoundError
+    │
+    ├── LookupError
+    │   ├── IndexError
+    │   └── KeyError
+    │
+    ├── MemoryError
+    │
+    ├── NameError
+    │   └── UnboundLocalError
+    │
+    ├── OSError
+    │   ├── BlockingIOError
+    │   ├── ChildProcessError
+    │   ├── ConnectionError
+    │   │   ├── BrokenPipeError
+    │   │   ├── ConnectionAbortedError
+    │   │   ├── ConnectionRefusedError
+    │   │   └── ConnectionResetError
+    │   │
+    │   ├── FileExistsError
+    │   ├── FileNotFoundError
+    │   ├── InterruptedError
+    │   ├── IsADirectoryError
+    │   ├── NotADirectoryError
+    │   ├── PermissionError
+    │   ├── ProcessLookupError
+    │   └── TimeoutError
+    │
+    ├── ReferenceError
+    │
+    ├── RuntimeError
+    │   ├── NotImplementedError
+    │   └── RecursionError
+    │
+    ├── StopAsyncIteration
+    │
+    ├── StopIteration
+    │
+    ├── SyntaxError
+    │   ├── IndentationError
+    │   │   └── TabError
+    │   └── (other SyntaxError cases)
+    │
+    ├── TypeError
+    │
+    ├── ValueError
+    │   ├── UnicodeError
+    │   │   ├── UnicodeDecodeError
+    │   │   ├── UnicodeEncodeError
+    │   │   └── UnicodeTranslateError
+    │   │
+    │   └── (other ValueError cases)
+    │
+    ├── Warning
+    │   ├── BytesWarning
+    │   ├── DeprecationWarning
+    │   ├── EncodingWarning
+    │   ├── FutureWarning
+    │   ├── ImportWarning
+    │   ├── PendingDeprecationWarning
+    │   ├── ResourceWarning
+    │   ├── RuntimeWarning
+    │   ├── SyntaxWarning
+    │   ├── UnicodeWarning
+    │   └── UserWarning
+    │
+    └── ExceptionGroup (Python 3.11+)
+
+	- raise = Immediately raise the error or exception
+		- protection
+		- raise for custom exception
+
+	- assert = check for the condition
+		- used for debug and test
+	
+		[SYN]
+			assert condition, message
+	
+		Condition True  → continue normally.
+		Condition False → create AssertionError → attach message → raise exception.
+
+	[Note: python accept Nested try]
+
+	
+	- UserDefinedException
+		- used for custom exceptions
+	
+		[SYN]
+			class <custom-exception>(Exception):
+				<statements>
+	
+			try:
+				<statements>
+				<condition/assertion>
+					raise <custom-exception>
+			except:
+				<statements>
+		[Note: try/except block is optional as we raise when we want it]
+
+	- with custom rules
+	
+		[USA]
+			class SalaryError(Exception):
+				def __init__(self, salary):
+					self.salary = salary
+				def __str__(self):
+					return f"Invalid Salary: {self.salary}"
+	
+			try:
+				salary = 5000
+				if salary < 10000:
+					raise SalaryError(salary)
+			except SalaryError as e:
+				print(e)
+
+		[Note: IndexError and IndexOutOfBound are same]
+
+	-> CHAINING EXCEPTIONS
+
+		Used to raise a new exception while keeping the original exception (root cause).
+
+		[WHY]
+
+		* Keeps the original error.
+		* Makes debugging easier.
+		* Adds more information to exceptions.
+
+		[TYS]
+
+		1. Implicit
+		2. Explicit
+		3. Suppressed
+
+		[SYN]
+
+		Implicit
+
+		raise NewError()
+
+		Explicit
+
+		raise NewError() from e
+
+		Suppress
+
+		raise NewError() from None
+
+
+		[USA]
+
+		Implicit
+
+		try:
+			int("abc")
+		except ValueError:
+			raise RuntimeError("Failed")
+
+		Explicit
+
+		try:
+			int("abc")
+		except ValueError as e:
+			raise RuntimeError("Failed") from e
+
+		Suppress
+
+		try:
+			int("abc")
+		except ValueError:
+			raise RuntimeError("Failed") from None
+
+
+		[RES]
+
+		Implicit  -> Original + New exception
+
+		Explicit  -> Original is shown as direct cause
+
+		Suppress  -> Only new exception is shown
+
+
+		[EXA]
+
+		FileNotFoundError
+		↓
+		ConfigError
+
+		TimeoutError
+		↓
+		APIError
+
+
+		[VER]
+
+		Python 3.x
+
+	-> PYTHON LOGGING
+
+		Used to record program events, errors, warnings, and debugging information.
+
+		[LIB]
+
+			import logging
+
+		[WHY]
+
+			* Tracks program execution.
+			* Helps debug errors.
+			* Stores logs in console or file.
+			* Better than using print().
+
+		[TYS]
+
+			* DEBUG
+			* INFO
+			* WARNING
+			* ERROR
+			* CRITICAL
+
+		[SYN]
+
+			logging.basicConfig(level=logging.INFO)
+
+			logging.info("Message")
+
+		[MET]
+
+			logging.debug()
+
+			logging.info()
+
+			logging.warning()
+
+			logging.error()
+
+			logging.critical()
+
+			logging.exception()
+
+		[USA]
+
+			import logging
+
+			logging.basicConfig(level=logging.INFO)
+
+			logging.info("Program Started")
+			logging.warning("Low Battery")
+			logging.error("File Not Found")
+
+		[RES]
+
+			INFO:root:Program Started
+
+			WARNING:root:Low Battery
+
+			ERROR:root:File Not Found
+
+		 - Log to File
+
+			import logging
+
+			logging.basicConfig(
+			filename="app.log",
+			level=logging.INFO
+			)
+
+			logging.info("Application Started")
+
+		- Log Exception
+
+			import logging
+
+			try:
+				10 / 0
+			except ZeroDivisionError:
+				logging.exception("Division Error")
+
+		[RES]
+
+			* Logs appear in the console or file.
+			* Errors are easier to trace.
+			* Exception traceback is recorded.
+
+		[EXA]
+
+			* Application logs
+			* Error tracking
+			* Debugging
+			* Server logs
+	
+	-> TRACEBACK
+
+		Shows the sequence of function calls that caused an exception.
+
+	[LIB]
+
+		import traceback
+
+	[WHY]
+
+		- Finds the error location.
+		- Shows full exception details.
+		- Useful for debugging.
+
+	[MET]
+
+		- traceback.print_exc()
+		- traceback.format_exc()
+		- traceback.print_stack()
+
+	[USA]
+
+		import traceback
+
+		try:
+			10 / 0
+		except:
+			traceback.print_exc()
+
+	[RES]
+
+		Displays the complete exception traceback.
+
+	[VER]
+
+		Python 3.x
+
